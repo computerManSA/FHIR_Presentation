@@ -543,7 +543,7 @@ const InfrastructureDesign = () => {
               <li>• Active-Active clustering for stateless services</li>
               <li>• Database replication with automatic failover</li>
               <li>• Load balancer health checks and traffic routing</li>
-              <li>• Disaster recovery with RTO < 30min, RPO < 5min</li>
+              <li>• Disaster recovery with RTO &lt; 30min, RPO &lt; 5min</li>
             </ul>
           </div>
           <div>
