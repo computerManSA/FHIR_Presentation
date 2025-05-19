@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Server, Database, Network, Lock, Eye, AlertTriangle, Zap, Cloud, Hard Drive, Cpu, Monitor, RefreshCw, CheckCircle } from 'lucide-react';
+import { Shield, Server, Database, Network, Lock, Eye, AlertTriangle, Zap, Cloud, HardDrive, Cpu, Monitor, RefreshCw, CheckCircle } from 'lucide-react';
 
 const InfrastructureDesign = () => {
   const [selectedZone, setSelectedZone] = useState(null);
@@ -307,7 +307,7 @@ const InfrastructureDesign = () => {
       streaming: Zap,
       database: Database,
       cache: Cpu,
-      storage: Hard Drive,
+      storage: HardDrive,
       monitoring: Monitor
     };
 
