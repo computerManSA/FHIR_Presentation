@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: '0.0.0.0',
-    port: 5000
+    port: 5000,
+    allowedHosts: ['17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev']
   }
 })
