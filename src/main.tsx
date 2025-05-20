@@ -4,17 +4,17 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './index.css';
 
 // Import all presentation pages
-import IntroductionPage from './pages/IntroductionPage';
-import WhatIsFHIRPage from './pages/WhatIsFHIRPage';
-import FHIRBenefitsPage from './pages/FHIRBenefitsPage';
-import AsIsArchitecture from './pages/AsIsArchitecture';
-import AssumptionsPage from './pages/AssumptionsPage';
-import EnhancedFHIRArchitecture from './pages/EnhancedFHIRArchitecture';
-import InfrastructureDesign from './pages/InfrastructureDesign';
-import TechnicalSolutionPage from './pages/TechnicalSolutionPage';
-import POCScopePage from './pages/POCScopePage';
-import SupportNeededPage from './pages/SupportNeededPage';
-import ActionPlanPage from './pages/ActionPlanPage';
+import IntroductionPage from './Diagrams/IntroductionPage';
+import WhatIsFHIRPage from './Diagrams/WhatIsFHIRPage';
+import FHIRBenefitsPage from './Diagrams/FHIRBenefitsPage';
+import AsIsArchitecture from './Diagrams/AsIsArchitecture';
+import AssumptionsPage from './Diagrams/AssumptionsPage';
+import EnhancedFHIRArchitecture from './Diagrams/EnhancedFHIRArchitecture';
+import InfrastructureDesign from './Diagrams/InfrastructureDesign';
+import TechnicalSolutionPage from './Diagrams/TechnicalSolutionPage';
+import POCScopePage from './Diagrams/POCScopePage';
+import SupportNeededPage from './Diagrams/SupportNeededPage';
+import ActionPlanPage from './Diagrams/ActionPlanPage';
 
 // Navigation component
 const Navigation = () => {
