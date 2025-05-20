@@ -24,7 +24,13 @@ import {
 const EnhancedFHIRArchitecture = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [selectedLayer, setSelectedLayer] = useState(null);
-  const [expandedLayers, setExpandedLayers] = useState({});
+  const [expandedLayers, setExpandedLayers] = useState({
+    external: false,
+    nphies: false,
+    integration: false,
+    fhir: false,
+    sehhaty: false,
+  });
 
   // Function to toggle layer expansion
   const toggleLayer = (layerId) => {
