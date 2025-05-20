@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { Shield, Eye, AlertTriangle, CheckCircle, Activity, Database, Server, Smartphone, Cloud, Zap, Lock, Monitor, GitBranch, RefreshCw, FileText, Settings, Network, Key } from 'lucide-react';
+import { Shield, Eye, AlertTriangle, CheckCircle, Activity, Database, Server, Smartphone, Cloud, Zap, Lock, Monitor, GitBranch, RefreshCw, FileText, Settings, Network } from 'lucide-react';
 
 const AsIsArchitecture = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [selectedLayer, setSelectedLayer] = useState(null);
 
-  // Component details for the As-Is architecture
+  // Modified component details for the As-Is architecture
   const componentDetails = {
     // External Systems Layer
     'his': {
       name: 'Hospital Information Systems',
       description: 'Traditional healthcare information systems managing patient care and administrative processes with legacy interfaces.',
-      technologies: ['HL7v2', 'Epic', 'Cerner', 'Legacy APIs', 'Custom Protocols'],
-      responsibilities: ['Patient registration', 'Clinical documentation', 'Order management', 'Laboratory results', 'Basic integration'],
+      technologies: ['HL7v2', 'Custom Protocols'],
+      responsibilities: ['Patient registration', 'Clinical documentation', 'Treatment records', 'Laboratory results'],
       dataFormats: ['HL7v2 ADT', 'HL7v2 ORM', 'HL7v2 ORU', 'Proprietary formats'],
       integration: 'Legacy point-to-point connections',
       limitations: ['Limited real-time capabilities', 'Custom integration required', 'Data format inconsistencies']
@@ -84,15 +84,6 @@ const AsIsArchitecture = () => {
     },
 
     // PPv1 Layer (Data Lake)
-    'micro-services': {
-      name: 'Micro-services',
-      description: 'Basic microservices with limited functionality and manual orchestration.',
-      technologies: ['Simple APIs', 'Basic Services', 'Manual Configuration'],
-      responsibilities: ['Data processing', 'Basic transformations', 'Simple business logic'],
-      dataFormats: ['Mixed input/output'],
-      integration: 'Manual service coordination',
-      limitations: ['No service mesh', 'Manual scaling', 'Limited monitoring']
-    },
     'sp-validation': {
       name: 'SPs & Business Validation',
       description: 'Stored procedures and basic business validation with manual processes.',
@@ -161,7 +152,7 @@ const AsIsArchitecture = () => {
     },
     {
       id: 'ppv1',
-      name: 'PPv1 (Data Lake)',
+      name: 'PPv1 (Data lake)',
       color: 'bg-yellow-50 border-yellow-200',
       description: 'Basic data lake with ETL-based processing and limited real-time access',
       details: 'PPv1 serves as a data lake with batch processing capabilities but suffers from data freshness issues and limited analytics.',
@@ -179,9 +170,19 @@ const AsIsArchitecture = () => {
 
   const dataFlow = [
     {
-      stage: 'User Trigger',
-      description: 'User initiates action in mobile app',
-      issues: ['Manual trigger required', 'No proactive notifications']
+      stage: 'User Visits HIS',
+      description: 'User visits healthcare facility, initiating health record updates',
+      issues: ['Multiple systems involved', 'Manual data entry', 'No standardized process']
+    },
+    {
+      stage: 'Treatment & Documentation',
+      description: 'Healthcare provider records treatment data in HIS/external systems',
+      issues: ['Data captured in various formats', 'Systems operate in silos', 'Delayed processing']
+    },
+    {
+      stage: 'SMS Notification',
+      description: 'User receives SMS notification about updated health records',
+      issues: ['Notification arrives before data is available', 'Creates poor user experience', 'No synchronization with data availability']
     },
     {
       stage: 'External → NAFEES',
@@ -189,24 +190,14 @@ const AsIsArchitecture = () => {
       issues: ['Multiple data formats', 'Manual integration', 'No real-time processing']
     },
     {
-      stage: 'NAFEES Processing',
-      description: 'Basic validation and processing of incoming messages',
-      issues: ['Limited validation rules', 'Manual intervention required', 'No automated workflows']
-    },
-    {
       stage: 'ETL to PPv1',
       description: 'Periodic ETL processes push data to data lake',
       issues: ['Data freshness problems', 'Batch processing delays', 'No real-time updates']
     },
     {
-      stage: 'Sehhaty Access',
-      description: 'Application pulls data from PPv1 via APIs',
-      issues: ['Stale data', 'Manual refresh required', 'User experience problems']
-    },
-    {
-      stage: 'User Notification',
-      description: 'Users receive SMS notifications about data updates',
-      issues: ['Delayed notifications', 'Generic messaging', 'No rich content']
+      stage: 'User Checks Sehhaty',
+      description: 'User checks Sehhaty app but data is not yet available',
+      issues: ['Data not synced yet', 'ETL delays', 'User frustration']
     }
   ];
 
@@ -290,9 +281,9 @@ const AsIsArchitecture = () => {
               ×
             </button>
           </div>
-          
+
           <p className="text-gray-600 mb-4">{component.description}</p>
-          
+
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <h3 className="font-semibold mb-3 text-gray-800 flex items-center">
@@ -376,7 +367,7 @@ const AsIsArchitecture = () => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-lg p-6 max-w-6xl w-full max-h-96 overflow-y-auto">
         <div className="flex justify-between items-start mb-4">
-          <h2 className="text-xl font-bold text-gray-800">Current Data Flow & Issues</h2>
+          <h2 className="text-xl font-bold text-gray-800">Current Patient Journey & Data Flow Issues</h2>
           <button
             onClick={() => setSelectedComponent(null)}
             className="text-gray-500 hover:text-gray-700 text-2xl"
@@ -384,13 +375,13 @@ const AsIsArchitecture = () => {
             ×
           </button>
         </div>
-        
+
         <div className="space-y-4">
           {dataFlow.map((flow, index) => (
             <div key={index} className="p-4 rounded-lg border-2 bg-red-50 border-red-200">
               <h3 className="font-semibold text-lg mb-2">{flow.stage}</h3>
               <p className="text-gray-700 mb-2">{flow.description}</p>
-              
+
               <div className="bg-red-100 p-3 rounded border mt-2">
                 <h4 className="font-semibold text-sm text-red-800 mb-2">Current Issues:</h4>
                 <ul className="text-sm text-red-700 space-y-1">
@@ -405,28 +396,28 @@ const AsIsArchitecture = () => {
             </div>
           ))}
         </div>
-        
+
         <div className="mt-6 p-4 bg-red-50 rounded-lg border border-red-200">
-          <h3 className="font-semibold text-lg mb-2">Overall System Issues</h3>
+          <h3 className="font-semibold text-lg mb-2">Key Architecture Challenges</h3>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <h4 className="font-semibold text-red-800 mb-2">Technical Issues</h4>
+              <h4 className="font-semibold text-red-800 mb-2">Scalability Issues</h4>
               <ul className="text-sm text-red-700 space-y-1">
-                <li>• Multiple incompatible data formats</li>
-                <li>• No real-time data processing capabilities</li>
-                <li>• ETL-dependent architecture causing delays</li>
-                <li>• Limited scalability and flexibility</li>
-                <li>• Manual intervention required for many processes</li>
+                <li>• Batch processing creates bottlenecks</li>
+                <li>• No horizontal scaling capabilities</li>
+                <li>• Database-centric approach limits throughput</li>
+                <li>• Monolithic architecture restricts growth</li>
+                <li>• Hard coupling between components</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-red-800 mb-2">Business Impact</h4>
+              <h4 className="font-semibold text-red-800 mb-2">Maintainability Issues</h4>
               <ul className="text-sm text-red-700 space-y-1">
-                <li>• Poor user experience due to data staleness</li>
-                <li>• Delayed clinical decision making</li>
-                <li>• High maintenance costs</li>
-                <li>• Limited innovation capabilities</li>
-                <li>• Difficult to add new healthcare providers</li>
+                <li>• Multiple point-to-point integrations</li>
+                <li>• Non-standardized data formats</li>
+                <li>• Tightly coupled components</li>
+                <li>• Heavy reliance on ETL processes</li>
+                <li>• Manual intervention requirements</li>
               </ul>
             </div>
           </div>
@@ -439,7 +430,7 @@ const AsIsArchitecture = () => {
     <div className="w-full h-screen overflow-auto bg-gray-50 p-6">
       <header className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">
-          As-Is Healthcare Architecture
+          Patient Profile (As-Is) Architecture
         </h1>
         <p className="text-gray-600 mb-4">
           Current Legacy Architecture with Limited Integration Capabilities
@@ -462,7 +453,7 @@ const AsIsArchitecture = () => {
           onClick={() => setSelectedComponent('dataflow')}
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
         >
-          Show Current Data Flow Issues
+          Show Current Patient Journey & Issues
         </button>
       </header>
 
@@ -502,8 +493,7 @@ const AsIsArchitecture = () => {
           onClick={setSelectedLayer}
         />
         <div className="p-4 bg-yellow-50 rounded-lg border-2 border-yellow-200">
-          <div className="grid grid-cols-3 gap-4">
-            <Component id="micro-services" name="Micro-services" icon={Server} status="warning" />
+          <div className="grid grid-cols-2 gap-4">
             <Component id="sp-validation" name="SPs & Business Validation" icon={Zap} status="error" />
             <Component id="ppv1-db" name="PPv1 DB" icon={Database} status="error" />
           </div>
@@ -532,33 +522,33 @@ const AsIsArchitecture = () => {
         </h3>
         <div className="grid grid-cols-3 gap-6">
           <div>
-            <h4 className="font-semibold text-red-700 mb-2">Data Issues</h4>
+            <h4 className="font-semibold text-red-700 mb-2">Data Freshness</h4>
             <ul className="text-sm text-gray-700 space-y-1">
-              <li>• Data freshness problems</li>
-              <li>• Multiple incompatible formats</li>
-              <li>• ETL bottlenecks</li>
-              <li>• Limited real-time access</li>
-              <li>• Data silos across systems</li>
+              <li>• SMS notifications come before data</li>
+              <li>• Periodic ETL processes cause delays</li>
+              <li>• No real-time data processing</li>
+              <li>• Poor synchronization between systems</li>
+              <li>• Creates negative user experience</li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-red-700 mb-2">Integration Issues</h4>
+            <h4 className="font-semibold text-red-700 mb-2">Scalability</h4>
             <ul className="text-sm text-gray-700 space-y-1">
-              <li>• Point-to-point connections</li>
-              <li>• Manual integration processes</li>
-              <li>• No standardized APIs</li>
-              <li>• Limited scalability</li>
-              <li>• High maintenance costs</li>
+              <li>• Batch processing limits throughput</li>
+              <li>• Database-centric architecture</li>
+              <li>• No horizontal scaling capability</li>
+              <li>• Hard coupling between components</li>
+              <li>• Performance bottlenecks</li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-red-700 mb-2">Operational Issues</h4>
+            <h4 className="font-semibold text-red-700 mb-2">Maintainability</h4>
             <ul className="text-sm text-gray-700 space-y-1">
-              <li>• Manual interventions required</li>
-              <li>• Poor user experience</li>
-              <li>• Delayed notifications</li>
-              <li>• Limited monitoring capabilities</li>
-              <li>• Difficult troubleshooting</li>
+              <li>• Point-to-point integrations</li>
+              <li>• Multiple data formats</li>
+              <li>• Manual intervention requirements</li>
+              <li>• ETL process complexity</li>
+              <li>• No standardized interfaces</li>
             </ul>
           </div>
         </div>
