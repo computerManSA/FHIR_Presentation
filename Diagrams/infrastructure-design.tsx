@@ -467,9 +467,10 @@ const InfrastructureDesign = () => {
     },
   ];
 
-  const Component = ({ id, type }) => {
+  const Component = ({ id }: { id: string }) => {
     const component = infrastructureComponents[id];
     if (!component) return null;
+    const type = component?.category;
 
     const iconMap = {
       network: Network,
