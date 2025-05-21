@@ -19,6 +19,15 @@ import InfrastructureDesign from "./infrastructure-design.tsx";
 import POCScopePage from "./poc-scope.tsx";
 import SupportNeededPage from "./support-needed.tsx";
 import ActionPlanPage from "./action-plan.tsx";
+import {
+  Activity,
+  Zap,
+  CheckCircle,
+  GitBranch,
+  Eye,
+  Server,
+  Network,
+} from "lucide-react";
 
 // Navigation component
 const Navigation = () => {
@@ -55,7 +64,10 @@ const Navigation = () => {
             } ${isCollapsed ? "text-center px-2" : ""}`}
           >
             <div className="flex items-center">
-              <Activity className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              <Activity
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
               {!isCollapsed && "Introduction"}
             </div>
           </Link>
@@ -70,7 +82,10 @@ const Navigation = () => {
             }`}
           >
             <div className="flex items-center">
-              <Zap className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              <Zap
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
               {!isCollapsed && "What is FHIR?"}
             </div>
           </Link>
@@ -85,7 +100,10 @@ const Navigation = () => {
             }`}
           >
             <div className="flex items-center">
-              <CheckCircle className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              <CheckCircle
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
               {!isCollapsed && "FHIR Benefits"}
             </div>
           </Link>
@@ -100,7 +118,10 @@ const Navigation = () => {
             }`}
           >
             <div className="flex items-center">
-              <GitBranch className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              <GitBranch
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
               {!isCollapsed && "Current Architecture"}
             </div>
           </Link>
@@ -115,7 +136,10 @@ const Navigation = () => {
             }`}
           >
             <div className="flex items-center">
-              <Eye className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              <Eye
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
               {!isCollapsed && "Assumptions"}
             </div>
           </Link>
@@ -130,7 +154,10 @@ const Navigation = () => {
             }`}
           >
             <div className="flex items-center">
-              <Server className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              <Server
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
               {!isCollapsed && "Enhanced Architecture"}
             </div>
           </Link>
@@ -145,7 +172,10 @@ const Navigation = () => {
             }`}
           >
             <div className="flex items-center">
-              <Network className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              <Network
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
               {!isCollapsed && "Infrastructure Design"}
             </div>
           </Link>
