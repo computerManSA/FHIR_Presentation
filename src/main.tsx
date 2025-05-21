@@ -4,15 +4,15 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './index.css';
 
 // Import all presentation pages
-import IntroductionPage from './Diagrams/IntroductionPage';
-import WhatIsFHIRPage from './Diagrams/WhatIsFHIRPage';
-import FHIRBenefitsPage from './Diagrams/FHIRBenefitsPage';
-import AsIsArchitecture from './Diagrams/AsIsArchitecture';
-import AssumptionsPage from './Diagrams/AssumptionsPage';
-import EnhancedFHIRArchitecture from './Diagrams/EnhancedFHIRArchitecture';
-import InfrastructureDesign from './Diagrams/InfrastructureDesign';
+import IntroductionPage from "./Diagrams/Introduction";
+import WhatIsFHIRPage from "./Diagrams/What-is-fhir";
+import FHIRBenefitsPage from "./Diagrams/fhir_benefits";
+import AsIsArchitecture from "./Diagrams/as-is-architecture";
+import AssumptionsPage from "./Diagrams/assumptions";
+import EnhancedFHIRArchitecture from "./Diagrams/enhanced-fhir-react";
+import InfrastructureDesign from "./Diagrams/infrastructure-design";
+import POCScopePage from "./Diagrams/poc";
 import TechnicalSolutionPage from './Diagrams/TechnicalSolutionPage';
-import POCScopePage from './Diagrams/POCScopePage';
 import SupportNeededPage from './Diagrams/SupportNeededPage';
 import ActionPlanPage from './Diagrams/ActionPlanPage';
 
