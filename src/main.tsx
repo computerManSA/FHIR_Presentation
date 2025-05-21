@@ -58,24 +58,35 @@ const Navigation = () => {
       </div>
 
       <ul className="space-y-1">
-        <li>
-          <Link
-            to="/"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            } ${isCollapsed ? "text-center px-2" : ""}`}
-          >
-            <div className="flex items-center">
-              <Activity
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && <span>Introduction</span>}
-            </div>
-          </Link>
-        </li>
+        {[
+          { path: "/", label: "Introduction", icon: Activity },
+          { path: "/what-is-fhir", label: "What is FHIR?", icon: Zap },
+          { path: "/fhir-benefits", label: "FHIR Benefits", icon: CheckCircle },
+          { path: "/as-is-architecture", label: "Current Architecture", icon: GitBranch },
+          { path: "/assumptions", label: "Assumptions", icon: Eye },
+          { path: "/enhanced-fhir-architecture", label: "Enhanced Architecture", icon: Server },
+          { path: "/infrastructure-design", label: "Infrastructure Design", icon: Network },
+          { path: "/technical-solution", label: "Technical Solution", icon: Code },
+          { path: "/poc-scope", label: "POC Scope", icon: Target },
+          { path: "/support-needed", label: "Support Needed", icon: Users },
+          { path: "/action-plan", label: "Action Plan", icon: ListTodo }
+        ].map(({ path, label, icon: Icon }) => (
+          <li key={path}>
+            <Link
+              to={path}
+              className={`block py-2 rounded transition-colors ${
+                location.pathname === path
+                  ? "bg-blue-600 text-white"
+                  : "hover:bg-gray-800"
+              } ${isCollapsed ? "px-2" : "px-4"}`}
+            >
+              <div className={`flex items-center ${isCollapsed ? "justify-center" : ""}`}>
+                <Icon size={18} className={isCollapsed ? "" : "mr-2"} />
+                {!isCollapsed && <span>{label}</span>}
+              </div>
+            </Link>
+          </li>
+        ))}
         <li>
           <Link
             to="/what-is-fhir"
