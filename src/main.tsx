@@ -15,8 +15,9 @@ import SupportNeededPage from "./support-needed.tsx";
 import ActionPlanPage from "./action-plan.tsx";
 
 // Navigation component
-const Navigation = ({ isCollapsed, setIsCollapsed }) => {
+const Navigation = () => {
   const location = useLocation();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -186,13 +187,11 @@ const Navigation = ({ isCollapsed, setIsCollapsed }) => {
 
 // Main application component
 const App = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  
   return (
     <Router>
       <div className="flex">
-        <Navigation isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-        <main className={`w-full ${isCollapsed ? 'ml-20' : 'ml-64'} transition-all duration-300`}>
+        <Navigation />
+        <main className={`ml-64 w-full ${isCollapsed ? 'ml-20' : 'ml-64'}`}>
           <Routes>
             <Route path="/" element={<Introduction />} />
             <Route path="/what-is-fhir" element={<WhatisFHIR />} />
