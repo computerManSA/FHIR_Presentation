@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import "./index.css";
 import Introduction from "./introduction.tsx";
 import WhatisFHIR from "./what-is-fhir.tsx";
@@ -20,14 +26,16 @@ const Navigation = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <nav className={`fixed left-0 top-0 h-screen ${isCollapsed ? 'w-16' : 'w-64'} bg-gray-900 text-white p-4 overflow-y-auto transition-all duration-300`}>
+    <nav
+      className={`fixed left-0 top-0 h-screen ${isCollapsed ? "w-16" : "w-64"} bg-gray-900 text-white p-4 overflow-y-auto transition-all duration-300`}
+    >
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
         className="absolute right-2 top-2 p-1 text-gray-400 hover:text-white"
       >
-        {isCollapsed ? '→' : '←'}
+        {isCollapsed ? "→" : "←"}
       </button>
-      <div className={`mb-8 ${isCollapsed ? 'text-center' : ''}`}>
+      <div className={`mb-8 ${isCollapsed ? "text-center" : ""}`}>
         {!isCollapsed && (
           <>
             <h1 className="text-xl font-bold mb-2">FHIR Interoperability</h1>
@@ -41,10 +49,10 @@ const Navigation = () => {
           <Link
             to="/"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
-            } ${isCollapsed ? 'text-center px-2' : ''}`}
+              location.pathname === "/"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
+            } ${isCollapsed ? "text-center px-2" : ""}`}
           >
             Introduction
           </Link>
@@ -53,9 +61,9 @@ const Navigation = () => {
           <Link
             to="/what-is-fhir"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/what-is-fhir'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
+              location.pathname === "/what-is-fhir"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
             }`}
           >
             What is FHIR?
@@ -65,9 +73,9 @@ const Navigation = () => {
           <Link
             to="/fhir-benefits"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/fhir-benefits'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
+              location.pathname === "/fhir-benefits"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
             }`}
           >
             FHIR Benefits
@@ -77,9 +85,9 @@ const Navigation = () => {
           <Link
             to="/as-is-architecture"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/as-is-architecture'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
+              location.pathname === "/as-is-architecture"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
             }`}
           >
             Current Architecture
@@ -89,9 +97,9 @@ const Navigation = () => {
           <Link
             to="/assumptions"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/assumptions'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
+              location.pathname === "/assumptions"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
             }`}
           >
             Assumptions
@@ -101,9 +109,9 @@ const Navigation = () => {
           <Link
             to="/enhanced-fhir-architecture"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/enhanced-fhir-architecture'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
+              location.pathname === "/enhanced-fhir-architecture"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
             }`}
           >
             Enhanced Architecture
@@ -113,9 +121,9 @@ const Navigation = () => {
           <Link
             to="/infrastructure-design"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/infrastructure-design'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
+              location.pathname === "/infrastructure-design"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
             }`}
           >
             Infrastructure Design
@@ -125,9 +133,9 @@ const Navigation = () => {
           <Link
             to="/technical-solution"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/technical-solution'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
+              location.pathname === "/technical-solution"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
             }`}
           >
             Technical Solution
@@ -137,9 +145,9 @@ const Navigation = () => {
           <Link
             to="/poc-scope"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/poc-scope'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
+              location.pathname === "/poc-scope"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
             }`}
           >
             POC Scope
@@ -149,9 +157,9 @@ const Navigation = () => {
           <Link
             to="/support-needed"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/support-needed'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
+              location.pathname === "/support-needed"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
             }`}
           >
             Support Needed
@@ -161,9 +169,9 @@ const Navigation = () => {
           <Link
             to="/action-plan"
             className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === '/action-plan'
-                ? 'bg-blue-600 text-white'
-                : 'hover:bg-gray-800'
+              location.pathname === "/action-plan"
+                ? "bg-blue-600 text-white"
+                : "hover:bg-gray-800"
             }`}
           >
             Action Plan
@@ -175,12 +183,18 @@ const Navigation = () => {
 };
 
 // Main application component
+// Main application component
 const App = () => {
+  // Move the state here
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
     <Router>
       <div className="flex">
-        <Navigation />
-        <main className={`${isCollapsed ? 'ml-16' : 'ml-64'} w-full transition-all duration-300`}>
+        <Navigation isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+        <main
+          className={`${isCollapsed ? "ml-16" : "ml-64"} w-full transition-all duration-300`}
+        >
           <Routes>
             <Route path="/" element={<Introduction />} />
             <Route path="/what-is-fhir" element={<WhatisFHIR />} />
