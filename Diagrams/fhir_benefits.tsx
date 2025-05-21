@@ -11,7 +11,7 @@ import {
   DollarSign,
   Heart,
   Server,
-  Tool,
+  PenToolIcon,
   Globe,
   Check,
   RefreshCw,
@@ -142,7 +142,7 @@ const FHIRBenefitsPage = () => {
             <div className="bg-purple-50 p-6 rounded-lg border border-purple-100 flex flex-col">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
-                  <Tool className="text-purple-600" size={20} />
+                  <PenToolIcon className="text-purple-600" size={20} />
                 </div>
                 <h3 className="font-semibold text-lg text-purple-900">
                   Implementation Focus
@@ -982,7 +982,7 @@ const FHIRBenefitsPage = () => {
             <div>
               <div className="flex items-center mb-4">
                 <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
-                  <Tool className="text-red-600" size={16} />
+                  <PenToolIcon className="text-red-600" size={16} />
                 </div>
                 <h3 className="font-semibold text-lg text-gray-800">
                   Maintainability Challenges

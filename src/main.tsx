@@ -1,20 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import "./index.css";
 
 // Import all presentation pages
-import IntroductionPage from "./Diagrams/Introduction";
-import WhatIsFHIRPage from "./Diagrams/What-is-fhir";
-import FHIRBenefitsPage from "./Diagrams/fhir_benefits";
-import AsIsArchitecture from "./Diagrams/as-is-architecture";
-import AssumptionsPage from "./Diagrams/assumptions";
-import EnhancedFHIRArchitecture from "./Diagrams/enhanced-fhir-react";
-import InfrastructureDesign from "./Diagrams/infrastructure-design";
-import POCScopePage from "./Diagrams/poc";
-import TechnicalSolutionPage from './Diagrams/TechnicalSolutionPage';
-import SupportNeededPage from './Diagrams/SupportNeededPage';
-import ActionPlanPage from './Diagrams/ActionPlanPage';
+import introductionPage from "./Diagrams/introduction";
+import whatIsFHIRPage from "./Diagrams/what_is_fhir";
+import fhirBenefitsPage from "./Diagrams/fhir_benefits";
+import asIsArchitecture from "./Diagrams/as-is-architecture";
+import assumptionsPage from "./Diagrams/assumptions";
+import enhancedFHIRArchitecture from "./Diagrams/enhanced-fhir-architecture";
+import infrastructureDesign from "./Diagrams/infrastructure-design";
+import pocScopePage from "./Diagrams/poc-scope";
+import technicalSolutionPage from "./Diagrams/technical-solution";
+import supportneededPage from "./Diagrams/support-needed";
+import actionPlanPage from "./Diagrams/action-plan";
 
 // Navigation component
 const Navigation = () => {
@@ -27,57 +27,90 @@ const Navigation = () => {
 
       <ul className="space-y-1">
         <li>
-          <Link to="/" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             Introduction
           </Link>
         </li>
         <li>
-          <Link to="/what-is-fhir" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/what-is-fhir"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             What is FHIR?
           </Link>
         </li>
         <li>
-          <Link to="/fhir-benefits" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/fhir-benefits"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             FHIR Benefits
           </Link>
         </li>
         <li>
-          <Link to="/as-is-architecture" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/as-is-architecture"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             Current Architecture
           </Link>
         </li>
         <li>
-          <Link to="/assumptions" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/assumptions"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             Assumptions
           </Link>
         </li>
         <li>
-          <Link to="/enhanced-fhir-architecture" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/enhanced-fhir-architecture"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             Enhanced Architecture
           </Link>
         </li>
         <li>
-          <Link to="/infrastructure-design" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/infrastructure-design"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             Infrastructure Design
           </Link>
         </li>
         <li>
-          <Link to="/technical-solution" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/technical-solution"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             Technical Solution
           </Link>
         </li>
         <li>
-          <Link to="/poc-scope" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/poc-scope"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             POC Scope
           </Link>
         </li>
         <li>
-          <Link to="/support-needed" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/support-needed"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             Support Needed
           </Link>
         </li>
         <li>
-          <Link to="/action-plan" className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+          <Link
+            to="/action-plan"
+            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+          >
             Action Plan
           </Link>
         </li>
@@ -94,17 +127,26 @@ const App = () => {
         <Navigation />
         <main className="ml-64 w-full">
           <Routes>
-            <Route path="/" element={<IntroductionPage />} />
-            <Route path="/what-is-fhir" element={<WhatIsFHIRPage />} />
-            <Route path="/fhir-benefits" element={<FHIRBenefitsPage />} />
-            <Route path="/as-is-architecture" element={<AsIsArchitecture />} />
-            <Route path="/assumptions" element={<AssumptionsPage />} />
-            <Route path="/enhanced-fhir-architecture" element={<EnhancedFHIRArchitecture />} />
-            <Route path="/infrastructure-design" element={<InfrastructureDesign />} />
-            <Route path="/technical-solution" element={<TechnicalSolutionPage />} />
-            <Route path="/poc-scope" element={<POCScopePage />} />
-            <Route path="/support-needed" element={<SupportNeededPage />} />
-            <Route path="/action-plan" element={<ActionPlanPage />} />
+            <Route path="/" element={<introductionPage />} />
+            <Route path="/what-is-fhir" element={<whatIsFHIRPage />} />
+            <Route path="/fhir-benefits" element={<fhirBenefitsPage />} />
+            <Route path="/as-is-architecture" element={<asIsArchitecture />} />
+            <Route path="/assumptions" element={<assumptionsPage />} />
+            <Route
+              path="/enhanced-fhir-architecture"
+              element={<enhancedFHIRArchitecture />}
+            />
+            <Route
+              path="/infrastructure-design"
+              element={<infrastructureDesign />}
+            />
+            <Route
+              path="/technical-solution"
+              element={<technicalSolutionPage />}
+            />
+            <Route path="/poc-scope" element={<pocScopePage />} />
+            <Route path="/support-needed" element={<supportneededPage />} />
+            <Route path="/action-plan" element={<actionPlanPage />} />
           </Routes>
         </main>
       </div>
@@ -112,8 +154,8 @@ const App = () => {
   );
 };
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
 );

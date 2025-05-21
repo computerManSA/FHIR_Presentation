@@ -1,0 +1,41 @@
+[vite] connecting...
+Warning: &lt;introductionPage /&gt; is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+introductionPage
+RenderedRoute@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:5448:33
+Routes@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:6183:19
+main
+div
+Router@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:6126:17
+BrowserRouter@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:9113:27
+App
+Warning: The tag &lt;introductionPage&gt; is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+introductionPage
+RenderedRoute@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:5448:33
+Routes@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:6183:19
+main
+div
+Router@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:6126:17
+BrowserRouter@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:9113:27
+App
+[vite] connected.
+Warning: &lt;whatIsFHIRPage /&gt; is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+whatIsFHIRPage
+RenderedRoute@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:5448:33
+Routes@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:6183:19
+main
+div
+Router@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:6126:17
+BrowserRouter@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:9113:27
+App
+Warning: The tag &lt;whatIsFHIRPage&gt; is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+whatIsFHIRPage
+RenderedRoute@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:5448:33
+Routes@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:6183:19
+main
+div
+Router@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:6126:17
+BrowserRouter@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/node_modules/.vite/deps/react-router-dom.js:9113:27
+App
+t@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12639
+value@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32772
+@https://17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34410
