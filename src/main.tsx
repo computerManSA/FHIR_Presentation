@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 import "./index.css";
@@ -17,37 +17,19 @@ import ActionPlanPage from "./action-plan.tsx";
 // Navigation component
 const Navigation = () => {
   const location = useLocation();
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
 
   return (
-    <nav className={`fixed left-0 top-0 h-screen w-64 bg-gray-900 text-white p-4 overflow-y-auto ${isCollapsed ? 'w-20' : 'w-64'}`}>
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <h1 className={`text-xl font-bold mb-2 ${isCollapsed ? 'hidden' : ''}`}>FHIR Interoperability</h1>
-          <p className={`text-gray-400 text-sm ${isCollapsed ? 'hidden' : ''}`}>Technical Presentation</p>
-        </div>
-        <button onClick={toggleCollapse} className="text-gray-500 hover:text-white focus:outline-none">
-          {isCollapsed ? (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-            </svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-            </svg>
-          )}
-        </button>
+    <nav className="fixed left-0 top-0 h-screen w-64 bg-gray-900 text-white p-4 overflow-y-auto">
+      <div className="mb-8">
+        <h1 className="text-xl font-bold mb-2">FHIR Interoperability</h1>
+        <p className="text-gray-400 text-sm">Technical Presentation</p>
       </div>
 
       <ul className="space-y-1">
         <li>
           <Link
             to="/"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -59,7 +41,7 @@ const Navigation = () => {
         <li>
           <Link
             to="/what-is-fhir"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/what-is-fhir'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -71,7 +53,7 @@ const Navigation = () => {
         <li>
           <Link
             to="/fhir-benefits"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/fhir-benefits'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -83,7 +65,7 @@ const Navigation = () => {
         <li>
           <Link
             to="/as-is-architecture"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/as-is-architecture'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -95,7 +77,7 @@ const Navigation = () => {
         <li>
           <Link
             to="/assumptions"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/assumptions'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -107,7 +89,7 @@ const Navigation = () => {
         <li>
           <Link
             to="/enhanced-fhir-architecture"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/enhanced-fhir-architecture'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -119,7 +101,7 @@ const Navigation = () => {
         <li>
           <Link
             to="/infrastructure-design"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/infrastructure-design'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -131,7 +113,7 @@ const Navigation = () => {
         <li>
           <Link
             to="/technical-solution"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/technical-solution'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -143,7 +125,7 @@ const Navigation = () => {
         <li>
           <Link
             to="/poc-scope"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/poc-scope'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -155,7 +137,7 @@ const Navigation = () => {
         <li>
           <Link
             to="/support-needed"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/support-needed'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -167,7 +149,7 @@ const Navigation = () => {
         <li>
           <Link
             to="/action-plan"
-            className={`block py-2 px-4 rounded transition-colors ${isCollapsed ? 'px-2' : 'px-4'} ${
+            className={`block py-2 px-4 rounded transition-colors ${
               location.pathname === '/action-plan'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
@@ -177,10 +159,6 @@ const Navigation = () => {
           </Link>
         </li>
       </ul>
-      <div className={`mt-auto ${isCollapsed ? 'hidden' : ''}`}>
-        <img src="https://via.placeholder.com/50" alt="MOH Logo" className="mb-2" />
-        <img src="https://lean.sa/wp-content/uploads/2021/03/Lean-Business-Solutions-logo.png" alt="Lean Logo" style={{width: '150px'}} />
-      </div>
     </nav>
   );
 };
@@ -191,7 +169,7 @@ const App = () => {
     <Router>
       <div className="flex">
         <Navigation />
-        <main className={`ml-64 w-full ${isCollapsed ? 'ml-20' : 'ml-64'}`}>
+        <main className="ml-64 w-full">
           <Routes>
             <Route path="/" element={<Introduction />} />
             <Route path="/what-is-fhir" element={<WhatisFHIR />} />
