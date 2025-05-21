@@ -27,6 +27,10 @@ import {
   Eye,
   Server,
   Network,
+  Code,
+  Target,
+  Users,
+  ListTodo,
 } from "lucide-react";
 
 // Navigation component
@@ -187,9 +191,15 @@ const Navigation = () => {
               location.pathname === "/technical-solution"
                 ? "bg-blue-600 text-white"
                 : "hover:bg-gray-800"
-            }`}
+            } ${isCollapsed ? "text-center px-2" : ""}`}
           >
-            Technical Solution
+            <div className="flex items-center">
+              <Code
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
+              {!isCollapsed && "Technical Solution"}
+            </div>
           </Link>
         </li>
         <li>
@@ -199,9 +209,15 @@ const Navigation = () => {
               location.pathname === "/poc-scope"
                 ? "bg-blue-600 text-white"
                 : "hover:bg-gray-800"
-            }`}
+            } ${isCollapsed ? "text-center px-2" : ""}`}
           >
-            POC Scope
+            <div className="flex items-center">
+              <Target
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
+              {!isCollapsed && "POC Scope"}
+            </div>
           </Link>
         </li>
         <li>
@@ -211,9 +227,15 @@ const Navigation = () => {
               location.pathname === "/support-needed"
                 ? "bg-blue-600 text-white"
                 : "hover:bg-gray-800"
-            }`}
+            } ${isCollapsed ? "text-center px-2" : ""}`}
           >
-            Support Needed
+            <div className="flex items-center">
+              <Users
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
+              {!isCollapsed && "Support Needed"}
+            </div>
           </Link>
         </li>
         <li>
@@ -223,9 +245,15 @@ const Navigation = () => {
               location.pathname === "/action-plan"
                 ? "bg-blue-600 text-white"
                 : "hover:bg-gray-800"
-            }`}
+            } ${isCollapsed ? "text-center px-2" : ""}`}
           >
-            Action Plan
+            <div className="flex items-center">
+              <ListTodo
+                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
+                size={18}
+              />
+              {!isCollapsed && "Action Plan"}
+            </div>
           </Link>
         </li>
       </ul>
