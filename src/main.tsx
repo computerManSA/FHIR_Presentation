@@ -4,17 +4,17 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./index.css";
 
 // Import all presentation pages
-import introductionPage from "./Diagrams/introduction";
-import whatIsFHIRPage from "./Diagrams/what_is_fhir";
-import fhirBenefitsPage from "./Diagrams/fhir_benefits";
-import asIsArchitecture from "./Diagrams/as-is-architecture";
-import assumptionsPage from "./Diagrams/assumptions";
-import enhancedFHIRArchitecture from "./Diagrams/enhanced-fhir-architecture";
-import infrastructureDesign from "./Diagrams/infrastructure-design";
-import pocScopePage from "./Diagrams/poc-scope";
-import technicalSolutionPage from "./Diagrams/technical-solution";
-import supportneededPage from "./Diagrams/support-needed";
-import actionPlanPage from "./Diagrams/action-plan";
+import IntroductionPage from "./Diagrams/introduction";
+import WhatIsFHIRPage from "./Diagrams/what_is_fhir";
+import FHIRBenefitsPage from "./Diagrams/fhir_benefits";
+import AsIsArchitecture from "./Diagrams/as-is-architecture";
+import AssumptionsPage from "./Diagrams/assumptions";
+import EnhancedFHIRArchitecture from "./Diagrams/enhanced-fhir-architecture";
+import InfrastructureDesign from "./Diagrams/infrastructure-design";
+import POCScopePage from "./Diagrams/poc-scope";
+import TechnicalSolutionPage from "./Diagrams/technical-solution";
+import SupportNeededPage from "./Diagrams/support-needed";
+import ActionPlanPage from "./Diagrams/action-plan";
 
 // Navigation component
 const Navigation = () => {
@@ -127,26 +127,26 @@ const App = () => {
         <Navigation />
         <main className="ml-64 w-full">
           <Routes>
-            <Route path="/" element={<introductionPage />} />
-            <Route path="/what-is-fhir" element={<whatIsFHIRPage />} />
-            <Route path="/fhir-benefits" element={<fhirBenefitsPage />} />
-            <Route path="/as-is-architecture" element={<asIsArchitecture />} />
-            <Route path="/assumptions" element={<assumptionsPage />} />
+            <Route path="/" element={<IntroductionPage />} />
+            <Route path="/what-is-fhir" element={<WhatIsFHIRPage />} />
+            <Route path="/fhir-benefits" element={<FHIRBenefitsPage />} />
+            <Route path="/as-is-architecture" element={<AsIsArchitecture />} />
+            <Route path="/assumptions" element={<AssumptionsPage />} />
             <Route
               path="/enhanced-fhir-architecture"
-              element={<enhancedFHIRArchitecture />}
+              element={<EnhancedFHIRArchitecture />}
             />
             <Route
               path="/infrastructure-design"
-              element={<infrastructureDesign />}
+              element={<InfrastructureDesign />}
             />
             <Route
               path="/technical-solution"
-              element={<technicalSolutionPage />}
+              element={<TechnicalSolutionPage />}
             />
-            <Route path="/poc-scope" element={<pocScopePage />} />
-            <Route path="/support-needed" element={<supportneededPage />} />
-            <Route path="/action-plan" element={<actionPlanPage />} />
+            <Route path="/poc-scope" element={<POCScopePage />} />
+            <Route path="/support-needed" element={<SupportNeededPage />} />
+            <Route path="/action-plan" element={<ActionPlanPage />} />
           </Routes>
         </main>
       </div>
