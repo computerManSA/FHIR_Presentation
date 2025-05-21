@@ -6,8 +6,10 @@ import {
   Route,
   Link,
   useLocation,
+  Navigate
 } from "react-router-dom";
 import "./index.css";
+import CoverPage from "./cover.tsx";
 import Introduction from "./introduction.tsx";
 import WhatisFHIR from "./what-is-fhir.tsx";
 import FHIRBenefitsPage from "./fhir-benefits.tsx";
@@ -15,7 +17,6 @@ import AsIsArchitecture from "./as-is-architecture.tsx";
 import AssumptionsPage from "./assumptions.tsx";
 import EnhancedFHIRArchitecture from "./enhanced-fhir-react.tsx";
 import InfrastructureDesign from "./infrastructure-design.tsx";
-// import TechnicalSolutionPage from "./technical-solution.tsx";
 import POCScopePage from "./poc-scope.tsx";
 import SupportNeededPage from "./support-needed.tsx";
 import ActionPlanPage from "./action-plan.tsx";
@@ -33,10 +34,12 @@ import {
   ListTodo,
 } from "lucide-react";
 
-// Navigation component
 const Navigation = () => {
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const isNotCoverPage = location.pathname !== '/cover';
+
+  if (!isNotCoverPage) return null;
 
   return (
     <nav
@@ -87,205 +90,19 @@ const Navigation = () => {
             </Link>
           </li>
         ))}
-        <li>
-          <Link
-            to="/what-is-fhir"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/what-is-fhir"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            }`}
-          >
-            <div className="flex items-center">
-              <Zap
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && "What is FHIR?"}
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/fhir-benefits"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/fhir-benefits"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            }`}
-          >
-            <div className="flex items-center">
-              <CheckCircle
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && "FHIR Benefits"}
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/as-is-architecture"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/as-is-architecture"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            }`}
-          >
-            <div className="flex items-center">
-              <GitBranch
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && "Current Architecture"}
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/assumptions"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/assumptions"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            }`}
-          >
-            <div className="flex items-center">
-              <Eye
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && "Assumptions"}
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/enhanced-fhir-architecture"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/enhanced-fhir-architecture"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            }`}
-          >
-            <div className="flex items-center">
-              <Server
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && "Enhanced Architecture"}
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/infrastructure-design"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/infrastructure-design"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            }`}
-          >
-            <div className="flex items-center">
-              <Network
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && "Infrastructure Design"}
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/technical-solution"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/technical-solution"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            } ${isCollapsed ? "text-center px-2" : ""}`}
-          >
-            <div className="flex items-center">
-              <Code
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && "Technical Solution"}
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/poc-scope"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/poc-scope"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            } ${isCollapsed ? "text-center px-2" : ""}`}
-          >
-            <div className="flex items-center">
-              <Target
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && "POC Scope"}
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/support-needed"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/support-needed"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            } ${isCollapsed ? "text-center px-2" : ""}`}
-          >
-            <div className="flex items-center">
-              <Users
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && "Support Needed"}
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/action-plan"
-            className={`block py-2 px-4 rounded transition-colors ${
-              location.pathname === "/action-plan"
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-800"
-            } ${isCollapsed ? "text-center px-2" : ""}`}
-          >
-            <div className="flex items-center">
-              <ListTodo
-                className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
-                size={18}
-              />
-              {!isCollapsed && "Action Plan"}
-            </div>
-          </Link>
-        </li>
       </ul>
     </nav>
   );
 };
 
-// Main application component
-// Main application component
 const App = () => {
-  // Move the state here
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
   return (
     <Router>
       <div className="flex">
-        <Navigation isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-        <main
-          className={`${isCollapsed ? "ml-16" : "ml-64"} w-full transition-all duration-300`}
-        >
+        <Navigation />
+        <main className="w-full">
           <Routes>
+            <Route path="/cover" element={<CoverPage />} />
             <Route path="/" element={<Introduction />} />
             <Route path="/what-is-fhir" element={<WhatisFHIR />} />
             <Route path="/fhir-benefits" element={<FHIRBenefitsPage />} />
@@ -299,13 +116,10 @@ const App = () => {
               path="/infrastructure-design"
               element={<InfrastructureDesign />}
             />
-            {/* <Route
-              path="/technical-solution"
-              element={<TechnicalSolutionPage />}
-            /> */}
             <Route path="/poc-scope" element={<POCScopePage />} />
             <Route path="/support-needed" element={<SupportNeededPage />} />
             <Route path="/action-plan" element={<ActionPlanPage />} />
+            <Route path="*" element={<Navigate to="/cover" replace />} />
           </Routes>
         </main>
       </div>
