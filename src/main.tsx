@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 import "./index.css";
 import Introduction from "./introduction.tsx";
 import WhatisFHIR from "./what-is-fhir.tsx";
@@ -16,6 +16,8 @@ import ActionPlanPage from "./action-plan.tsx";
 
 // Navigation component
 const Navigation = () => {
+  const location = useLocation();
+
   return (
     <nav className="fixed left-0 top-0 h-screen w-64 bg-gray-900 text-white p-4 overflow-y-auto">
       <div className="mb-8">
@@ -27,7 +29,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             Introduction
           </Link>
@@ -35,7 +41,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/what-is-fhir"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/what-is-fhir'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             What is FHIR?
           </Link>
@@ -43,7 +53,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/fhir-benefits"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/fhir-benefits'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             FHIR Benefits
           </Link>
@@ -51,7 +65,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/as-is-architecture"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/as-is-architecture'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             Current Architecture
           </Link>
@@ -59,7 +77,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/assumptions"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/assumptions'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             Assumptions
           </Link>
@@ -67,7 +89,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/enhanced-fhir-architecture"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/enhanced-fhir-architecture'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             Enhanced Architecture
           </Link>
@@ -75,7 +101,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/infrastructure-design"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/infrastructure-design'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             Infrastructure Design
           </Link>
@@ -83,7 +113,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/technical-solution"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/technical-solution'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             Technical Solution
           </Link>
@@ -91,7 +125,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/poc-scope"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/poc-scope'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             POC Scope
           </Link>
@@ -99,7 +137,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/support-needed"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/support-needed'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             Support Needed
           </Link>
@@ -107,7 +149,11 @@ const Navigation = () => {
         <li>
           <Link
             to="/action-plan"
-            className="block py-2 px-4 rounded hover:bg-gray-800 transition-colors"
+            className={`block py-2 px-4 rounded transition-colors ${
+              location.pathname === '/action-plan'
+                ? 'bg-blue-600 text-white'
+                : 'hover:bg-gray-800'
+            }`}
           >
             Action Plan
           </Link>
