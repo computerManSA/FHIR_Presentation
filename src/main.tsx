@@ -2,19 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./index.css";
-
-// Import all presentation pages
-import IntroductionPage from "./Diagrams/introduction";
-import WhatIsFHIRPage from "./Diagrams/what_is_fhir";
-import FHIRBenefitsPage from "./Diagrams/fhir_benefits";
-import AsIsArchitecture from "./Diagrams/as-is-architecture";
-import AssumptionsPage from "./Diagrams/assumptions";
-import EnhancedFHIRArchitecture from "./Diagrams/enhanced-fhir-architecture";
-import InfrastructureDesign from "./Diagrams/infrastructure-design";
-import POCScopePage from "./Diagrams/poc-scope";
-import TechnicalSolutionPage from "./Diagrams/technical-solution";
-import SupportNeededPage from "./Diagrams/support-needed";
-import ActionPlanPage from "./Diagrams/action-plan";
+import Introduction from "./introduction.tsx";
+import WhatisFHIR from "./what-is-fhir.tsx";
+import FHIRBenefitsPage from "./fhir-benefits.tsx";
+import AsIsArchitecture from "./as-is-architecture.tsx";
+import AssumptionsPage from "./assumptions.tsx";
+import EnhancedFHIRArchitecture from "./enhanced-fhir-react.tsx";
+import InfrastructureDesign from "./infrastructure-design.tsx";
+// import TechnicalSolutionPage from "./technical-solution.tsx";
+import POCScopePage from "./poc-scope.tsx";
+import SupportNeededPage from "./support-needed.tsx";
+import ActionPlanPage from "./action-plan.tsx";
 
 // Navigation component
 const Navigation = () => {
@@ -127,8 +125,8 @@ const App = () => {
         <Navigation />
         <main className="ml-64 w-full">
           <Routes>
-            <Route path="/" element={<IntroductionPage />} />
-            <Route path="/what-is-fhir" element={<WhatIsFHIRPage />} />
+            <Route path="/" element={<Introduction />} />
+            <Route path="/what-is-fhir" element={<WhatisFHIR />} />
             <Route path="/fhir-benefits" element={<FHIRBenefitsPage />} />
             <Route path="/as-is-architecture" element={<AsIsArchitecture />} />
             <Route path="/assumptions" element={<AssumptionsPage />} />
@@ -140,10 +138,10 @@ const App = () => {
               path="/infrastructure-design"
               element={<InfrastructureDesign />}
             />
-            <Route
+            {/* <Route
               path="/technical-solution"
               element={<TechnicalSolutionPage />}
-            />
+            /> */}
             <Route path="/poc-scope" element={<POCScopePage />} />
             <Route path="/support-needed" element={<SupportNeededPage />} />
             <Route path="/action-plan" element={<ActionPlanPage />} />

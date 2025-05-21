@@ -34,10 +34,12 @@ const IntroductionPage = () => {
               <h2 className="text-2xl font-bold text-gray-800">Our Vision</h2>
             </div>
             <p className="text-gray-700 leading-relaxed">
-              Establish a unified, real-time healthcare data exchange ecosystem
-              that seamlessly connects all healthcare stakeholders, enabling
-              providers to deliver personalized, informed care while empowering
-              patients with complete access to their health information.
+              Imrpove the current health data exchange across the entire eHealth
+              ecosystem by implementing standards, enabling real-time data
+              processing, and integrating a seamless layer that connects all
+              healthcare stakeholders. This will empower providers to deliver
+              personalized, informed care while granting patients complete
+              access to their accurate health information.
             </p>
             <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
               <p className="text-blue-800 font-medium text-sm">
@@ -100,7 +102,7 @@ const IntroductionPage = () => {
                 <span className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
                   <span className="text-red-600 text-xs">✕</span>
                 </span>
-                Data silos across healthcare systems
+                Data freshness and timeliness issues
               </li>
               <li className="flex items-start">
                 <span className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
@@ -118,7 +120,7 @@ const IntroductionPage = () => {
                 <span className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
                   <span className="text-red-600 text-xs">✕</span>
                 </span>
-                Limited scalability of current architecture
+                Limited scalability and maintanability
               </li>
               <li className="flex items-start">
                 <span className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
@@ -150,7 +152,7 @@ const IntroductionPage = () => {
                 <span className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
                   <span className="text-green-600 text-xs">✓</span>
                 </span>
-                Improve patient experience and engagement
+                facilitate seamless data sharing across healthcare ecosystem
               </li>
               <li className="flex items-start">
                 <span className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
@@ -170,7 +172,10 @@ const IntroductionPage = () => {
       </div>
 
       {/* Key Benefits */}
-      <div className="bg-white rounded-lg shadow-md p-8 mb-10">
+      <div
+        className="bg-white rounded-lg shadow-md p-8 mb-10"
+        style={{ display: "none" }}
+      >
         <div className="flex items-center mb-6">
           <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mr-4">
             <PieChart className="text-orange-600" size={24} />
@@ -262,10 +267,10 @@ const IntroductionPage = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-800">
-                FHIR Implementation Strategy
+                Moving current state step forward
               </h3>
               <p className="text-gray-600">
-                Develop FHIR-based architecture with event-driven components
+                design new architecture to address identified gaps
               </p>
             </div>
           </div>
@@ -278,10 +283,10 @@ const IntroductionPage = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-800">
-                Proof of Concept Development
+                Introduce FHIR, Implementation Strategy
               </h3>
               <p className="text-gray-600">
-                Build and test core components in controlled environment
+                Develop FHIR-based architecture with event-driven components
               </p>
             </div>
           </div>
@@ -291,6 +296,23 @@ const IntroductionPage = () => {
           <div className="flex items-center">
             <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
               <span className="text-blue-700 font-bold">4</span>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800">
+                Proof of Concept Development
+              </h3>
+              <p className="text-gray-600">
+                Build and test core components in controlled environment
+                (internally)
+              </p>
+            </div>
+          </div>
+
+          <div className="ml-5 border-l-2 border-dashed border-blue-200 pl-9 h-8"></div>
+
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+              <span className="text-blue-700 font-bold">5</span>
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-800">
@@ -306,7 +328,7 @@ const IntroductionPage = () => {
 
           <div className="flex items-center">
             <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-              <span className="text-blue-700 font-bold">5</span>
+              <span className="text-blue-700 font-bold">6</span>
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-800">
@@ -337,7 +359,7 @@ const IntroductionPage = () => {
           <div className="relative z-10 mb-8">
             <div className="flex items-center">
               <div className="w-16 h-16 rounded-full bg-teal-500 flex items-center justify-center text-white border-4 border-white shadow-lg">
-                <span className="font-bold">Q2</span>
+                <span className="font-bold">1</span>
               </div>
               <div className="ml-6">
                 <h3 className="text-lg font-semibold text-gray-800">
@@ -355,7 +377,7 @@ const IntroductionPage = () => {
           <div className="relative z-10 mb-8">
             <div className="flex items-center">
               <div className="w-16 h-16 rounded-full bg-teal-500 flex items-center justify-center text-white border-4 border-white shadow-lg">
-                <span className="font-bold">Q3</span>
+                <span className="font-bold">2</span>
               </div>
               <div className="ml-6">
                 <h3 className="text-lg font-semibold text-gray-800">
@@ -373,7 +395,7 @@ const IntroductionPage = () => {
           <div className="relative z-10 mb-8">
             <div className="flex items-center">
               <div className="w-16 h-16 rounded-full bg-teal-500 flex items-center justify-center text-white border-4 border-white shadow-lg">
-                <span className="font-bold">Q4</span>
+                <span className="font-bold">3</span>
               </div>
               <div className="ml-6">
                 <h3 className="text-lg font-semibold text-gray-800">
@@ -391,7 +413,7 @@ const IntroductionPage = () => {
           <div className="relative z-10">
             <div className="flex items-center">
               <div className="w-16 h-16 rounded-full bg-teal-500 flex items-center justify-center text-white border-4 border-white shadow-lg">
-                <span className="font-bold">Q1</span>
+                <span className="font-bold">4</span>
               </div>
               <div className="ml-6">
                 <h3 className="text-lg font-semibold text-gray-800">

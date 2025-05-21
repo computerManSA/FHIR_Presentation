@@ -98,7 +98,7 @@ const WhatIsFHIRPage = () => {
               address the challenges of healthcare information exchange.
             </p>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <div className="grid md:grid-cols-1 gap-6 mb-6">
               <div className="bg-blue-50 p-5 rounded-lg border border-blue-100">
                 <h3 className="font-semibold text-lg mb-3 text-blue-800">
                   Key Characteristics
@@ -155,7 +155,10 @@ const WhatIsFHIRPage = () => {
                 </ul>
               </div>
 
-              <div className="bg-green-50 p-5 rounded-lg border border-green-100">
+              <div
+                className="bg-green-50 p-5 rounded-lg border border-green-100"
+                style={{ display: "none" }}
+              >
                 <h3 className="font-semibold text-lg mb-3 text-green-800">
                   FHIR Evolution
                 </h3>
@@ -720,7 +723,7 @@ const WhatIsFHIRPage = () => {
               </div>
             </div>
 
-            <div>
+            <div style={{ display: "none" }}>
               <h3 className="font-semibold text-lg mb-3 text-gray-800">
                 Implementation Patterns
               </h3>
@@ -1454,144 +1457,6 @@ const WhatIsFHIRPage = () => {
               implementation guides, profiles, and integration with other
               healthcare standards and specifications.
             </p>
-
-            <div className="bg-red-50 p-5 rounded-lg border border-red-100 mb-6">
-              <h3 className="font-semibold text-lg mb-3 text-red-800">
-                Implementation Guides
-              </h3>
-              <p className="text-gray-700 mb-3">
-                Implementation Guides (IGs) provide detailed instructions for
-                implementing FHIR in specific contexts:
-              </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-white p-3 rounded border">
-                  <h4 className="font-medium text-gray-800 mb-2">US Core</h4>
-                  <p className="text-sm text-gray-700">
-                    Core profiles for the U.S. healthcare system, aligning with
-                    ONC and CMS requirements for interoperability.
-                  </p>
-                </div>
-
-                <div className="bg-white p-3 rounded border">
-                  <h4 className="font-medium text-gray-800 mb-2">
-                    International Patient Summary
-                  </h4>
-                  <p className="text-sm text-gray-700">
-                    Specifications for a patient summary record usable for
-                    unplanned, cross-border care.
-                  </p>
-                </div>
-
-                <div className="bg-white p-3 rounded border">
-                  <h4 className="font-medium text-gray-800 mb-2">
-                    SMART App Launch
-                  </h4>
-                  <p className="text-sm text-gray-700">
-                    Framework for launching third-party apps from EHR systems
-                    with appropriate security.
-                  </p>
-                </div>
-
-                <div className="bg-white p-3 rounded border">
-                  <h4 className="font-medium text-gray-800 mb-2">Da Vinci</h4>
-                  <p className="text-sm text-gray-700">
-                    Set of implementation guides focused on payer-provider data
-                    exchange and value-based care.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-blue-50 p-5 rounded-lg border border-blue-100 mb-6">
-              <h3 className="font-semibold text-lg mb-3 text-blue-800">
-                Integration with Other Standards
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <h4 className="font-medium text-gray-800 mb-2">
-                    Medical Terminologies
-                  </h4>
-                  <ul className="text-sm text-gray-700 space-y-1">
-                    <li>
-                      • <strong>SNOMED CT</strong> for clinical terminology
-                    </li>
-                    <li>
-                      • <strong>LOINC</strong> for laboratory and clinical
-                      observations
-                    </li>
-                    <li>
-                      • <strong>ICD-10/11</strong> for diagnoses and billing
-                    </li>
-                    <li>
-                      • <strong>RxNorm</strong> for medications
-                    </li>
-                    <li>
-                      • <strong>UCUM</strong> for units of measure
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-medium text-gray-800 mb-2">
-                    Related Standards
-                  </h4>
-                  <ul className="text-sm text-gray-700 space-y-1">
-                    <li>
-                      • <strong>OAuth 2.0/OpenID Connect</strong> for security
-                    </li>
-                    <li>
-                      • <strong>CDS Hooks</strong> for clinical decision support
-                    </li>
-                    <li>
-                      • <strong>SMART on FHIR</strong> for app integration
-                    </li>
-                    <li>
-                      • <strong>Bulk Data Access</strong> for population health
-                    </li>
-                    <li>
-                      • <strong>DICOM</strong> for medical imaging
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-green-50 p-5 rounded-lg border border-green-100 mb-6">
-              <h3 className="font-semibold text-lg mb-3 text-green-800">
-                Regional Adoption & Regulations
-              </h3>
-              <div className="grid md:grid-cols-3 gap-4">
-                <div className="bg-white p-3 rounded border">
-                  <h4 className="font-medium text-gray-800 mb-2">
-                    United States
-                  </h4>
-                  <p className="text-sm text-gray-700">
-                    ONC's 21st Century Cures Act Final Rule and CMS
-                    Interoperability Rule mandate FHIR-based APIs for certified
-                    health IT and health plans.
-                  </p>
-                </div>
-
-                <div className="bg-white p-3 rounded border">
-                  <h4 className="font-medium text-gray-800 mb-2">
-                    European Union
-                  </h4>
-                  <p className="text-sm text-gray-700">
-                    The European eHealth Digital Service Infrastructure (eHDSI)
-                    and European Electronic Health Record Exchange Format are
-                    incorporating FHIR for cross-border health data exchange.
-                  </p>
-                </div>
-
-                <div className="bg-white p-3 rounded border">
-                  <h4 className="font-medium text-gray-800 mb-2">Australia</h4>
-                  <p className="text-sm text-gray-700">
-                    The Australian Digital Health Agency has embraced FHIR for
-                    its national health initiatives, including the My Health
-                    Record system.
-                  </p>
-                </div>
-              </div>
-            </div>
 
             <div className="bg-purple-50 p-5 rounded-lg border border-purple-100">
               <h3 className="font-semibold text-lg mb-3 text-purple-800">
