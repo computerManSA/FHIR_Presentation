@@ -872,15 +872,9 @@ const AsIsArchitecture = () => {
           </div>
           <div className="flex items-center">
             <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-            <span>Critical Limitations</span>
+            <span>Has Limitations</span>
           </div>
         </div>
-        <button
-          onClick={() => setSelectedComponent("dataflow")}
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors   display:none"
-        >
-          Show Current Patient Journey & Issues
-        </button>
       </header>
 
       <div className="space-y-6">
@@ -931,19 +925,33 @@ const AsIsArchitecture = () => {
         />
         <div className="p-4 bg-green-50 rounded-lg border-2 border-green-200">
           <div className="grid grid-cols-4 gap-4 mb-4">
-            <Component id="uc1" name="UC1" icon={GitBranch} status="warning" />
-            <Component id="ucn" name="UCn" icon={GitBranch} status="warning" />
+            <Component
+              id="uc1"
+              name="UC1"
+              icon={GitBranch}
+              status="warning"
+              disableInteraction={true}
+            />
+            <Component
+              id="ucn"
+              name="UCn"
+              icon={GitBranch}
+              status="warning"
+              disableInteraction={true}
+            />
             <Component
               id="validation"
               name="Validation"
               icon={CheckCircle}
               status="error"
+              disableInteraction={true}
             />
             <Component
               id="nafees-db"
               name="NAFEES DB"
               icon={Database}
               status="warning"
+              disableInteraction={true}
             />
           </div>
         </div>
@@ -953,6 +961,7 @@ const AsIsArchitecture = () => {
           layer={layers[2]}
           isSelected={selectedLayer === "ppv1"}
           onClick={setSelectedLayer}
+          disableInteraction={true}
         />
         <div className="p-4 bg-yellow-50 rounded-lg border-2 border-yellow-200">
           <div className="grid grid-cols-2 gap-4">
@@ -961,12 +970,14 @@ const AsIsArchitecture = () => {
               name="SPs & Business Validation"
               icon={Zap}
               status="error"
+              disableInteraction={true}
             />
             <Component
               id="ppv1-db"
               name="PPv1 DB"
               icon={Database}
               status="error"
+              disableInteraction={true}
             />
           </div>
         </div>
@@ -984,18 +995,21 @@ const AsIsArchitecture = () => {
               name="Application BE"
               icon={Server}
               status="warning"
+              disableInteraction={true}
             />
             <Component
               id="mobile-app"
               name="Mobile App"
               icon={Smartphone}
               status="warning"
+              disableInteraction={true}
             />
             <Component
               id="user-db"
               name="DB - Users"
               icon={Database}
               status="warning"
+              disableInteraction={true}
             />
           </div>
         </div>

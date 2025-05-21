@@ -96,40 +96,7 @@ const AssumptionsPage = () => {
         {expandedSections.general && (
           <div className="mt-6 pl-14">
             <ul className="space-y-5">
-              <li className="flex items-start">
-                <CheckCircle
-                  className="text-green-500 mr-3 flex-shrink-0 mt-1"
-                  size={18}
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-800">
-                    Stakeholder Alignment
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">
-                    All key stakeholders including NPHIES, Sehhaty teams, and
-                    external systems have agreed on the importance of FHIR
-                    implementation and are committed to the initiative.
-                  </p>
-                </div>
-              </li>
-
-              <li className="flex items-start">
-                <CheckCircle
-                  className="text-green-500 mr-3 flex-shrink-0 mt-1"
-                  size={18}
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-800">
-                    Resource Availability
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">
-                    Sufficient technical resources with appropriate skills will
-                    be available for the implementation, including developers
-                    familiar with REST APIs and modern web technologies.
-                  </p>
-                </div>
-              </li>
-
+              
               <li className="flex items-start">
                 <CheckCircle
                   className="text-green-500 mr-3 flex-shrink-0 mt-1"
@@ -147,23 +114,7 @@ const AssumptionsPage = () => {
                 </div>
               </li>
 
-              <li className="flex items-start">
-                <CheckCircle
-                  className="text-green-500 mr-3 flex-shrink-0 mt-1"
-                  size={18}
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-800">
-                    Governance Model
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">
-                    A governance model will be established to manage FHIR
-                    profiles, extensions, terminology, and implementation guides
-                    specific to the Saudi healthcare ecosystem.
-                  </p>
-                </div>
-              </li>
-
+              
               <li className="flex items-start">
                 <CheckCircle
                   className="text-green-500 mr-3 flex-shrink-0 mt-1"
@@ -258,22 +209,7 @@ const AssumptionsPage = () => {
                 </div>
               </div>
 
-              <div className="flex items-start">
-                <CheckCircle
-                  className="text-green-500 mr-3 flex-shrink-0 mt-1"
-                  size={18}
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-800">
-                    External Systems Stability
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">
-                    Existing external systems (HIS, Raqeem, Mawed, عينتي) will
-                    maintain their current interfaces without major changes
-                    during the FHIR implementation phase, ensuring stability.
-                  </p>
-                </div>
-              </div>
+             
 
               <div className="flex items-start">
                 <CheckCircle
@@ -289,23 +225,6 @@ const AssumptionsPage = () => {
                     will be available to support the event-driven architecture
                     pattern with the necessary performance and reliability
                     characteristics.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <CheckCircle
-                  className="text-green-500 mr-3 flex-shrink-0 mt-1"
-                  size={18}
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-800">
-                    Sehhaty Adaptation
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">
-                    Sehhaty applications (mobile and backend) can be updated to
-                    implement the FHIR client functionality and streaming
-                    consumers to support the notification-pull pattern.
                   </p>
                 </div>
               </div>
@@ -327,6 +246,24 @@ const AssumptionsPage = () => {
                   </p>
                 </div>
               </div>
+
+              
+              <div className="flex items-start">
+                <AlertCircle
+                  className="text-yellow-500 mr-3 flex-shrink-0 mt-1"
+                  size={18}
+                />
+                <div>
+                  <h3 className="font-semibold text-gray-800">
+                    Object Storage Availability
+                  </h3>
+                  <p className="text-gray-600 text-sm mt-1">
+                    An object storage service (MinIO or S3) will be available for storing large files and documents, though this could be implemented as part of the project if needed (example radiology).
+                  </p>
+                </div>
+              </div>
+
+              
             </div>
           </div>
         )}
@@ -404,40 +341,6 @@ const AssumptionsPage = () => {
                     Standard terminologies (SNOMED CT, LOINC, ICD-10) are either
                     already in use or can be mapped from existing code systems
                     to support FHIR's structured coding requirements.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <CheckCircle
-                  className="text-green-500 mr-3 flex-shrink-0 mt-1"
-                  size={18}
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-800">
-                    Patient Matching
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">
-                    A reliable patient identifier or matching algorithm is
-                    available to correctly link patient data across different
-                    systems and prevent duplicate or mismatched records.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <AlertCircle
-                  className="text-yellow-500 mr-3 flex-shrink-0 mt-1"
-                  size={18}
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-800">
-                    Data Volume Management
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">
-                    The system will need to handle significant data volumes,
-                    potentially millions of resources, requiring appropriate
-                    database sizing and performance optimization strategies.
                   </p>
                 </div>
               </div>
