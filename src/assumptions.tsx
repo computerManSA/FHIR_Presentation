@@ -400,7 +400,7 @@ const AssumptionsPage = () => {
                   />
                   <div>
                     <h3 className="font-semibold text-gray-800">
-                      HAPI FHIR Suitability
+                      FHIR Server Maturity
                     </h3>
                     <p className="text-gray-600 text-sm mt-1">
                       HAPI FHIR server implementation will be suitable for our
@@ -593,23 +593,23 @@ const AssumptionsPage = () => {
                   </p>
                   <div className="mt-2 grid md:grid-cols-2 gap-2">
                     <div className="bg-gray-50 p-2 rounded border text-xs">
-                      <span className="font-medium">FHIR Specialists:</span> 2-3
+                      <span className="font-medium">FHIR Specialists:</span> 1
                       FTEs
                     </div>
                     <div className="bg-gray-50 p-2 rounded border text-xs">
                       <span className="font-medium">
                         Integration Developers:
                       </span>{" "}
-                      3-4 FTEs
+                      1 FTEs
                     </div>
                     <div className="bg-gray-50 p-2 rounded border text-xs">
                       <span className="font-medium">
                         Database/Infrastructure:
                       </span>{" "}
-                      1-2 FTEs
+                      1 FTEs
                     </div>
                     <div className="bg-gray-50 p-2 rounded border text-xs">
-                      <span className="font-medium">DevOps/CI/CD:</span> 1-2
+                      <span className="font-medium">DevOps/CI/CD:</span> 1
                       FTEs
                     </div>
                   </div>
@@ -633,24 +633,6 @@ const AssumptionsPage = () => {
                   </p>
                 </div>
               </div>
-
-              <div className="flex items-start">
-                <AlertCircle
-                  className="text-yellow-500 mr-3 flex-shrink-0 mt-1"
-                  size={18}
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-800">
-                    Training & Knowledge Transfer
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">
-                    Time and resources will be allocated for training and
-                    knowledge transfer to ensure that the operations team can
-                    effectively maintain the solution after implementation.
-                  </p>
-                </div>
-              </div>
-
               <div className="flex items-start">
                 <AlertCircle
                   className="text-yellow-500 mr-3 flex-shrink-0 mt-1"
@@ -752,23 +734,6 @@ const AssumptionsPage = () => {
               <span className="font-medium text-gray-700">Impact: Medium</span>
               <span className="font-medium text-gray-700">
                 Probability: Medium
-              </span>
-            </div>
-          </div>
-
-          <div className="bg-white p-4 rounded-lg border border-red-100">
-            <h3 className="font-semibold text-red-800 mb-2">
-              Stakeholder Alignment
-            </h3>
-            <p className="text-gray-600 text-sm mb-2">
-              Maintaining alignment across all stakeholders throughout the
-              implementation may be challenging, particularly for decisions
-              about standards and data governance.
-            </p>
-            <div className="flex items-center justify-between text-sm">
-              <span className="font-medium text-gray-700">Impact: High</span>
-              <span className="font-medium text-gray-700">
-                Probability: Low
               </span>
             </div>
           </div>
