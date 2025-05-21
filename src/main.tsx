@@ -64,7 +64,7 @@ const Navigation = () => {
             } ${isCollapsed ? "text-center px-2" : ""}`}
           >
             <div className="flex items-center">
-              <Activity 
+              <Activity
                 className={`${isCollapsed ? "mx-auto" : "mr-2"}`}
                 size={18}
               />
