@@ -54,7 +54,10 @@ const Navigation = () => {
                 : "hover:bg-gray-800"
             } ${isCollapsed ? "text-center px-2" : ""}`}
           >
-            Introduction
+            <div className="flex items-center">
+              <Activity className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              {!isCollapsed && "Introduction"}
+            </div>
           </Link>
         </li>
         <li>
@@ -66,7 +69,10 @@ const Navigation = () => {
                 : "hover:bg-gray-800"
             }`}
           >
-            What is FHIR?
+            <div className="flex items-center">
+              <Zap className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              {!isCollapsed && "What is FHIR?"}
+            </div>
           </Link>
         </li>
         <li>
@@ -78,7 +84,10 @@ const Navigation = () => {
                 : "hover:bg-gray-800"
             }`}
           >
-            FHIR Benefits
+            <div className="flex items-center">
+              <CheckCircle className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              {!isCollapsed && "FHIR Benefits"}
+            </div>
           </Link>
         </li>
         <li>
@@ -90,7 +99,10 @@ const Navigation = () => {
                 : "hover:bg-gray-800"
             }`}
           >
-            Current Architecture
+            <div className="flex items-center">
+              <GitBranch className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              {!isCollapsed && "Current Architecture"}
+            </div>
           </Link>
         </li>
         <li>
@@ -102,7 +114,10 @@ const Navigation = () => {
                 : "hover:bg-gray-800"
             }`}
           >
-            Assumptions
+            <div className="flex items-center">
+              <Eye className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              {!isCollapsed && "Assumptions"}
+            </div>
           </Link>
         </li>
         <li>
@@ -114,7 +129,10 @@ const Navigation = () => {
                 : "hover:bg-gray-800"
             }`}
           >
-            Enhanced Architecture
+            <div className="flex items-center">
+              <Server className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              {!isCollapsed && "Enhanced Architecture"}
+            </div>
           </Link>
         </li>
         <li>
@@ -126,7 +144,10 @@ const Navigation = () => {
                 : "hover:bg-gray-800"
             }`}
           >
-            Infrastructure Design
+            <div className="flex items-center">
+              <Network className={`${isCollapsed ? "mx-auto" : "mr-2"}`} size={18} />
+              {!isCollapsed && "Infrastructure Design"}
+            </div>
           </Link>
         </li>
         <li>
