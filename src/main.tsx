@@ -17,30 +17,12 @@ import ActionPlanPage from "./action-plan.tsx";
 // Navigation component
 const Navigation = () => {
   const location = useLocation();
-  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <>
-      <nav className={`fixed left-0 top-0 h-screen ${isCollapsed ? 'w-16' : 'w-64'} bg-gray-900 text-white p-4 overflow-y-auto transition-all duration-300`}>
-        <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="absolute right-2 top-2 text-gray-400 hover:text-white"
-        >
-          {isCollapsed ? '→' : '←'}
-        </button>
-      <div className="mb-8 flex flex-col items-center">
-        <img src="https://www.moh.gov.sa/en/Ministry/About/PublishingImages/NewMOHLogo-01.png" 
-             alt="MOH Logo" 
-             className={`mb-4 ${isCollapsed ? 'w-8' : 'w-32'}`} />
-        <img src="https://lean.sa/wp-content/uploads/2023/03/lean-business-solutions-1.png" 
-             alt="Lean Logo" 
-             className={`mb-4 ${isCollapsed ? 'w-8' : 'w-32'}`} />
-        {!isCollapsed && (
-          <>
-            <h1 className="text-xl font-bold mb-2 text-center">FHIR Interoperability</h1>
-            <p className="text-gray-400 text-sm text-center">Technical Presentation</p>
-          </>
-        )}
+    <nav className="fixed left-0 top-0 h-screen w-64 bg-gray-900 text-white p-4 overflow-y-auto">
+      <div className="mb-8">
+        <h1 className="text-xl font-bold mb-2">FHIR Interoperability</h1>
+        <p className="text-gray-400 text-sm">Technical Presentation</p>
       </div>
 
       <ul className="space-y-1">
@@ -51,7 +33,7 @@ const Navigation = () => {
               location.pathname === '/'
                 ? 'bg-blue-600 text-white'
                 : 'hover:bg-gray-800'
-            } ${isCollapsed ? 'text-center p-2' : ''}`}
+            }`}
           >
             Introduction
           </Link>
@@ -187,7 +169,7 @@ const App = () => {
     <Router>
       <div className="flex">
         <Navigation />
-        <main className={`${isCollapsed ? 'ml-16' : 'ml-64'} w-full transition-all duration-300`}>
+        <main className="ml-64 w-full">
           <Routes>
             <Route path="/" element={<Introduction />} />
             <Route path="/what-is-fhir" element={<WhatisFHIR />} />
