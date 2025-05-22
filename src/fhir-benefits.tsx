@@ -37,7 +37,7 @@ const FHIRBenefitsPage = () => {
   // Export functionality
   const exportPageContent = async () => {
     await exportToPdf('mainContent', 'FHIR-Benefits');
-
+  };
 
   return (
     <div id="mainContent" className="w-full min-h-screen bg-gray-50">
