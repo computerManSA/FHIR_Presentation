@@ -17,6 +17,26 @@ urlPath = "/"
 staticPath = "/assets"
 urlPath = "/assets"
 
+[[deployment.responseHeaders]]
+path = "/*.js"
+name = "Content-Type"
+value = "application/javascript"
+
+[[deployment.responseHeaders]]
+path = "/*.css"
+name = "Content-Type"
+value = "text/css"
+
+[[deployment.responseHeaders]]
+path = "/assets/*.js"
+name = "Content-Type"
+value = "application/javascript"
+
+[[deployment.responseHeaders]]
+path = "/assets/*.css"
+name = "Content-Type"
+value = "text/css"
+
 [[deployment.rewrites]]
 from = "/*"
 to = "/index.html"
