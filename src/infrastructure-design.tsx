@@ -20,11 +20,8 @@ import {
 } from "lucide-react";
 
 const InfrastructureDesign = () => {
-  const exportPageContent = () => {
-    const element = document.getElementById("mainContent");
-    if (element) {
-      exportToPdf(element, "Infrastructure_Design");
-    }
+  const exportPageContent = async () => {
+    await exportToPdf('mainContent', 'Infrastructure-Design');
   };
 
   const [selectedZone, setSelectedZone] = useState(null);

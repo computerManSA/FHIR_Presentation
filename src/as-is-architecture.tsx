@@ -26,11 +26,8 @@ const AsIsArchitecture = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [selectedLayer, setSelectedLayer] = useState(null);
 
-  const exportPageContent = () => {
-    const element = document.getElementById("mainContent");
-    if (element) {
-      exportToPdf(element, "Current_Architecture");
-    }
+  const exportPageContent = async () => {
+    await exportToPdf('mainContent', 'Current-Architecture');
   };
 
   // Modified component details for the As-Is architecture
@@ -862,7 +859,7 @@ const AsIsArchitecture = () => {
   );
 
   return (
-    <div className="w-full h-screen overflow-auto bg-gray-50 p-6"  id="mainContent">
+    <div className="w-full h-screen overflow-auto bg-gray-50 p-6">
       <header className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">
           Patient Profile (As-Is) Architecture
@@ -884,12 +881,6 @@ const AsIsArchitecture = () => {
             <span>Has Limitations</span>
           </div>
         </div>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={exportPageContent}
-        >
-          Export to PDF
-        </button>
       </header>
 
       <div className="space-y-6">

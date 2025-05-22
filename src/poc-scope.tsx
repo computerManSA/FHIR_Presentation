@@ -19,11 +19,8 @@ import { exportToPdf } from './utils/exportToPdf';
 import { Download } from "lucide-react";
 
 const FhirPocPage: React.FC = () => {
-  const exportPageContent = () => {
-    const element = document.getElementById("mainContent");
-    if (element) {
-      exportToPdf(element, "POC_Scope");
-    }
+  const exportPageContent = async () => {
+    await exportToPdf('mainContent', 'POC-Scope');
   };
 
   const [activeTab, setActiveTab] = useState('overview');
