@@ -145,7 +145,7 @@ Patient Experience Issues:
             <div>
               <h1 className="text-xl font-bold text-gray-800">FHIR Benefits</h1>
               <p className="text-xs text-gray-600">
-                Why FHIR is transforming healthcare interoperability
+                Understanding the value and impact of FHIR in healthcare
               </p>
             </div>
 
@@ -172,7 +172,7 @@ Patient Experience Issues:
               <button
                 key={id}
                 onClick={() => scrollToSection(id)}
-                className={`flex items-center px-3 py-2 rounded-lg whitespace-nowrap transition-all text-sm ${
+                className={`flex items-center whitespace-nowrap px-3 py-2 rounded-lg transition-all text-sm ${
                   activeSection === id
                     ? "bg-blue-600 text-white shadow-md"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
