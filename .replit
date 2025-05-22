@@ -39,8 +39,15 @@ externalPort = 3003
 [deployment]
 deploymentTarget = "static"
 publicDir = "dist"
-build = ["sh", "-c", "npm run build"]
-run = ["sh", "-c", "npm run preview"]
+buildCommand = "npm run build"
+
+[[deployment.rules]]
+staticPath = "/assets"
+urlPath = "/assets"
+
+[[deployment.rewrites]]
+from = "/*"
+to = "/index.html"
 
 [[deployment.rewrites]]
 from = "/*"
