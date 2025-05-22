@@ -66,9 +66,25 @@ const WhatIsFHIRPage = () => {
   const exportPageContent = async () => {
     await exportToPdf('mainContent', 'What-is-FHIR');
   };
+
+  const downloadMarkdown = () => {
+    const content = `
+# FHIR Overview
 - Built on modern web standards (HTTP, REST, JSON, XML)
 - Resource-oriented architecture focusing on common healthcare concepts
 - Human-readable representations alongside machine-processable data
+- Strong focus on implementation with robust reference implementations
+`;
+    const blob = new Blob([content], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "what-is-fhir-guide.md";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 - Strong focus on implementation with robust reference implementations
 - Evolutionary development based on real-world use cases
 
