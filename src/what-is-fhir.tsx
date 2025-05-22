@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { exportToPdf } from './utils/exportToPdf';
 import {
   Zap,
   Server,
@@ -60,9 +61,6 @@ const WhatIsFHIRPage = () => {
       });
     }
   };
-
-  // Import export utility
-  import { exportToPdf } from './utils/exportToPdf';
 
   // Export functionality
   const exportPageContent = async () => {

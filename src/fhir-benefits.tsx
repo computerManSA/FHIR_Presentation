@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-// Import export utility
 import { exportToPdf } from './utils/exportToPdf';
-
 import {
   Zap,
   TrendingUp,
