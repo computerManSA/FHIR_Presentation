@@ -8,8 +8,6 @@ channel = "stable-24_05"
 deploymentTarget = "static"
 publicDir = "dist"
 buildCommand = "npm run build"
-run = ["sh", "-c", "npx serve -s dist"]
-build = ["sh", "-c", "npm run build"]
 
 [[deployment.rules]]
 staticPath = "/assets"
@@ -25,15 +23,6 @@ to = "/index.html"
 
 [workflows]
 runButton = "Run"
-
-[[workflows.workflow]]
-name = "Run"
-author = 37176675
-mode = "sequential"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "npm run dev"
 
 [[ports]]
 localPort = 5000
