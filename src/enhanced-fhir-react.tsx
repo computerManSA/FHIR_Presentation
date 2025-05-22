@@ -1038,7 +1038,7 @@ const EnhancedFHIRArchitecture = () => {
         "FHIR processing with Keycloak+SMART authentication and format conversion",
       details:
         "Converts legacy formats to FHIR, validates compliance, and publishes notifications to FHIR topics (fhir.patient.*, fhir.encounter.*, etc.) for consumers.",
-        },
+    },
     {
       id: "sehhaty",
       name: "Enhanced Sehhaty Layer",
@@ -1418,10 +1418,6 @@ const EnhancedFHIRArchitecture = () => {
       };
       html2pdf.default().from(element).set(opt).save();
     });
-  };
-
-  const exportPageContent = async () => {
-    await exportToPdf('mainContent', 'Enhanced-FHIR-Architecture');
   };
 
   return (
