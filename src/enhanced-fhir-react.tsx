@@ -19,6 +19,7 @@ import {
   Network,
   Key,
   ArrowRight,
+  Download,
 } from "lucide-react";
 
 const EnhancedFHIRArchitecture = () => {
@@ -1038,8 +1039,7 @@ const EnhancedFHIRArchitecture = () => {
     },
     {
       id: "sehhaty",
-      name: "Enhanced Sehhaty Layer",
-      color: "bg-purple-50 border-purple-200",
+      name: "Enhanced Sehhaty Layer",      color: "bg-purple-50 border-purple-200",
       description:
         "Event-driven applications with notification+pull pattern and offline sync",
       details:
@@ -1403,8 +1403,46 @@ const EnhancedFHIRArchitecture = () => {
     </div>
   );
 
+  const exportPageContent = () => {
+    const element = document.getElementById("mainContent");
+    if (element) {
+      exportToPdf(element, "Enhanced_FHIR_Architecture");
+    }
+  };
+
+  const exportToPdf = (element, filename = '') => {
+    import('html2pdf.js').then(html2pdf => {
+      const opt = {
+        margin: 1,
+        filename: filename + '.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf.default().from(element).set(opt).save();
+    });
+  };
+
   return (
-    <div className="w-full h-screen overflow-auto bg-gray-50 p-6">
+    
+      <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm mb-4">
+        <div className="max-w-7xl mx-auto px-6 py-3">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-xl font-bold text-gray-800">Enhanced FHIR Architecture</h1>
+              <p className="text-xs text-gray-600">Detailed architecture design of the FHIR implementation</p>
+            </div>
+            <button
+              onClick={exportPageContent}
+              className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+            >
+              <Download size={14} className="mr-2" />
+              Export Guide
+            </button>
+          </div>
+        </div>
+      </div>
+
       <header className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">
           Enhanced FHIR Interoperability Architecture
@@ -1852,7 +1890,7 @@ const EnhancedFHIRArchitecture = () => {
       {selectedComponent && (
         <ComponentDetailModal componentId={selectedComponent} />
       )}
-    </div>
+    
   );
 };
 

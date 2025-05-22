@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { exportToPdf } from './utils/exportToPdf';
+import { Download } from "lucide-react";
 import {
   Shield,
   Server,
@@ -18,6 +20,10 @@ import {
 } from "lucide-react";
 
 const InfrastructureDesign = () => {
+  const exportPageContent = async () => {
+    await exportToPdf('mainContent', 'Infrastructure-Design');
+  };
+
   const [selectedZone, setSelectedZone] = useState(null);
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [expandedSections, setExpandedSections] = useState({

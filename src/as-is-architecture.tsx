@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { exportToPdf } from './utils/exportToPdf';
+import { Download } from "lucide-react";
 import {
   Shield,
   Eye,
@@ -23,6 +25,10 @@ import {
 const AsIsArchitecture = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [selectedLayer, setSelectedLayer] = useState(null);
+
+  const exportPageContent = async () => {
+    await exportToPdf('mainContent', 'Current-Architecture');
+  };
 
   // Modified component details for the As-Is architecture
   const componentDetails = {
