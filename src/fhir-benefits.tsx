@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Zap,
   TrendingUp,
@@ -17,9 +17,106 @@ import {
   RefreshCw,
   BarChart,
   Lock,
+  Download,
+  CheckCircle,
 } from "lucide-react";
 
 const FHIRBenefitsPage = () => {
+  const [activeSection, setActiveSection] = useState("overview");
+
+  // Function to scroll to section
+  const scrollToSection = (sectionId) => {
+    setActiveSection(sectionId);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Export functionality
+  const exportPageContent = () => {
+    const content = `
+FHIR Benefits and Value Report
+Generated on: ${new Date().toLocaleDateString()}
+
+=== CORE FHIR BENEFITS ===
+
+1. Modern Web Standards
+   - Built on familiar web technologies (HTTP, REST, JSON, OAuth)
+   - Reduced development time and costs
+   - Vast ecosystem of tools and libraries
+   - Accelerated innovation cycle
+
+2. Real-Time Interoperability
+   - Real-time data exchange through RESTful APIs
+   - Timely clinical decision support
+   - Enhanced care coordination
+   - Improved patient experience
+
+3. Implementation Focus
+   - Designed with practical implementation in mind
+   - Faster time to market
+   - Lower implementation costs
+   - Robust reference implementations
+
+=== STAKEHOLDER BENEFITS ===
+
+For Patients:
+- Comprehensive health records in one place
+- Real-time access to test results
+- Better care coordination
+- Improved digital healthcare experience
+
+For Healthcare Providers:
+- Complete patient context at point of care
+- Efficient workflows
+- Reduced errors
+- Innovative applications
+
+For Healthcare Systems:
+- Integration efficiency
+- Regulatory compliance
+- Data analytics capabilities
+- Future-proof architecture
+
+=== BUSINESS VALUE ===
+
+Key Performance Indicators:
+- Integration Development Time: 40-60% reduction
+- Integration Maintenance Costs: 30-50% reduction
+- Data Freshness: From hours to seconds
+- API Response Time: <200ms for 95th percentile
+
+=== ADDRESSING CURRENT CHALLENGES ===
+
+Data Freshness Issues:
+- Problem: Batch-oriented ETL creates delays
+- FHIR Solution: Real-time API access with event-driven patterns
+
+Scalability Limitations:
+- Problem: Point-to-point integrations don't scale
+- FHIR Solution: Standardized APIs with linear scaling
+
+Maintainability Challenges:
+- Problem: Custom interfaces require heavy maintenance
+- FHIR Solution: Standard resources reduce custom code
+
+Patient Experience Issues:
+- Problem: Notifications arrive before data availability
+- FHIR Solution: Event-driven notifications ensure data availability
+`;
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'FHIR_Benefits_Report.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="w-full min-h-screen bg-gray-50 p-6">
       <header className="text-center mb-12">
@@ -30,10 +127,232 @@ const FHIRBenefitsPage = () => {
           Why FHIR is transforming healthcare interoperability and delivering
           value across the ecosystem
         </p>
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={exportPageContent}
+            className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <Download size={20} className="mr-2" />
+            Export Report
+          </button>
+        </div>
       </header>
 
+      {/* Navigation Tabs */}
+      <div className="flex flex-wrap justify-center mb-8 gap-2">
+        <button
+          onClick={() => scrollToSection("overview")}
+          className={`px-4 py-2 rounded-full ${activeSection === "overview" ? "bg-blue-500 text-white" : "bg-white text-gray-700 hover:bg-gray-100"}`}
+        >
+          Overview
+        </button>
+        <button
+          onClick={() => scrollToSection("core-benefits")}
+          className={`px-4 py-2 rounded-full ${activeSection === "core-benefits" ? "bg-blue-500 text-white" : "bg-white text-gray-700 hover:bg-gray-100"}`}
+        >
+          Core Benefits
+        </button>
+        <button
+          onClick={() => scrollToSection("stakeholder-benefits")}
+          className={`px-4 py-2 rounded-full ${activeSection === "stakeholder-benefits" ? "bg-blue-500 text-white" : "bg-white text-gray-700 hover:bg-gray-100"}`}
+        >
+          Stakeholder Benefits
+        </button>
+        <button
+          onClick={() => scrollToSection("business-value")}
+          className={`px-4 py-2 rounded-full ${activeSection === "business-value" ? "bg-blue-500 text-white" : "bg-white text-gray-700 hover:bg-gray-100"}`}
+        >
+          Business Value
+        </button>
+        <button
+          onClick={() => scrollToSection("current-challenges")}
+          className={`px-4 py-2 rounded-full ${activeSection === "current-challenges" ? "bg-blue-500 text-white" : "bg-white text-gray-700 hover:bg-gray-100"}`}
+        >
+          Addressing Challenges
+        </button>
+      </div>
+
+      {/* Overview Section */}
+      <section id="overview" className="mb-12">
+        <div className="bg-white rounded-lg shadow-md p-8">
+          <div className="flex items-center mb-6">
+            <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+              <Zap className="text-blue-600" size={24} />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800">FHIR Overview</h2>
+          </div>
+
+          <div className="prose max-w-none">
+            <p className="text-gray-700 leading-relaxed mb-4 text-lg">
+              Fast Healthcare Interoperability Resources (FHIR, pronounced
+              "fire") is a next-generation standards framework created by HL7
+              International. FHIR combines the best features of previous
+              healthcare standards while leveraging current web technologies to
+              address the challenges of healthcare information exchange.
+            </p>
+
+            <div className="grid md:grid-cols-1 gap-6 mb-6">
+              <div className="bg-blue-50 p-5 rounded-lg border border-blue-100">
+                <h3 className="font-semibold text-lg mb-3 text-blue-800">
+                  Key Characteristics
+                </h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start">
+                      <Check
+                        size={18}
+                        className="text-blue-500 mr-2 flex-shrink-0 mt-0.5"
+                      />
+                      <span>
+                        Built on modern web standards (HTTP, REST, JSON, XML)
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check
+                        size={18}
+                        className="text-blue-500 mr-2 flex-shrink-0 mt-0.5"
+                      />
+                      <span>
+                        Resource-oriented architecture focusing on common
+                        healthcare concepts
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check
+                        size={18}
+                        className="text-blue-500 mr-2 flex-shrink-0 mt-0.5"
+                      />
+                      <span>
+                        Human-readable representations alongside
+                        machine-processable data
+                      </span>
+                    </li>
+                  </ul>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start">
+                      <Check
+                        size={18}
+                        className="text-blue-500 mr-2 flex-shrink-0 mt-0.5"
+                      />
+                      <span>
+                        Strong focus on implementation with robust reference
+                        implementations
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check
+                        size={18}
+                        className="text-blue-500 mr-2 flex-shrink-0 mt-0.5"
+                      />
+                      <span>
+                        Evolutionary development based on real-world use cases
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-50 p-5 rounded-lg border mb-6">
+              <h3 className="font-semibold text-lg mb-3 text-gray-800">
+                FHIR vs. Legacy Standards
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-300">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Feature
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        HL7 v2
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        HL7 v3/CDA
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        FHIR
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200 bg-white">
+                    <tr>
+                      <td className="px-4 py-3 text-sm font-medium text-gray-900">
+                        Technology Base
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-700">
+                        Pipe-delimited text
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-700">
+                        XML, RIM-based
+                      </td>
+                      <td className="px-4 py-3 text-sm text-green-700 font-semibold">
+                        REST, JSON, XML, RDF
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="px-4 py-3 text-sm font-medium text-gray-900">
+                        Implementation Complexity
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-700">
+                        Medium
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-700">High</td>
+                      <td className="px-4 py-3 text-sm text-green-700 font-semibold">Low</td>
+                    </tr>
+                    <tr>
+                      <td className="px-4 py-3 text-sm font-medium text-gray-900">
+                        Web Developer Familiarity
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-700">Low</td>
+                      <td className="px-4 py-3 text-sm text-gray-700">Low</td>
+                      <td className="px-4 py-3 text-sm text-green-700 font-semibold">High</td>
+                    </tr>
+                    <tr>
+                      <td className="px-4 py-3 text-sm font-medium text-gray-900">
+                        Real-time Capability
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-700">
+                        Limited
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-700">
+                        Limited
+                      </td>
+                      <td className="px-4 py-3 text-sm text-green-700 font-semibold">
+                        Strong
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="bg-orange-50 p-5 rounded-lg border border-orange-100">
+              <h3 className="font-semibold text-lg mb-3 text-orange-800">
+                Why FHIR Matters
+              </h3>
+              <p className="text-gray-700 mb-3">
+                FHIR addresses the fundamental challenges of healthcare
+                interoperability by combining the technical strengths of
+                previous standards with modern web development approaches. This
+                makes it significantly easier to implement and reduces the
+                barriers to meaningful healthcare data exchange.
+              </p>
+              <p className="text-gray-700">
+                The standard's focus on developer experience, practical use
+                cases, and real-world implementation has led to rapid adoption
+                globally. Major platforms including Apple Health, Google Cloud
+                Healthcare API, and Microsoft Azure API for FHIR have embraced
+                the standard, creating a growing ecosystem of interoperable
+                healthcare solutions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Core Benefits Section */}
-      <section className="mb-12">
+      <section id="core-benefits" className="mb-12">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="flex items-center mb-6">
             <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
@@ -44,7 +363,7 @@ const FHIRBenefitsPage = () => {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 flex flex-col">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
@@ -187,7 +506,7 @@ const FHIRBenefitsPage = () => {
             </div>
           </div>
 
-          <div className="mt-8 grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-100 flex flex-col">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
@@ -333,7 +652,7 @@ const FHIRBenefitsPage = () => {
       </section>
 
       {/* Stakeholder Benefits Section */}
-      <section className="mb-12">
+      <section id="stakeholder-benefits" className="mb-12">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="flex items-center mb-6">
             <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
@@ -344,7 +663,7 @@ const FHIRBenefitsPage = () => {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
             <div className="bg-green-50 p-6 rounded-lg border border-green-100">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
@@ -356,7 +675,7 @@ const FHIRBenefitsPage = () => {
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     <ChevronRight size={14} className="text-green-600" />
                   </div>
                   <div>
@@ -371,7 +690,7 @@ const FHIRBenefitsPage = () => {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     <ChevronRight size={14} className="text-green-600" />
                   </div>
                   <div>
@@ -386,7 +705,7 @@ const FHIRBenefitsPage = () => {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     <ChevronRight size={14} className="text-green-600" />
                   </div>
                   <div>
@@ -400,25 +719,10 @@ const FHIRBenefitsPage = () => {
                     </p>
                   </div>
                 </li>
-                <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
-                    <ChevronRight size={14} className="text-green-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-800">
-                      Improved Digital Experience
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      Consumer-friendly health apps with seamless data exchange,
-                      providing personalized insights and facilitating patient
-                      engagement.
-                    </p>
-                  </div>
-                </li>
               </ul>
             </div>
 
-            <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
+                          <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
                   <Users className="text-blue-600" size={20} />
@@ -429,7 +733,7 @@ const FHIRBenefitsPage = () => {
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     <ChevronRight size={14} className="text-blue-600" />
                   </div>
                   <div>
@@ -444,7 +748,7 @@ const FHIRBenefitsPage = () => {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     <ChevronRight size={14} className="text-blue-600" />
                   </div>
                   <div>
@@ -459,7 +763,7 @@ const FHIRBenefitsPage = () => {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     <ChevronRight size={14} className="text-blue-600" />
                   </div>
                   <div>
@@ -473,26 +777,11 @@ const FHIRBenefitsPage = () => {
                     </p>
                   </div>
                 </li>
-                <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
-                    <ChevronRight size={14} className="text-blue-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-800">
-                      Innovative Applications
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      Easier integration of specialized clinical apps and
-                      decision support tools directly into workflow through
-                      standardized FHIR APIs.
-                    </p>
-                  </div>
-                </li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-8 grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-purple-50 p-6 rounded-lg border border-purple-100">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
@@ -504,7 +793,7 @@ const FHIRBenefitsPage = () => {
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     <ChevronRight size={14} className="text-purple-600" />
                   </div>
                   <div>
@@ -519,37 +808,7 @@ const FHIRBenefitsPage = () => {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
-                    <ChevronRight size={14} className="text-purple-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-800">
-                      Regulatory Compliance
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      Alignment with emerging regulations that mandate
-                      interoperability and patient access to data, reducing
-                      compliance risk and effort.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
-                    <ChevronRight size={14} className="text-purple-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-800">
-                      Data Analytics Capabilities
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      Enhanced ability to gather and analyze data across the
-                      enterprise for quality improvement, population health, and
-                      operational optimization.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     <ChevronRight size={14} className="text-purple-600" />
                   </div>
                   <div>
@@ -577,7 +836,7 @@ const FHIRBenefitsPage = () => {
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     <ChevronRight size={14} className="text-yellow-600" />
                   </div>
                   <div>
@@ -592,7 +851,7 @@ const FHIRBenefitsPage = () => {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     <ChevronRight size={14} className="text-yellow-600" />
                   </div>
                   <div>
@@ -606,36 +865,6 @@ const FHIRBenefitsPage = () => {
                     </p>
                   </div>
                 </li>
-                <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
-                    <ChevronRight size={14} className="text-yellow-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-800">
-                      Data for Research & Public Health
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      Standardized data exchange facilitates clinical research,
-                      public health surveillance, and population health
-                      initiatives.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
-                    <ChevronRight size={14} className="text-yellow-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-800">
-                      Value-Based Care Support
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      Improved data sharing enables better coordination and
-                      outcomes measurement for value-based care models and
-                      alternative payment approaches.
-                    </p>
-                  </div>
-                </li>
               </ul>
             </div>
           </div>
@@ -643,7 +872,7 @@ const FHIRBenefitsPage = () => {
       </section>
 
       {/* Business Value Section */}
-      <section className="mb-12">
+      <section id="business-value" className="mb-12">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="flex items-center mb-6">
             <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
@@ -654,57 +883,71 @@ const FHIRBenefitsPage = () => {
             </h2>
           </div>
 
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
-              Key Performance Indicators Enhanced by FHIR
-            </h3>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-300">
-                <thead>
-                  <tr className="bg-gray-100">
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Category
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Metric
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Typical Improvement
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      Technical
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                      Integration Development Time
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">
-                      40-60% reduction
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      Technical
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                      Integration Maintenance Costs
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">
-                      30-50% reduction
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-lg border border-green-200">
+              <h3 className="text-xl font-semibold text-green-800 mb-4">
+                Performance Improvements
+              </h3>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center p-3 bg-white rounded border">
+                  <span className="font-medium">Data Freshness</span>
+                  <span className="text-green-600 font-bold">Hours → Seconds</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-white rounded border">
+                  <span className="font-medium">Integration Dev Time</span>
+                  <span className="text-green-600 font-bold">40-60% Reduction</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-white rounded border">
+                  <span className="font-medium">API Response Time</span>
+                  <span className="text-green-600 font-bold">&lt;200ms (95th %ile)</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-white rounded border">
+                  <span className="font-medium">Maintenance Costs</span>
+                  <span className="text-green-600 font-bold">30-50% Reduction</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
+              <h3 className="text-xl font-semibold text-blue-800 mb-4">
+                Implementation Benefits
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-3 mt-1">
+                    <Check size={14} className="text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-blue-800">Faster Time to Market</h4>
+                    <p className="text-sm text-gray-600">Standard APIs reduce development cycles from months to weeks</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-3 mt-1">
+                    <Check size={14} className="text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-blue-800">Lower Implementation Risk</h4>
+                    <p className="text-sm text-gray-600">Proven standards with extensive documentation and community support</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-3 mt-1">
+                    <Check size={14} className="text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-blue-800">Scalable Growth</h4>
+                    <p className="text-sm text-gray-600">Linear scaling with new systems vs exponential complexity</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Addressing Current Challenges Section */}
-      <section className="mb-12">
+      {/* Current Challenges Section */}
+      <section id="current-challenges" className="mb-12">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="flex items-center mb-6">
             <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mr-4">
@@ -715,155 +958,150 @@ const FHIRBenefitsPage = () => {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <div className="flex items-center mb-4">
-                <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
-                  <Clock className="text-red-600" size={16} />
+          <div className="space-y-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <div className="flex items-center mb-4">
+                  <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                    <Clock className="text-red-600" size={16} />
+                  </div>
+                  <h3 className="font-semibold text-xl text-gray-800">
+                    Data Freshness Issues
+                  </h3>
                 </div>
-                <h3 className="font-semibold text-lg text-gray-800">
-                  Data Freshness Issues
-                </h3>
+                <div className="bg-red-50 p-4 rounded-lg border border-red-200 mb-3">
+                  <h4 className="font-medium text-red-800 mb-2">
+                    Current Challenge
+                  </h4>
+                  <p className="text-sm text-gray-700">
+                    Batch-oriented data exchange and ETL processes create
+                    significant delays between data creation and availability,
+                    leading to poor user experience and outdated information for
+                    clinical decisions.
+                  </p>
+                </div>
+                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                  <h4 className="font-medium text-green-800 mb-2">
+                    FHIR Solution
+                  </h4>
+                  <p className="text-sm text-gray-700">
+                    FHIR's RESTful API design enables real-time data access, while
+                    its resource-based architecture and event-driven patterns
+                    support immediate notification of changes and on-demand data
+                    retrieval.
+                  </p>
+                </div>
               </div>
-              <div className="bg-gray-50 p-4 rounded-lg border mb-2">
-                <h4 className="font-medium text-red-800 mb-2">
-                  Current Challenge
-                </h4>
-                <p className="text-sm text-gray-700">
-                  Batch-oriented data exchange and ETL processes create
-                  significant delays between data creation and availability,
-                  leading to poor user experience and outdated information for
-                  clinical decisions.
-                </p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg border">
-                <h4 className="font-medium text-green-800 mb-2">
-                  FHIR Solution
-                </h4>
-                <p className="text-sm text-gray-700 mb-3">
-                  FHIR's RESTful API design enables real-time data access, while
-                  its resource-based architecture and event-driven patterns
-                  support immediate notification of changes and on-demand data
-                  retrieval.
-                </p>
-                <p className="text-sm text-gray-700">
-                  The notification+pull pattern allows systems to be alerted to
-                  changes while retrieving only the specific data they need,
-                  optimizing both freshness and efficiency.
-                </p>
+
+              <div>
+                <div className="flex items-center mb-4">
+                  <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                    <TrendingUp className="text-red-600" size={16} />
+                  </div>
+                  <h3 className="font-semibold text-xl text-gray-800">
+                    Scalability Limitations
+                  </h3>
+                </div>
+                <div className="bg-red-50 p-4 rounded-lg border border-red-200 mb-3">
+                  <h4 className="font-medium text-red-800 mb-2">
+                    Current Challenge
+                  </h4>
+                  <p className="text-sm text-gray-700">
+                    Traditional point-to-point integration patterns create a
+                    complex web of connections that becomes increasingly difficult
+                    to maintain and extend as the number of systems grows.
+                  </p>
+                </div>
+                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                  <h4 className="font-medium text-green-800 mb-2">
+                    FHIR Solution
+                  </h4>
+                  <p className="text-sm text-gray-700">
+                    FHIR's standardized RESTful APIs and resource models create a
+                    consistent interface pattern that scales linearly rather than
+                    exponentially as new systems are added.
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div>
-              <div className="flex items-center mb-4">
-                <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
-                  <TrendingUp className="text-red-600" size={16} />
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <div className="flex items-center mb-4">
+                  <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                    <PenToolIcon className="text-red-600" size={16} />
+                  </div>
+                  <h3 className="font-semibold text-xl text-gray-800">
+                    Maintainability Challenges
+                  </h3>
                 </div>
-                <h3 className="font-semibold text-lg text-gray-800">
-                  Scalability Limitations
-                </h3>
+                <div className="bg-red-50 p-4 rounded-lg border border-red-200 mb-3">
+                  <h4 className="font-medium text-red-800 mb-2">
+                    Current Challenge
+                  </h4>
+                  <p className="text-sm text-gray-700">
+                    Custom interfaces, proprietary data formats, and complex ETL
+                    processes create a maintenance burden that consumes IT
+                    resources and slows innovation.
+                  </p>
+                </div>
+                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                  <h4 className="font-medium text-green-800 mb-2">
+                    FHIR Solution
+                  </h4>
+                  <p className="text-sm text-gray-700">
+                    FHIR's standardized resources and interfaces reduce custom
+                    code, while its modular design allows components to be updated
+                    independently without affecting the entire system.
+                  </p>
+                </div>
               </div>
-              <div className="bg-gray-50 p-4 rounded-lg border mb-2">
-                <h4 className="font-medium text-red-800 mb-2">
-                  Current Challenge
-                </h4>
-                <p className="text-sm text-gray-700">
-                  Traditional point-to-point integration patterns create a
-                  complex web of connections that becomes increasingly difficult
-                  to maintain and extend as the number of systems grows.
-                </p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg border">
-                <h4 className="font-medium text-green-800 mb-2">
-                  FHIR Solution
-                </h4>
-                <p className="text-sm text-gray-700 mb-3">
-                  FHIR's standardized RESTful APIs and resource models create a
-                  consistent interface pattern that scales linearly rather than
-                  exponentially as new systems are added.
-                </p>
-                <p className="text-sm text-gray-700">
-                  Event-driven architectures using FHIR enable loose coupling
-                  between systems, while cloud-based FHIR servers provide
-                  elastic scaling for growing data volumes and user bases.
-                </p>
+
+              <div>
+                <div className="flex items-center mb-4">
+                  <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                    <Users className="text-red-600" size={16} />
+                  </div>
+                  <h3 className="font-semibold text-xl text-gray-800">
+                    Patient Experience Issues
+                  </h3>
+                </div>
+                <div className="bg-red-50 p-4 rounded-lg border border-red-200 mb-3">
+                  <h4 className="font-medium text-red-800 mb-2">
+                    Current Challenge
+                  </h4>
+                  <p className="text-sm text-gray-700">
+                    Patients receive notifications about new health data but
+                    experience frustration when that data isn't immediately
+                    available in their health apps or patient portals.
+                  </p>
+                </div>
+                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                  <h4 className="font-medium text-green-800 mb-2">
+                    FHIR Solution
+                  </h4>
+                  <p className="text-sm text-gray-700">
+                    FHIR's event-driven notification patterns ensure that patients
+                    are only notified when data is actually available for viewing,
+                    eliminating the frustrating gap between notification and
+                    access.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-8 grid md:grid-cols-2 gap-8">
-            <div>
-              <div className="flex items-center mb-4">
-                <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
-                  <PenToolIcon className="text-red-600" size={16} />
-                </div>
-                <h3 className="font-semibold text-lg text-gray-800">
-                  Maintainability Challenges
-                </h3>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg border mb-2">
-                <h4 className="font-medium text-red-800 mb-2">
-                  Current Challenge
-                </h4>
-                <p className="text-sm text-gray-700">
-                  Custom interfaces, proprietary data formats, and complex ETL
-                  processes create a maintenance burden that consumes IT
-                  resources and slows innovation.
-                </p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg border">
-                <h4 className="font-medium text-green-800 mb-2">
-                  FHIR Solution
-                </h4>
-                <p className="text-sm text-gray-700 mb-3">
-                  FHIR's standardized resources and interfaces reduce custom
-                  code, while its modular design allows components to be updated
-                  independently without affecting the entire system.
-                </p>
-                <p className="text-sm text-gray-700">
-                  The extensive FHIR ecosystem provides ready-made tools,
-                  libraries, and reference implementations that reduce
-                  development effort and improve maintainability.
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center mb-4">
-                <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
-                  <Users className="text-red-600" size={16} />
-                </div>
-                <h3 className="font-semibold text-lg text-gray-800">
-                  Patient Experience Issues
-                </h3>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg border mb-2">
-                <h4 className="font-medium text-red-800 mb-2">
-                  Current Challenge
-                </h4>
-                <p className="text-sm text-gray-700">
-                  Patients receive notifications about new health data but
-                  experience frustration when that data isn't immediately
-                  available in their health apps or patient portals.
-                </p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg border">
-                <h4 className="font-medium text-green-800 mb-2">
-                  FHIR Solution
-                </h4>
-                <p className="text-sm text-gray-700 mb-3">
-                  FHIR's event-driven notification patterns ensure that patients
-                  are only notified when data is actually available for viewing,
-                  eliminating the frustrating gap between notification and
-                  access.
-                </p>
-                <p className="text-sm text-gray-700">
-                  SMART on FHIR app capabilities allow patients to access their
-                  data through a rich ecosystem of applications tailored to
-                  their specific needs and preferences.
-                </p>
-              </div>
-            </div>
+          <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
+            <h3 className="text-xl font-semibold text-green-800 mb-3">
+              The Bottom Line
+            </h3>
+            <p className="text-gray-700 text-lg">
+              FHIR directly solves the critical issues in our current architecture: 
+              <strong className="text-green-700"> data freshness problems disappear</strong> with real-time APIs, 
+              <strong className="text-blue-700"> scalability issues resolve</strong> through standardized interfaces, and 
+              <strong className="text-purple-700"> maintenance overhead drops significantly</strong> with proven standards. 
+              This isn't just theory—these are measurable improvements that directly impact patient care and operational efficiency.
+            </p>
           </div>
         </div>
       </section>
