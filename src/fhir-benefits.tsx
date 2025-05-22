@@ -138,38 +138,52 @@ Patient Experience Issues:
         </div>
       </header>
 
-      {/* Navigation Tabs */}
-      <div className="flex flex-wrap justify-center mb-8 gap-2">
-        <button
-          onClick={() => scrollToSection("overview")}
-          className={`px-4 py-2 rounded-full ${activeSection === "overview" ? "bg-blue-500 text-white" : "bg-white text-gray-700 hover:bg-gray-100"}`}
-        >
-          Overview
-        </button>
-        <button
-          onClick={() => scrollToSection("core-benefits")}
-          className={`px-4 py-2 rounded-full ${activeSection === "core-benefits" ? "bg-blue-500 text-white" : "bg-white text-gray-700 hover:bg-gray-100"}`}
-        >
-          Core Benefits
-        </button>
-        <button
-          onClick={() => scrollToSection("stakeholder-benefits")}
-          className={`px-4 py-2 rounded-full ${activeSection === "stakeholder-benefits" ? "bg-blue-500 text-white" : "bg-white text-gray-700 hover:bg-gray-100"}`}
-        >
-          Stakeholder Benefits
-        </button>
-        <button
-          onClick={() => scrollToSection("business-value")}
-          className={`px-4 py-2 rounded-full ${activeSection === "business-value" ? "bg-blue-500 text-white" : "bg-white text-gray-700 hover:bg-gray-100"}`}
-        >
-          Business Value
-        </button>
-        <button
-          onClick={() => scrollToSection("current-challenges")}
-          className={`px-4 py-2 rounded-full ${activeSection === "current-challenges" ? "bg-blue-500 text-white" : "bg-white text-gray-700 hover:bg-gray-100"}`}
-        >
-          Addressing Challenges
-        </button>
+      {/* Sticky Header */}
+      <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-3">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-xl font-bold text-gray-800">FHIR Benefits</h1>
+              <p className="text-xs text-gray-600">
+                Why FHIR is transforming healthcare interoperability
+              </p>
+            </div>
+
+            <button
+              onClick={exportPageContent}
+              className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+            >
+              <Download size={14} className="mr-2" />
+              Export Guide
+            </button>
+          </div>
+        </div>
+
+        {/* Sticky Navigation Tabs */}
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex space-x-1 overflow-x-auto py-2">
+            {[
+              { id: "overview", label: "Overview", icon: Zap },
+              { id: "core-benefits", label: "Core Benefits", icon: TrendingUp },
+              { id: "stakeholder-benefits", label: "Stakeholder Benefits", icon: Users },
+              { id: "business-value", label: "Business Value", icon: BarChart },
+              { id: "current-challenges", label: "Addressing Challenges", icon: Activity },
+            ].map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                onClick={() => scrollToSection(id)}
+                className={`flex items-center px-3 py-2 rounded-lg whitespace-nowrap transition-all text-sm ${
+                  activeSection === id
+                    ? "bg-blue-600 text-white shadow-md"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                <Icon size={14} className="mr-2" />
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Overview Section */}
