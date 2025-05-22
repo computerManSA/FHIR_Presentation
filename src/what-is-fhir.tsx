@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { exportToPdf } from './utils/exportToPdf';
+import { exportToPdf } from "./utils/exportToPdf";
 import {
   Zap,
   Server,
@@ -64,77 +64,7 @@ const WhatIsFHIRPage = () => {
 
   // Export functionality
   const exportPageContent = async () => {
-    await exportToPdf('mainContent', 'What-is-FHIR');
-  };
-
-  const downloadMarkdown = () => {
-    const content = `
-# FHIR Overview
-- Built on modern web standards (HTTP, REST, JSON, XML)
-- Resource-oriented architecture focusing on common healthcare concepts
-- Human-readable representations alongside machine-processable data
-- Strong focus on implementation with robust reference implementations
-`;
-    const blob = new Blob([content], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "what-is-fhir-guide.md";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-- Strong focus on implementation with robust reference implementations
-- Evolutionary development based on real-world use cases
-
-## Core Concepts
-### Resources
-The fundamental building blocks of FHIR are Resources - modular, clearly defined packages of healthcare information.
-
-### References
-FHIR resources can reference each other, creating a web of interconnected healthcare information.
-
-### Extensions
-FHIR's extension mechanism addresses healthcare's need for both standardization and customization.
-
-### Profiles & Implementation Guides
-Profiles constrain FHIR resources for specific use cases. Implementation Guides provide comprehensive guidance.
-
-## FHIR vs Legacy Standards
-| Feature | HL7 v2 | HL7 v3/CDA | FHIR |
-|---------|---------|------------|------|
-| Technology Base | Pipe-delimited text | XML, RIM-based | REST, JSON, XML, RDF |
-| Implementation Complexity | Medium | High | Low |
-| Web Developer Familiarity | Low | Low | High |
-| Human Readability | Poor | Moderate | Good |
-| Real-time Capability | Limited | Limited | Strong |
-
-## RESTful API Operations
-- **Read:** GET /[type]/[id]
-- **Create:** POST /[type]
-- **Update:** PUT /[type]/[id]
-- **Delete:** DELETE /[type]/[id]
-- **Search:** GET /[type]?[parameters]
-
-## Extended Operations
-- $everything: Retrieves all resources related to a patient
-- $validate: Validates resources against profiles
-- $expand: Expands ValueSets to retrieve codes
-- $meta-operations: Manages resource metadata
-
-Generated on: ${new Date().toLocaleString()}
-    `;
-
-    const blob = new Blob([content], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "what-is-fhir-guide.md";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    await exportToPdf("mainContent", "What-is-FHIR");
   };
 
   return (
