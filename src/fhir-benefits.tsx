@@ -33,11 +33,12 @@ const FHIRBenefitsPage = () => {
     }
   };
 
+  // Import export utility
+  import { exportToPdf } from './utils/exportToPdf';
+
   // Export functionality
-  const exportPageContent = () => {
-    const content = `
-FHIR Benefits and Value Report
-Generated on: ${new Date().toLocaleDateString()}
+  const exportPageContent = async () => {
+    await exportToPdf('mainContent', 'FHIR-Benefits');
 
 === CORE FHIR BENEFITS ===
 
@@ -118,7 +119,7 @@ Patient Experience Issues:
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50">
+    <div id="mainContent" className="w-full min-h-screen bg-gray-50">
       {/* Sticky Header */}
       <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-3">
