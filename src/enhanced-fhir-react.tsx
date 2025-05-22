@@ -1119,15 +1119,7 @@ const EnhancedFHIRArchitecture = () => {
 
     return (
       <div
-        className={`
-          relative p-3 rounded-lg border-2 ${disableInteraction ? "" : "cursor-pointer hover:shadow-lg hover:scale-105"} 
-          transition-all duration-200
-          ${
-            isEnhanced
-              ? "bg-gradient-to-r from-orange-100 to-yellow-100 border-orange-300 shadow-md"
-              : "bg-white border-gray-300"
-          }
-        `}
+        className={'relative p-3 rounded-lg border-2 ${disableInteraction ? "" : "cursor-pointer hover:shadow-lg hover:scale-105"}  transition-all duration-200 ${ isEnhanced ? "bg-gradient-to-r from-orange-100 to-yellow-100 border-orange-300 shadow-md" : "bg-white border-gray-300" }'}
         onClick={() => (disableInteraction ? null : setSelectedComponent(id))}
       >
         <div className="flex items-center justify-center mb-2">
@@ -1424,8 +1416,7 @@ const EnhancedFHIRArchitecture = () => {
   };
 
   return (
-    
-      <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm mb-4">
+          <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm mb-4">
         <div className="max-w-7xl mx-auto px-6 py-3">
           <div className="flex justify-between items-center">
             <div>
@@ -1448,7 +1439,7 @@ const EnhancedFHIRArchitecture = () => {
           Enhanced FHIR Interoperability Architecture
         </h1>
         <p className="text-gray-600 mb-4">
-          Event-Driven Architecture with Keycloak+SMART Authentication
+          Event-Driven Architecture with Keycloak _ SMART Authentication
         </p>
         <div className="flex justify-center space-x-6 text-sm mb-4">
           <div className="flex items-center">
