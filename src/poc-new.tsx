@@ -60,7 +60,7 @@ const PocScopePage = () => {
       "Using sample/synthetic data",
       "Focused on key workflow patterns (not all possible use cases)",
       "Utilizing available infrastructure with minimal new hardware procurement",
-      "Timeboxed to 8 weeks for completion",
+      "Timeboxed to 8 Steps for completion",
     ],
     success: [
       "End-to-end flow demonstrated from NPHIES to Sehhaty frontend",
@@ -94,22 +94,17 @@ const PocScopePage = () => {
     technical: [
       {
         role: "NPHIES Integration Engineer",
-        skills: "HL7v2, CDA, NPHIES system knowledge",
+        skills: "NPHIES system knowledge",
         allocation: "50%",
       },
       {
-        role: "FHIR Developer",
-        skills: "HAPI FHIR, Java, data modeling",
+        role: "BE Developer",
+        skills: ".Net, FHIR, MSSQL",
         allocation: "100%",
       },
       {
-        role: "Streaming Platform Engineer",
-        skills: "Kafka/Redpanda, event streaming",
-        allocation: "75%",
-      },
-      {
-        role: "Sehhaty App Developer",
-        skills: "React Native, FHIR client development",
+        role: "Integration Engineer",
+        skills: "Kafka/Redpanda, event streaming, APIGEE, Object Storage",
         allocation: "75%",
       },
       {
@@ -122,14 +117,19 @@ const PocScopePage = () => {
         skills: "Kubernetes, CI/CD, infrastructure automation",
         allocation: "50%",
       },
+      {
+        role: "Quality Engineer",
+        skills: "FHIR",
+        allocation: "100%",
+      },
     ],
     stakeholders: [
       {
-        role: "NPHIES Representative",
+        role: "NPHIES Technical Director",
         responsibility: "Ensure NPHIES integration approach meets requirements",
       },
       {
-        role: "Sehhaty Product Owner",
+        role: "Sehhaty Technical Director",
         responsibility: "Validate frontend functionality and user experience",
       },
       {
@@ -1150,11 +1150,11 @@ const PocScopePage = () => {
   // Timeline based on dependencies
   const timelineData = [
     {
-      week: "Week 1",
+      Step: "Step 1",
       tasks: ["infra-1", "nphies-1", "nphies-3", "test-1"],
     },
     {
-      week: "Week 2",
+      Step: "Step 2",
       tasks: [
         "infra-2",
         "infra-3",
@@ -1167,27 +1167,27 @@ const PocScopePage = () => {
       ],
     },
     {
-      week: "Week 3",
+      Step: "Step 3",
       tasks: ["int-3", "int-4", "fhir-1", "sec-1", "sec-3"],
     },
     {
-      week: "Week 4",
+      Step: "Step 4",
       tasks: ["fhir-2", "fhir-3", "fhir-4", "sec-2", "sec-4"],
     },
     {
-      week: "Week 5",
+      Step: "Step 5",
       tasks: ["sehhaty-1", "sehhaty-2"],
     },
     {
-      week: "Week 6",
+      Step: "Step 6",
       tasks: ["sehhaty-3"],
     },
     {
-      week: "Week 7",
+      Step: "Step 7",
       tasks: ["sehhaty-4", "test-3", "test-4"],
     },
     {
-      week: "Week 8",
+      Step: "Step 8",
       tasks: ["test-5"],
     },
   ];
@@ -1207,18 +1207,18 @@ const PocScopePage = () => {
         {/* Timeline entries */}
         {timelineData.map((period, index) => (
           <div key={index} className="relative mb-10">
-            {/* Week marker */}
+            {/* Step marker */}
             <div className="absolute left-24 -ml-3 mt-1">
               <div className="h-6 w-6 rounded-full bg-blue-500 border-4 border-white shadow"></div>
             </div>
 
             <div className="flex">
-              {/* Week label */}
+              {/* Step label */}
               <div className="flex-none w-24 pt-1 pr-4 text-right">
-                <div className="font-medium text-blue-600">{period.week}</div>
+                <div className="font-medium text-blue-600">{period.Step}</div>
               </div>
 
-              {/* Tasks for this week */}
+              {/* Tasks for this Step */}
               <div className="flex-grow pl-8">
                 <div className="p-4 bg-white rounded-lg shadow-sm border border-gray-200">
                   <h4 className="font-medium text-gray-800 mb-3">
@@ -1259,7 +1259,7 @@ const PocScopePage = () => {
                   {index < timelineData.length - 1 && (
                     <div className="text-sm text-gray-600">
                       <ArrowRight className="inline mr-1" size={14} />
-                      Next: {timelineData[index + 1].week}
+                      Next: {timelineData[index + 1].Step}
                     </div>
                   )}
                 </div>
@@ -1290,7 +1290,7 @@ const PocScopePage = () => {
           {/* Infrastructure setup */}
           <div className="flex-none px-4 py-2 bg-blue-100 text-blue-800 rounded-lg border border-blue-200">
             <div className="font-medium">Infrastructure Setup</div>
-            <div className="text-xs mt-1">Week 1</div>
+            <div className="text-xs mt-1">Step 1</div>
           </div>
 
           <ArrowRight className="mx-4 text-gray-400" />
@@ -1298,7 +1298,7 @@ const PocScopePage = () => {
           {/* NPHIES & Integration */}
           <div className="flex-none px-4 py-2 bg-green-100 text-green-800 rounded-lg border border-green-200">
             <div className="font-medium">NPHIES Integration</div>
-            <div className="text-xs mt-1">Week 2</div>
+            <div className="text-xs mt-1">Step 2</div>
           </div>
 
           <ArrowRight className="mx-4 text-gray-400" />
@@ -1306,7 +1306,7 @@ const PocScopePage = () => {
           {/* FHIR Server Setup */}
           <div className="flex-none px-4 py-2 bg-red-100 text-red-800 rounded-lg border border-red-200">
             <div className="font-medium">FHIR Server & Auth</div>
-            <div className="text-xs mt-1">Weeks 3-4</div>
+            <div className="text-xs mt-1">Steps 3-4</div>
           </div>
 
           <ArrowRight className="mx-4 text-gray-400" />
@@ -1314,7 +1314,7 @@ const PocScopePage = () => {
           {/* Sehhaty Integration */}
           <div className="flex-none px-4 py-2 bg-purple-100 text-purple-800 rounded-lg border border-purple-200">
             <div className="font-medium">Sehhaty Integration</div>
-            <div className="text-xs mt-1">Weeks 5-6</div>
+            <div className="text-xs mt-1">Steps 5-6</div>
           </div>
 
           <ArrowRight className="mx-4 text-gray-400" />
@@ -1322,7 +1322,7 @@ const PocScopePage = () => {
           {/* Testing & Demo */}
           <div className="flex-none px-4 py-2 bg-yellow-100 text-yellow-800 rounded-lg border border-yellow-200">
             <div className="font-medium">Testing & Demo</div>
-            <div className="text-xs mt-1">Weeks 7-8</div>
+            <div className="text-xs mt-1">Steps 7-8</div>
           </div>
         </div>
       </div>
