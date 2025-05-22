@@ -106,11 +106,11 @@ Patient Experience Issues:
 - FHIR Solution: Event-driven notifications ensure data availability
 `;
 
-    const blob = new Blob([content], { type: 'text/plain' });
+    const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'FHIR_Benefits_Report.txt';
+    a.download = "FHIR_Benefits_Report.txt";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -119,25 +119,6 @@ Patient Experience Issues:
 
   return (
     <div className="w-full min-h-screen bg-gray-50">
-      <header className="text-center mb-12 pt-8 px-6">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
-          FHIR Benefits and Value
-        </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Why FHIR is transforming healthcare interoperability and delivering
-          value across the ecosystem
-        </p>
-        <div className="mt-6 flex justify-center">
-          <button
-            onClick={exportPageContent}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-          >
-            <Download size={16} className="mr-2" />
-            Export Report
-          </button>
-        </div>
-      </header>
-
       {/* Sticky Header */}
       <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-3">
@@ -165,9 +146,17 @@ Patient Experience Issues:
             {[
               { id: "overview", label: "Overview", icon: Zap },
               { id: "core-benefits", label: "Core Benefits", icon: TrendingUp },
-              { id: "stakeholder-benefits", label: "Stakeholder Benefits", icon: Users },
+              {
+                id: "stakeholder-benefits",
+                label: "Stakeholder Benefits",
+                icon: Users,
+              },
               { id: "business-value", label: "Business Value", icon: BarChart },
-              { id: "current-challenges", label: "Addressing Challenges", icon: Activity },
+              {
+                id: "current-challenges",
+                label: "Addressing Challenges",
+                icon: Activity,
+              },
             ].map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
@@ -312,7 +301,9 @@ Patient Experience Issues:
                         Medium
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-700">High</td>
-                      <td className="px-4 py-3 text-sm text-green-700 font-semibold">Low</td>
+                      <td className="px-4 py-3 text-sm text-green-700 font-semibold">
+                        Low
+                      </td>
                     </tr>
                     <tr>
                       <td className="px-4 py-3 text-sm font-medium text-gray-900">
@@ -320,7 +311,9 @@ Patient Experience Issues:
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-700">Low</td>
                       <td className="px-4 py-3 text-sm text-gray-700">Low</td>
-                      <td className="px-4 py-3 text-sm text-green-700 font-semibold">High</td>
+                      <td className="px-4 py-3 text-sm text-green-700 font-semibold">
+                        High
+                      </td>
                     </tr>
                     <tr>
                       <td className="px-4 py-3 text-sm font-medium text-gray-900">
@@ -736,7 +729,7 @@ Patient Experience Issues:
               </ul>
             </div>
 
-                          <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
+            <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
                   <Users className="text-blue-600" size={20} />
@@ -905,19 +898,27 @@ Patient Experience Issues:
               <div className="space-y-4">
                 <div className="flex justify-between items-center p-3 bg-white rounded border">
                   <span className="font-medium">Data Freshness</span>
-                  <span className="text-green-600 font-bold">Hours → Seconds</span>
+                  <span className="text-green-600 font-bold">
+                    Hours → Seconds
+                  </span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-white rounded border">
                   <span className="font-medium">Integration Dev Time</span>
-                  <span className="text-green-600 font-bold">40-60% Reduction</span>
+                  <span className="text-green-600 font-bold">
+                    40-60% Reduction
+                  </span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-white rounded border">
                   <span className="font-medium">API Response Time</span>
-                  <span className="text-green-600 font-bold">&lt;200ms (95th %ile)</span>
+                  <span className="text-green-600 font-bold">
+                    &lt;200ms (95th %ile)
+                  </span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-white rounded border">
                   <span className="font-medium">Maintenance Costs</span>
-                  <span className="text-green-600 font-bold">30-50% Reduction</span>
+                  <span className="text-green-600 font-bold">
+                    30-50% Reduction
+                  </span>
                 </div>
               </div>
             </div>
@@ -932,8 +933,13 @@ Patient Experience Issues:
                     <Check size={14} className="text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-blue-800">Faster Time to Market</h4>
-                    <p className="text-sm text-gray-600">Standard APIs reduce development cycles from months to weeks</p>
+                    <h4 className="font-medium text-blue-800">
+                      Faster Time to Market
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      Standard APIs reduce development cycles from months to
+                      weeks
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -941,8 +947,13 @@ Patient Experience Issues:
                     <Check size={14} className="text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-blue-800">Lower Implementation Risk</h4>
-                    <p className="text-sm text-gray-600">Proven standards with extensive documentation and community support</p>
+                    <h4 className="font-medium text-blue-800">
+                      Lower Implementation Risk
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      Proven standards with extensive documentation and
+                      community support
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -950,8 +961,12 @@ Patient Experience Issues:
                     <Check size={14} className="text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-blue-800">Scalable Growth</h4>
-                    <p className="text-sm text-gray-600">Linear scaling with new systems vs exponential complexity</p>
+                    <h4 className="font-medium text-blue-800">
+                      Scalable Growth
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      Linear scaling with new systems vs exponential complexity
+                    </p>
                   </div>
                 </div>
               </div>
@@ -999,10 +1014,10 @@ Patient Experience Issues:
                     FHIR Solution
                   </h4>
                   <p className="text-sm text-gray-700">
-                    FHIR's RESTful API design enables real-time data access, while
-                    its resource-based architecture and event-driven patterns
-                    support immediate notification of changes and on-demand data
-                    retrieval.
+                    FHIR's RESTful API design enables real-time data access,
+                    while its resource-based architecture and event-driven
+                    patterns support immediate notification of changes and
+                    on-demand data retrieval.
                   </p>
                 </div>
               </div>
@@ -1022,8 +1037,9 @@ Patient Experience Issues:
                   </h4>
                   <p className="text-sm text-gray-700">
                     Traditional point-to-point integration patterns create a
-                    complex web of connections that becomes increasingly difficult
-                    to maintain and extend as the number of systems grows.
+                    complex web of connections that becomes increasingly
+                    difficult to maintain and extend as the number of systems
+                    grows.
                   </p>
                 </div>
                 <div className="bg-green-50 p-4 rounded-lg border border-green-200">
@@ -1031,9 +1047,9 @@ Patient Experience Issues:
                     FHIR Solution
                   </h4>
                   <p className="text-sm text-gray-700">
-                    FHIR's standardized RESTful APIs and resource models create a
-                    consistent interface pattern that scales linearly rather than
-                    exponentially as new systems are added.
+                    FHIR's standardized RESTful APIs and resource models create
+                    a consistent interface pattern that scales linearly rather
+                    than exponentially as new systems are added.
                   </p>
                 </div>
               </div>
@@ -1065,8 +1081,8 @@ Patient Experience Issues:
                   </h4>
                   <p className="text-sm text-gray-700">
                     FHIR's standardized resources and interfaces reduce custom
-                    code, while its modular design allows components to be updated
-                    independently without affecting the entire system.
+                    code, while its modular design allows components to be
+                    updated independently without affecting the entire system.
                   </p>
                 </div>
               </div>
@@ -1095,10 +1111,10 @@ Patient Experience Issues:
                     FHIR Solution
                   </h4>
                   <p className="text-sm text-gray-700">
-                    FHIR's event-driven notification patterns ensure that patients
-                    are only notified when data is actually available for viewing,
-                    eliminating the frustrating gap between notification and
-                    access.
+                    FHIR's event-driven notification patterns ensure that
+                    patients are only notified when data is actually available
+                    for viewing, eliminating the frustrating gap between
+                    notification and access.
                   </p>
                 </div>
               </div>
@@ -1110,11 +1126,25 @@ Patient Experience Issues:
               The Bottom Line
             </h3>
             <p className="text-gray-700 text-lg">
-              FHIR directly solves the critical issues in our current architecture: 
-              <strong className="text-green-700"> data freshness problems disappear</strong> with real-time APIs, 
-              <strong className="text-blue-700"> scalability issues resolve</strong> through standardized interfaces, and 
-              <strong className="text-purple-700"> maintenance overhead drops significantly</strong> with proven standards. 
-              This isn't just theory—these are measurable improvements that directly impact patient care and operational efficiency.
+              FHIR directly solves the critical issues in our current
+              architecture:
+              <strong className="text-green-700">
+                {" "}
+                data freshness problems disappear
+              </strong>{" "}
+              with real-time APIs,
+              <strong className="text-blue-700">
+                {" "}
+                scalability issues resolve
+              </strong>{" "}
+              through standardized interfaces, and
+              <strong className="text-purple-700">
+                {" "}
+                maintenance overhead drops significantly
+              </strong>{" "}
+              with proven standards. This isn't just theory—these are measurable
+              improvements that directly impact patient care and operational
+              efficiency.
             </p>
           </div>
         </div>
