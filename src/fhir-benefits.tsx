@@ -118,8 +118,8 @@ Patient Experience Issues:
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 p-6">
-      <header className="text-center mb-12">
+    <div className="w-full min-h-screen bg-gray-50">
+      <header className="text-center mb-12 pt-8 px-6">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
           FHIR Benefits and Value
         </h1>
@@ -130,9 +130,9 @@ Patient Experience Issues:
         <div className="mt-6 flex justify-center">
           <button
             onClick={exportPageContent}
-            className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
           >
-            <Download size={20} className="mr-2" />
+            <Download size={16} className="mr-2" />
             Export Report
           </button>
         </div>
@@ -172,10 +172,10 @@ Patient Experience Issues:
               <button
                 key={id}
                 onClick={() => scrollToSection(id)}
-                className={`flex items-center whitespace-nowrap px-3 py-2 rounded-lg transition-all text-sm ${
+                className={`flex items-center px-4 py-2 rounded transition-all text-sm ${
                   activeSection === id
-                    ? "bg-blue-600 text-white shadow-md"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
                 <Icon size={14} className="mr-2" />
