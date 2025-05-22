@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { exportToPdf } from "./utils/exportToPdf";
+
 import {
   Shield,
   Eye,
@@ -1039,7 +1041,8 @@ const EnhancedFHIRArchitecture = () => {
     },
     {
       id: "sehhaty",
-      name: "Enhanced Sehhaty Layer",      color: "bg-purple-50 border-purple-200",
+      name: "Enhanced Sehhaty Layer",
+      color: "bg-purple-50 border-purple-200",
       description:
         "Event-driven applications with notification+pull pattern and offline sync",
       details:
@@ -1119,7 +1122,9 @@ const EnhancedFHIRArchitecture = () => {
 
     return (
       <div
-        className={'relative p-3 rounded-lg border-2 ${disableInteraction ? "" : "cursor-pointer hover:shadow-lg hover:scale-105"}  transition-all duration-200 ${ isEnhanced ? "bg-gradient-to-r from-orange-100 to-yellow-100 border-orange-300 shadow-md" : "bg-white border-gray-300" }'}
+        className={
+          'relative p-3 rounded-lg border-2 ${disableInteraction ? "" : "cursor-pointer hover:shadow-lg hover:scale-105"}  transition-all duration-200 ${ isEnhanced ? "bg-gradient-to-r from-orange-100 to-yellow-100 border-orange-300 shadow-md" : "bg-white border-gray-300" }'
+        }
         onClick={() => (disableInteraction ? null : setSelectedComponent(id))}
       >
         <div className="flex items-center justify-center mb-2">
@@ -1402,14 +1407,14 @@ const EnhancedFHIRArchitecture = () => {
     }
   };
 
-  const exportToPdf = (element, filename = '') => {
-    import('html2pdf.js').then(html2pdf => {
+  const exportToPdf = (element, filename = "") => {
+    import("html2pdf.js").then((html2pdf) => {
       const opt = {
         margin: 1,
-        filename: filename + '.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
+        filename: filename + ".pdf",
+        image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
       };
       html2pdf.default().from(element).set(opt).save();
     });
@@ -1421,8 +1426,12 @@ const EnhancedFHIRArchitecture = () => {
         <div className="max-w-7xl mx-auto px-6 py-3">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-xl font-bold text-gray-800">Enhanced FHIR Architecture</h1>
-              <p className="text-xs text-gray-600">Detailed architecture design of the FHIR implementation</p>
+              <h1 className="text-xl font-bold text-gray-800">
+                Enhanced FHIR Architecture
+              </h1>
+              <p className="text-xs text-gray-600">
+                Detailed architecture design of the FHIR implementation
+              </p>
             </div>
             <button
               onClick={exportPageContent}
@@ -1882,7 +1891,7 @@ const EnhancedFHIRArchitecture = () => {
       {selectedComponent && (
         <ComponentDetailModal componentId={selectedComponent} />
       )}
-    
+    </div>
   );
 };
 
