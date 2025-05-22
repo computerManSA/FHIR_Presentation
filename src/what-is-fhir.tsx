@@ -65,11 +65,7 @@ const WhatIsFHIRPage = () => {
   // Export functionality
   const exportPageContent = async () => {
     await exportToPdf('mainContent', 'What-is-FHIR');
-
-## Overview
-Fast Healthcare Interoperability Resources (FHIR, pronounced "fire") is a next-generation standards framework created by HL7 International. FHIR combines the best features of previous healthcare standards while leveraging current web technologies to address the challenges of healthcare information exchange.
-
-## Key Characteristics
+  };
 - Built on modern web standards (HTTP, REST, JSON, XML)
 - Resource-oriented architecture focusing on common healthcare concepts
 - Human-readable representations alongside machine-processable data
