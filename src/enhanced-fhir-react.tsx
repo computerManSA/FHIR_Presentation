@@ -1420,16 +1420,8 @@ const EnhancedFHIRArchitecture = () => {
     });
   };
 
-  const exportToPdf2 = async (element, filename = "") => {
-    const html2pdf = await import("html2pdf.js");
-    const opt = {
-      margin: 1,
-      filename: filename + ".pdf",
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-    };
-    html2pdf.default().from(element).set(opt).save();
+  const exportPageContent = async () => {
+    await exportToPdf('mainContent', 'Enhanced-FHIR-Architecture');
   };
 
   return (
