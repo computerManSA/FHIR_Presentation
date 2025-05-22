@@ -10,21 +10,34 @@ deploymentTarget = "static"
 publicDir = "dist"
 buildCommand = "npm run build"
 
-[[deployment.rules]]
-staticPath = "/assets"
-urlPath = "/assets"
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[workflows]
+runButton = "Run"
+
+[[workflows.workflow]]
+name = "Run"
+author = 37176675
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
 
 [[deployment.rules]]
 staticPath = "/"
 urlPath = "/"
 
+[[deployment.rules]]
+staticPath = "/assets"
+urlPath = "/assets"
+
+[[deployment.rules]]
+staticPath = "/src"
+urlPath = "/src"
+
 [[deployment.rewrites]]
 from = "/*"
 to = "/index.html"
-
-[workflows]
-runButton = "Run"
-
-[[ports]]
-localPort = 5000
-externalPort = 80
