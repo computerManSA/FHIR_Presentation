@@ -1,3 +1,4 @@
+
 run = "npm run dev"
 modules = ["nodejs-20"]
 
@@ -9,33 +10,33 @@ deploymentTarget = "static"
 publicDir = "dist"
 buildCommand = "npm run build"
 
+[[ports]]
+localPort = 5000
+externalPort = 80
+
 [[deployment.rules]]
 staticPath = "/"
 urlPath = "/"
 
-[[deployment.rules]]
-staticPath = "/assets"
-urlPath = "/assets"
-
 [[deployment.responseHeaders]]
 path = "/*.js"
 name = "Content-Type"
-value = "application/javascript"
+value = "application/javascript;charset=utf-8"
 
 [[deployment.responseHeaders]]
 path = "/*.css"
 name = "Content-Type"
-value = "text/css"
+value = "text/css;charset=utf-8"
 
 [[deployment.responseHeaders]]
 path = "/assets/*.js"
 name = "Content-Type"
-value = "application/javascript"
+value = "application/javascript;charset=utf-8"
 
 [[deployment.responseHeaders]]
 path = "/assets/*.css"
 name = "Content-Type"
-value = "text/css"
+value = "text/css;charset=utf-8"
 
 [[deployment.rewrites]]
 from = "/*"
