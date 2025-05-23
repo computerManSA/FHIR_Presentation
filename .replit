@@ -18,25 +18,29 @@ externalPort = 80
 staticPath = "/"
 urlPath = "/"
 
+[[deployment.rules]]
+staticPath = "/assets"
+urlPath = "/assets"
+
 [[deployment.responseHeaders]]
 path = "/*.js"
 name = "Content-Type"
-value = "application/javascript;charset=utf-8"
-
-[[deployment.responseHeaders]]
-path = "/*.css"
-name = "Content-Type"
-value = "text/css;charset=utf-8"
+value = "application/javascript"
 
 [[deployment.responseHeaders]]
 path = "/assets/*.js"
 name = "Content-Type"
-value = "application/javascript;charset=utf-8"
+value = "application/javascript"
+
+[[deployment.responseHeaders]]
+path = "/*.css"
+name = "Content-Type"
+value = "text/css"
 
 [[deployment.responseHeaders]]
 path = "/assets/*.css"
 name = "Content-Type"
-value = "text/css;charset=utf-8"
+value = "text/css"
 
 [[deployment.rewrites]]
 from = "/*"
