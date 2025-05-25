@@ -29,7 +29,7 @@ export const useAccessStore = create<AccessStore>((set) => ({
       try {
         // Make API call with the code
         console.log("Making API call with code:", code);
-        const response = await fetch("http://localhost:5000/api/validate", {
+        const response = await fetch("https://moh-fhir.replit.app/api/validate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
