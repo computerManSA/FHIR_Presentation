@@ -3,34 +3,47 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function seedMockCodes() {
+// Mock data with different patterns
+const mockAccessCodes = [
+  { code: "NPHIES24", maxUses: 1, description: "NPHIES Integration Access" },
+  { code: "MOHNEXT2", maxUses: 1, description: "MOH Development Team" },
+  { code: "FHIR2024", maxUses: 1, description: "FHIR Implementation Team" },
+  { code: "VALTEST4", maxUses: 1, description: "Validation Testing" }
+];
+
+async function generateMockData() {
   try {
     // Clear existing data
-    await prisma.siteAccess.deleteMany({});
-    await prisma.accessCode.deleteMany({});
-    
-    // Create 4 mock access codes
-    const codes = [
-      { code: "FHIR2024", maxUses: 1, description: "Developer Access" },
-      { code: "HEALTH24", maxUses: 1, description: "Clinical Staff" },
-      { code: "MOH2024", maxUses: 1, description: "Management Access" },
-      { code: "TEST2024", maxUses: 1, description: "Test Access" }
-    ];
-    
-    for (const codeData of codes) {
-      await prisma.accessCode.create({
-        data: codeData
-      });
-    }
-    
-    console.log("Mock data seeded successfully");
+    console.log("Clearing existing data...");
+    await prisma.$transaction([
+      prisma.siteAccess.deleteMany(),
+      prisma.accessCode.deleteMany()
+    ]);
+
+    // Insert new codes
+    console.log("Generating new access codes...");
+    const createdCodes = await Promise.all(
+      mockAccessCodes.map(code => 
+        prisma.accessCode.create({ data: code })
+      )
+    );
+
+    console.log("Created access codes:", createdCodes);
+    return createdCodes;
   } catch (error) {
-    console.error("Error seeding mock data:", error);
+    console.error("Error generating mock data:", error);
+    throw error;
   } finally {
     await prisma.$disconnect();
   }
 }
 
-seedMockCodes()
-  .catch(console.error)
-  .finally(() => process.exit(0));
+// Execute if running directly
+if (require.main === module) {
+  generateMockData()
+    .then(() => console.log("Mock data generation complete"))
+    .catch(console.error)
+    .finally(() => process.exit(0));
+}
+
+export { generateMockData };
