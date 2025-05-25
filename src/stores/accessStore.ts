@@ -1,55 +1,89 @@
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 interface AccessStore {
-  validCodes: { [key: string]: number }; // code -> maxUses
-  usedCodes: { [key: string]: string[] }; // code -> deviceIds[]
-  addCode: (code: string, maxUses?: number) => void;
-  validateCode: (code: string, deviceId: string) => boolean;
-  getAccessCount: (code: string) => number;
+  validateCode: (code: string, deviceId: string) => Promise<boolean>;
+  getAccessCount: (code: string) => Promise<number>;
+  addCode: (code: string, maxUses?: number) => Promise<void>;
 }
 
-export const useAccessStore = create<AccessStore>()(
-  persist(
-    (set, get) => ({
-      validCodes: {
-        'DEMO123': 1, // example code
-      },
-      usedCodes: {},
-      
-      addCode: (code, maxUses = 1) => {
-        set((state) => ({
-          validCodes: { ...state.validCodes, [code]: maxUses }
-        }));
-      },
-      
-      validateCode: (code, deviceId) => {
-        const state = get();
-        if (!state.validCodes[code]) return false;
-        
-        const usedByDevices = state.usedCodes[code] || [];
-        if (usedByDevices.includes(deviceId)) return false;
-        
-        if (usedByDevices.length >= state.validCodes[code]) return false;
-        
-        set((state) => ({
-          usedCodes: {
-            ...state.usedCodes,
-            [code]: [...(state.usedCodes[code] || []), deviceId]
+export const useAccessStore = create<AccessStore>()((set, get) => ({
+  validateCode: async (code: string, deviceId: string) => {
+    try {
+      const accessCode = await prisma.accessCode.findUnique({
+        where: { code },
+        include: { accesses: true },
+      });
+
+      if (!accessCode) return false;
+
+      const existingAccess = await prisma.siteAccess.findUnique({
+        where: { 
+          deviceId_codeId: {
+            deviceId,
+            codeId: accessCode.id
           }
-        }));
-        
+        },
+      });
+
+      if (existingAccess) {
+        // Update access count and last access time
+        await prisma.siteAccess.update({
+          where: { id: existingAccess.id },
+          data: { 
+            accessCount: existingAccess.accessCount + 1,
+            lastAccess: new Date()
+          },
+        });
         return true;
-      },
-      
-      getAccessCount: (code) => {
-        const state = get();
-        return (state.usedCodes[code] || []).length;
       }
-    }),
-    {
-      name: 'access-store'
+
+      if (accessCode.accesses.length >= accessCode.maxUses) return false;
+
+      // Create new access record
+      await prisma.siteAccess.create({
+        data: {
+          deviceId,
+          codeId: accessCode.id,
+        },
+      });
+
+      return true;
+    } catch (error) {
+      console.error('Error validating code:', error);
+      return false;
     }
-  )
-);
+  },
+
+  getAccessCount: async (code: string) => {
+    try {
+      const accessCode = await prisma.accessCode.findUnique({
+        where: { code },
+        include: {
+          accesses: {
+            select: { accessCount: true },
+          },
+        },
+      });
+
+      if (!accessCode) return 0;
+      return accessCode.accesses.reduce((sum, access) => sum + access.accessCount, 0);
+    } catch (error) {
+      console.error('Error getting access count:', error);
+      return 0;
+    }
+  },
+
+  addCode: async (code: string, maxUses = 1) => {
+    try {
+      await prisma.accessCode.create({
+        data: { code, maxUses },
+      });
+    } catch (error) {
+      console.error('Error adding code:', error);
+    }
+  },
+}));
