@@ -26,12 +26,12 @@ export const useAccessStore = create<AccessStore>((set) => ({
       }
 
       // Make API call with the code
-      const response = await fetch(`http://localhost:5000/api/validate?code=${code}`, {
+      const response = await fetch(`/api/validate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ code }),
+        body: JSON.stringify({ code: code }),
       });
       console.log("Response:", response);
       if (response.ok) {
