@@ -39,7 +39,7 @@ export const useAccessStore = create<AccessStore>((set) => ({
       }
     } catch (error) {
       console.error('Failed to check access code:', error);
-      set({ error: 'Failed to validate access code', isLoading: false });
+      set({ error: 'Failed to validate access code. Please try again.', isLoading: false, isAuthenticated: false });
     }
   }
 }));
