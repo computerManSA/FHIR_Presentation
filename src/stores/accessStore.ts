@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 
 interface AccessStore {
@@ -14,50 +13,39 @@ export const useAccessStore = create<AccessStore>((set) => ({
   error: null,
   checkAccess: async (code?: string) => {
     set({ isLoading: true, error: null });
+
     try {
+      // Check stored code first if no code provided
       if (!code) {
         const storedCode = localStorage.getItem('access-code');
-        if (storedCode) {
-          try {
-            const response = await fetch(`/api/access/check?code=${storedCode}`);
-            const data = await response.json();
-            if (data.isValid) {
-              set({ isAuthenticated: true, isLoading: false });
-              return;
-            }
-            localStorage.removeItem('access-code');
-          } catch (error) {
-            console.error('Error checking stored code:', error);
-          }
+        if (!storedCode) {
           set({ isLoading: false });
           return;
         }
-        set({ isLoading: false });
-        return;
+        code = storedCode;
       }
 
-      try {
-        const response = await fetch(`/api/access/check?code=${code}`);
-        const data = await response.json();
-        if (data.isValid) {
-          localStorage.setItem('access-code', code);
-          set({ isAuthenticated: true, isLoading: false });
-        } else {
-          set({ error: 'Invalid access code', isLoading: false });
-        }
-      } catch (error) {
+      // Make API call with the code
+      const response = await fetch(`/api/access/check?code=${code}`);
+      const data = await response.json();
+
+      if (data.isValid) {
+        localStorage.setItem('access-code', code);
+        set({ isAuthenticated: true, isLoading: false, error: null });
+      } else {
+        localStorage.removeItem('access-code');
         set({ 
-          error: error instanceof Error ? error.message : 'Failed to validate access code',
-          isLoading: false,
-          isAuthenticated: false 
+          isAuthenticated: false, 
+          isLoading: false, 
+          error: 'Invalid access code'
         });
       }
     } catch (error) {
-      console.error('Failed to check access code:', error);
+      localStorage.removeItem('access-code');
       set({ 
-        error: error instanceof Error ? error.message : 'Failed to validate access code',
+        isAuthenticated: false,
         isLoading: false,
-        isAuthenticated: false 
+        error: error instanceof Error ? error.message : 'Failed to validate access code'
       });
     }
   }
