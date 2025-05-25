@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { exportToPdf } from './utils/exportToPdf';
 import {
   Zap,
   TrendingUp,
@@ -35,12 +34,91 @@ const FHIRBenefitsPage = () => {
   };
 
   // Export functionality
-  const exportPageContent = async () => {
-    await exportToPdf('mainContent', 'FHIR-Benefits');
+  const exportPageContent = () => {
+    const content = `
+FHIR Benefits and Value Report
+Generated on: ${new Date().toLocaleDateString()}
+
+=== CORE FHIR BENEFITS ===
+
+1. Modern Web Standards
+   - Built on familiar web technologies (HTTP, REST, JSON, OAuth)
+   - Reduced development time and costs
+   - Vast ecosystem of tools and libraries
+   - Accelerated innovation cycle
+
+2. Real-Time Interoperability
+   - Real-time data exchange through RESTful APIs
+   - Timely clinical decision support
+   - Enhanced care coordination
+   - Improved patient experience
+
+3. Implementation Focus
+   - Designed with practical implementation in mind
+   - Faster time to market
+   - Lower implementation costs
+   - Robust reference implementations
+
+=== STAKEHOLDER BENEFITS ===
+
+For Patients:
+- Comprehensive health records in one place
+- Real-time access to test results
+- Better care coordination
+- Improved digital healthcare experience
+
+For Healthcare Providers:
+- Complete patient context at point of care
+- Efficient workflows
+- Reduced errors
+- Innovative applications
+
+For Healthcare Systems:
+- Integration efficiency
+- Regulatory compliance
+- Data analytics capabilities
+- Future-proof architecture
+
+=== BUSINESS VALUE ===
+
+Key Performance Indicators:
+- Integration Development Time: 40-60% reduction
+- Integration Maintenance Costs: 30-50% reduction
+- Data Freshness: From hours to seconds
+- API Response Time: <200ms for 95th percentile
+
+=== ADDRESSING CURRENT CHALLENGES ===
+
+Data Freshness Issues:
+- Problem: Batch-oriented ETL creates delays
+- FHIR Solution: Real-time API access with event-driven patterns
+
+Scalability Limitations:
+- Problem: Point-to-point integrations don't scale
+- FHIR Solution: Standardized APIs with linear scaling
+
+Maintainability Challenges:
+- Problem: Custom interfaces require heavy maintenance
+- FHIR Solution: Standard resources reduce custom code
+
+Patient Experience Issues:
+- Problem: Notifications arrive before data availability
+- FHIR Solution: Event-driven notifications ensure data availability
+`;
+
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "FHIR_Benefits_Report.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   return (
-    <div id="mainContent" className="w-full min-h-screen bg-gray-50">
+    <div className="w-full min-h-screen bg-gray-50">
       {/* Sticky Header */}
       <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-3">

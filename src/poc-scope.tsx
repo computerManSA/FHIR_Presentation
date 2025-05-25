@@ -15,14 +15,8 @@ import {
   Calendar,
   Clock as ClockIcon
 } from 'lucide-react';
-import { exportToPdf } from './utils/exportToPdf';
-import { Download } from "lucide-react";
 
 const FhirPocPage: React.FC = () => {
-  const exportPageContent = async () => {
-    await exportToPdf('mainContent', 'POC-Scope');
-  };
-
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
   const [selectedPhase, setSelectedPhase] = useState(null);
@@ -535,13 +529,6 @@ class NotificationSubscriber {
         <h1 className="text-3xl font-bold text-gray-800 mb-6">
           FHIR Interoperability POC Implementation
         </h1>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
-          onClick={exportPageContent}
-        >
-          <Download className="mr-2 inline-block" size={16} />
-          Export to PDF
-        </button>
 
         {/* Tab navigation */}
         <div className="mb-6 flex border-b border-gray-200">
@@ -777,7 +764,7 @@ class NotificationSubscriber {
                       <div>
                         <h4 className="text-sm font-semibold text-gray-600 mb-2">Implementation Code:</h4>
                         <div className="bg-gray-800 text-gray-100 p-4 rounded-md overflow-auto text-sm font-mono">
-                          <pre>{area.code`}</pre>
+                          <pre>{area.code}</pre>
                         </div>
                       </div>
                     </div>
