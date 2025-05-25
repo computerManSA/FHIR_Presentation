@@ -27,10 +27,11 @@ export const useAccessStore = create<AccessStore>((set) => ({
       console.log("Checking code:", code);
       try {
         // Make API call with the code
-        const response = await fetch("/api/validate", {
+        const response = await fetch("https://moh-fhir.replit.app/api/validate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Accept": "application/json"
           },
           body: JSON.stringify({ code: code }),
         });
@@ -51,7 +52,12 @@ export const useAccessStore = create<AccessStore>((set) => ({
           error: data.error || "Invalid access code",
         });
       } catch (error) {
-        console.log("error ar API call: ", error);
+        console.error("API call error:", error);
+        set({
+          isAuthenticated: false,
+          isLoading: false,
+          error: "Failed to validate code. Please try again."
+        });
       }
     } catch (error) {
       localStorage.removeItem("access-code");
