@@ -18,7 +18,7 @@ export const useAccessStore = create<AccessStore>((set) => ({
       if (!code) {
         const storedCode = localStorage.getItem('access-code');
         if (storedCode) {
-          const response = await fetch(`http://0.0.0.0:3000/api/access/check?code=${storedCode}`);
+          const response = await fetch(`http://0.0.0.0:5000/api/access/check?code=${code}`);
           const data = await response.json();
           if (data.isValid) {
             set({ isAuthenticated: true, isLoading: false });
@@ -29,7 +29,7 @@ export const useAccessStore = create<AccessStore>((set) => ({
         return;
       }
 
-      const response = await fetch(`http://0.0.0.0:3000/api/access/check?code=${code}`);
+      const response = await fetch(`http://0.0.0.0:5000/api/access/check?code=${code}`);
       const data = await response.json();
       if (data.isValid) {
         localStorage.setItem('access-code', code);
