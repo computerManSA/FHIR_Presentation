@@ -31,8 +31,10 @@ export const useAccessStore = create<AccessStore>((set) => ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            "Accept": "application/json",
+            "Origin": "https://moh-fhir.replit.app"
           },
+          credentials: "include",
           body: JSON.stringify({ code: code }),
         });
 
