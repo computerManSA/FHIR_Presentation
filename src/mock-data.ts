@@ -1,9 +1,9 @@
 
 import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient();
+
 async function seedMockCodes() {
-  const prisma = new PrismaClient();
-  
   try {
     // Clear existing data
     await prisma.siteAccess.deleteMany({});
@@ -31,4 +31,6 @@ async function seedMockCodes() {
   }
 }
 
-seedMockCodes();
+seedMockCodes()
+  .catch(console.error)
+  .finally(() => process.exit(0));
