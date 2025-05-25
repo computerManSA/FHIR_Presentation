@@ -1,7 +1,4 @@
-` tags.
 
-```python
-<replit_final_file>
 import { create } from "zustand";
 
 interface AccessStore {
