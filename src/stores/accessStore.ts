@@ -19,38 +19,25 @@ export const useAccessStore = create<AccessStore>((set) => ({
         const storedCode = localStorage.getItem('access-code');
         if (storedCode) {
           try {
-            const response = await fetch(`/api/access/check?code=${storedCode}`, {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            });
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            const response = await fetch(`/api/access/check?code=${storedCode}`);
             const data = await response.json();
             if (data.isValid) {
               set({ isAuthenticated: true, isLoading: false });
               return;
             }
+            localStorage.removeItem('access-code');
           } catch (error) {
             console.error('Error checking stored code:', error);
-            set({ error: 'Failed to validate stored code', isLoading: false });
           }
+          set({ isLoading: false });
           return;
         }
+        set({ isLoading: false });
+        return;
       }
 
-      if (code) {
-        const response = await fetch(`/api/access/check?code=${code}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+      try {
+        const response = await fetch(`/api/access/check?code=${code}`);
         const data = await response.json();
         if (data.isValid) {
           localStorage.setItem('access-code', code);
@@ -58,8 +45,12 @@ export const useAccessStore = create<AccessStore>((set) => ({
         } else {
           set({ error: 'Invalid access code', isLoading: false });
         }
-      } else {
-        set({ isLoading: false });
+      } catch (error) {
+        set({ 
+          error: error instanceof Error ? error.message : 'Failed to validate access code',
+          isLoading: false,
+          isAuthenticated: false 
+        });
       }
     } catch (error) {
       console.error('Failed to check access code:', error);
