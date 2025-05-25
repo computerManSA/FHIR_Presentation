@@ -1,3 +1,4 @@
+
 import { create } from "zustand";
 
 interface AccessStore {
@@ -38,16 +39,8 @@ export const useAccessStore = create<AccessStore>((set) => ({
       console.log("Response data:", data);
       
       if (response.ok && data.valid) {
-          localStorage.setItem("access-code", code);
-          set({ isAuthenticated: true, isLoading: false, error: null });
-        } else {
-          localStorage.removeItem("access-code");
-          set({
-            isAuthenticated: false,
-            isLoading: false,
-            error: "Invalid access code",
-          });
-        }
+        localStorage.setItem("access-code", code);
+        set({ isAuthenticated: true, isLoading: false, error: null });
       } else {
         localStorage.removeItem("access-code");
         set({
