@@ -1,7 +1,4 @@
 import { create } from 'zustand';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
 
 interface AccessStore {
   isAuthenticated: boolean;
@@ -14,23 +11,33 @@ export const useAccessStore = create<AccessStore>((set) => ({
     if (!code) {
       const storedCode = localStorage.getItem('access-code');
       if (storedCode) {
-        const validCode = await prisma.accessCode.findUnique({
-          where: { code: storedCode }
-        });
-        if (validCode) {
-          set({ isAuthenticated: true });
+        try {
+          const response = await fetch(`http://0.0.0.0:3000/api/access/check?code=${storedCode}`);
+          if (response.ok) {
+            const data = await response.json();
+            if (data.isValid) {
+              set({ isAuthenticated: true });
+              return;
+            }
+          }
+        } catch (error) {
+          console.error("Failed to check access code:", error);
         }
       }
       return;
     }
 
-    const validCode = await prisma.accessCode.findUnique({
-      where: { code }
-    });
-
-    if (validCode) {
-      localStorage.setItem('access-code', code);
-      set({ isAuthenticated: true });
+    try {
+      const response = await fetch(`http://0.0.0.0:3000/api/access/check?code=${code}`);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.isValid) {
+          localStorage.setItem('access-code', code);
+          set({ isAuthenticated: true });
+        }
+      }
+    } catch (error) {
+      console.error("Failed to check access code:", error);
     }
   }
 }));
