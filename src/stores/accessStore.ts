@@ -27,12 +27,12 @@ export const useAccessStore = create<AccessStore>((set) => ({
       console.log("Checking code:", code);
       try {
         // Make API call with the code
-        const response = await fetch("https://moh-fhir.replit.app/api/validate", {
+        console.log("Making API call with code:", code);
+        const response = await fetch("/api/validate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Origin": "https://moh-fhir.replit.app"
+            Accept: "application/json",
           },
           credentials: "include",
           body: JSON.stringify({ code: code }),
@@ -58,7 +58,7 @@ export const useAccessStore = create<AccessStore>((set) => ({
         set({
           isAuthenticated: false,
           isLoading: false,
-          error: "Failed to validate code. Please try again."
+          error: "Failed to validate code. Please try again.",
         });
       }
     } catch (error) {
