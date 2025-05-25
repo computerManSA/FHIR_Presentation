@@ -16,7 +16,6 @@ export const useAccessStore = create<AccessStore>((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      // Check stored code first if no code provided
       if (!code) {
         const storedCode = localStorage.getItem("access-code");
         if (!storedCode) {
@@ -25,51 +24,31 @@ export const useAccessStore = create<AccessStore>((set) => ({
         }
         code = storedCode;
       }
-      console.log("Checking code:", code);
-      try {
-        // Make API call with the code
-        console.log("Making API call with code:", code);
-        const response = await fetch("/api/validate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-          },
-          body: JSON.stringify({ code: code }),
-        });
 
-        const data = await response.json();
-        console.log("Response data:", data);
+      // Mock valid codes
+      const validCodes = ["NPHIES24", "MOHNEXT2", "FHIR2024", "VALTEST4"];
+      
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
 
-        if (response.ok && data.valid) {
-          localStorage.setItem("access-code", code);
-          set({ isAuthenticated: true, isLoading: false, error: null });
-          return;
-        }
-
-        localStorage.removeItem("access-code");
-        set({
-          isAuthenticated: false,
-          isLoading: false,
-          error: data.error || "Invalid access code",
-        });
-      } catch (error) {
-        console.error("API call error:", error);
-        set({
-          isAuthenticated: false,
-          isLoading: false,
-          error: "Failed to validate code. Please try again.",
-        });
+      if (validCodes.includes(code)) {
+        localStorage.setItem("access-code", code);
+        set({ isAuthenticated: true, isLoading: false, error: null });
+        return;
       }
+
+      localStorage.removeItem("access-code");
+      set({
+        isAuthenticated: false,
+        isLoading: false,
+        error: "Invalid access code"
+      });
     } catch (error) {
       localStorage.removeItem("access-code");
       set({
         isAuthenticated: false,
         isLoading: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : "Failed to validate access code",
+        error: error instanceof Error ? error.message : "Failed to validate access code"
       });
     }
   },
