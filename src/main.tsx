@@ -113,40 +113,41 @@ const Navigation = () => {
 
 // Main application component
 const App = () => {
-  // Move the state here
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
     <Router>
-      <div className="flex">
-        <Navigation isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-        <main
-          className={`${isCollapsed ? "ml-16" : "ml-64"} w-full transition-all duration-300`}
-        >
-          <Routes>
-            <Route path="/" element={<Introduction />} />
-            <Route path="/what-is-fhir" element={<WhatisFHIR />} />
-            <Route path="/fhir-benefits" element={<FHIRBenefitsPage />} />
-            <Route path="/as-is-architecture" element={<AsIsArchitecture />} />
-            <Route path="/assumptions" element={<AssumptionsPage />} />
-            <Route
-              path="/enhanced-fhir-architecture"
-              element={<EnhancedFHIRArchitecture />}
-            />
-            <Route
-              path="/infrastructure-design"
-              element={<InfrastructureDesign />}
-            />
-            {/* <Route
-              path="/technical-solution"
-              element={<TechnicalSolutionPage />}
-            /> */}
-            <Route path="/poc-scope" element={<PocScopePage />} />
-            {/* <Route path="/support-needed" element={<SupportNeededPage />} /> */}
-            {/* <Route path="/action-plan" element={<ActionPlanPage />} /> */}
-          </Routes>
-        </main>
-      </div>
+      <AccessGate>
+        <div className="flex">
+          <Navigation isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+          <main
+            className={`${isCollapsed ? "ml-16" : "ml-64"} w-full transition-all duration-300`}
+          >
+            <Routes>
+              <Route path="/" element={<Introduction />} />
+              <Route path="/what-is-fhir" element={<WhatisFHIR />} />
+              <Route path="/fhir-benefits" element={<FHIRBenefitsPage />} />
+              <Route path="/as-is-architecture" element={<AsIsArchitecture />} />
+              <Route path="/assumptions" element={<AssumptionsPage />} />
+              <Route
+                path="/enhanced-fhir-architecture"
+                element={<EnhancedFHIRArchitecture />}
+              />
+              <Route
+                path="/infrastructure-design"
+                element={<InfrastructureDesign />}
+              />
+              {/* <Route
+                path="/technical-solution"
+                element={<TechnicalSolutionPage />}
+              /> */}
+              <Route path="/poc-scope" element={<PocScopePage />} />
+              {/* <Route path="/support-needed" element={<SupportNeededPage />} /> */}
+              {/* <Route path="/action-plan" element={<ActionPlanPage />} /> */}
+            </Routes>
+          </main>
+        </div>
+      </AccessGate>
     </Router>
   );
 };
