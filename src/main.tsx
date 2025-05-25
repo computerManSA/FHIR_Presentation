@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { AccessGate } from "./components/AccessGate";
+import Navigation from "./components/navigation.tsx";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -34,83 +35,8 @@ import {
   Users,
   ListTodo,
 } from "lucide-react";
+import AccessGate from "./components/AccessGate.tsx";
 
-// Navigation component
-const Navigation = () => {
-  const location = useLocation();
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  return (
-    <nav
-      className={`fixed left-0 top-0 h-screen ${isCollapsed ? "w-16" : "w-64"} bg-gray-900 text-white p-4 overflow-y-auto transition-all duration-300`}
-    >
-      <button
-        onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute right-2 top-2 p-1 text-gray-400 hover:text-white"
-      >
-        {isCollapsed ? "→" : "←"}
-      </button>
-      <div className={`mb-8 ${isCollapsed ? "text-center" : ""}`}>
-        {!isCollapsed && (
-          <>
-            <h1 className="text-xl font-bold mb-2">FHIR Interoperability</h1>
-            <p className="text-gray-400 text-sm">Technical Presentation</p>
-          </>
-        )}
-      </div>
-
-      <ul className="space-y-1">
-        {[
-          { path: "/", label: "Introduction", icon: Activity },
-          { path: "/what-is-fhir", label: "What is FHIR?", icon: Zap },
-          { path: "/fhir-benefits", label: "FHIR Benefits", icon: CheckCircle },
-          {
-            path: "/as-is-architecture",
-            label: "Current Architecture",
-            icon: GitBranch,
-          },
-          { path: "/assumptions", label: "Assumptions", icon: Eye },
-          {
-            path: "/enhanced-fhir-architecture",
-            label: "Enhanced Architecture",
-            icon: Server,
-          },
-          {
-            path: "/infrastructure-design",
-            label: "Infrastructure Design",
-            icon: Network,
-          },
-          {
-            path: "/technical-solution",
-            label: "Technical Solution",
-            icon: Code,
-          },
-          { path: "/poc-scope", label: "POC Scope", icon: Target },
-          // { path: "/support-needed", label: "Support Needed", icon: Users },
-          // { path: "/action-plan", label: "Action Plan", icon: ListTodo },
-        ].map(({ path, label, icon: Icon }) => (
-          <li key={path}>
-            <Link
-              to={path}
-              className={`block py-2 rounded transition-colors ${
-                location.pathname === path
-                  ? "bg-blue-600 text-white"
-                  : "hover:bg-gray-800"
-              } ${isCollapsed ? "px-2" : "px-4"}`}
-            >
-              <div
-                className={`flex items-center ${isCollapsed ? "justify-center" : ""}`}
-              >
-                <Icon size={18} className={isCollapsed ? "" : "mr-2"} />
-                {!isCollapsed && <span>{label}</span>}
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-};
 
 // Main application component
 const App = () => {
@@ -120,7 +46,10 @@ const App = () => {
     <Router>
       <AccessGate>
         <div className="flex">
-          <Navigation isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+          <Navigation
+            isCollapsed={isCollapsed}
+            setIsCollapsed={setIsCollapsed}
+          />
           <main
             className={`${isCollapsed ? "ml-16" : "ml-64"} w-full transition-all duration-300`}
           >
@@ -128,7 +57,10 @@ const App = () => {
               <Route path="/" element={<Introduction />} />
               <Route path="/what-is-fhir" element={<WhatisFHIR />} />
               <Route path="/fhir-benefits" element={<FHIRBenefitsPage />} />
-              <Route path="/as-is-architecture" element={<AsIsArchitecture />} />
+              <Route
+                path="/as-is-architecture"
+                element={<AsIsArchitecture />}
+              />
               <Route path="/assumptions" element={<AssumptionsPage />} />
               <Route
                 path="/enhanced-fhir-architecture"
@@ -158,3 +90,4 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <App />
   </React.StrictMode>,
 );
+//A$rYGk
