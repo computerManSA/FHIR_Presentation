@@ -1,25 +1,34 @@
 import { create } from 'zustand';
 import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient();
+
 interface AccessStore {
   isAuthenticated: boolean;
-  checkAccess: (code?: string) => void;
+  checkAccess: (code?: string) => Promise<void>;
 }
 
 export const useAccessStore = create<AccessStore>((set) => ({
   isAuthenticated: false,
-  checkAccess: (code?: string) => {
+  checkAccess: async (code?: string) => {
     if (!code) {
-      // Check if there's a stored code
       const storedCode = localStorage.getItem('access-code');
       if (storedCode) {
-        set({ isAuthenticated: true });
+        const validCode = await prisma.accessCode.findUnique({
+          where: { code: storedCode }
+        });
+        if (validCode) {
+          set({ isAuthenticated: true });
+        }
       }
       return;
     }
 
-    // For now, simple validation - replace with actual validation later
-    if (code === 'demo') {
+    const validCode = await prisma.accessCode.findUnique({
+      where: { code }
+    });
+
+    if (validCode) {
       localStorage.setItem('access-code', code);
       set({ isAuthenticated: true });
     }

@@ -1,5 +1,4 @@
-
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useAccessStore } from '../stores/accessStore';
 
 interface AccessGateProps {
@@ -8,10 +7,15 @@ interface AccessGateProps {
 
 export const AccessGate: React.FC<AccessGateProps> = ({ children }) => {
   const { isAuthenticated, checkAccess } = useAccessStore();
+  const [code, setCode] = useState('');
 
   useEffect(() => {
     checkAccess();
   }, [checkAccess]);
+
+  const handleSubmit = async () => {
+    await checkAccess(code);
+  };
 
   if (!isAuthenticated) {
     return (
@@ -21,10 +25,12 @@ export const AccessGate: React.FC<AccessGateProps> = ({ children }) => {
           <p className="mb-4">Please enter your access code to continue.</p>
           <input
             type="text"
-            onChange={(e) => checkAccess(e.target.value)}
+            onChange={(e) => setCode(e.target.value)}
             placeholder="Enter access code"
             className="w-full p-2 border rounded mb-4"
+            value={code}
           />
+           <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
         </div>
       </div>
     );
