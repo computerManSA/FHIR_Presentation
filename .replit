@@ -5,7 +5,7 @@ run = "npm run dev"
 channel = "stable-24_05"
 
 [workflows]
-runButton = "Run"
+runButton = "Dev"
 
 [[workflows.workflow]]
 name = "Run"
@@ -15,6 +15,19 @@ mode = "sequential"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
+
+[[workflows.workflow]]
+name = "Dev"
+author = 37176675
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "ts-node src/server.ts"
 
 [[ports]]
 localPort = 5000
