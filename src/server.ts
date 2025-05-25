@@ -15,6 +15,7 @@ app.use(express.json());
 
 // Access code validation endpoint
 app.post("/api/validate", async (req, res) => {
+  console.log("Received validation request:", req.body);
   const { code } = req.body;
   console.log("Received code:", code);
   try {
