@@ -14,7 +14,7 @@ export const useAccessStore = create<AccessStore>()(
   persist(
     (set, get) => ({
       validCodes: {
-        'DEMO123': 100, // example code
+        'DEMO123': 1, // example code
       },
       usedCodes: {},
       
