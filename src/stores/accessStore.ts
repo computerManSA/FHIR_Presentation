@@ -35,28 +35,31 @@ export const useAccessStore = create<AccessStore>((set) => ({
             }
           } catch (error) {
             console.error('Error checking stored code:', error);
-          } finally {
-            set({ isLoading: false });
+            set({ error: 'Failed to validate stored code', isLoading: false });
           }
           return;
         }
       }
 
-      const response = await fetch(`/api/access/check?code=${code}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
+      if (code) {
+        const response = await fetch(`/api/access/check?code=${code}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      if (data.isValid) {
-        localStorage.setItem('access-code', code!);
-        set({ isAuthenticated: true, isLoading: false });
+        const data = await response.json();
+        if (data.isValid) {
+          localStorage.setItem('access-code', code);
+          set({ isAuthenticated: true, isLoading: false });
+        } else {
+          set({ error: 'Invalid access code', isLoading: false });
+        }
       } else {
-        set({ error: 'Invalid access code', isLoading: false });
+        set({ isLoading: false });
       }
     } catch (error) {
       console.error('Failed to check access code:', error);
