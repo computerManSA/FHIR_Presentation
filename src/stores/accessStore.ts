@@ -18,7 +18,10 @@ export const useAccessStore = create<AccessStore>((set) => ({
       if (!code) {
         const storedCode = localStorage.getItem('access-code');
         if (storedCode) {
-          const response = await fetch(`http://0.0.0.0:5000/api/access/check?code=${code}`);
+          const response = await fetch(`http://0.0.0.0:5000/api/access/check?code=${storedCode}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
           const data = await response.json();
           if (data.isValid) {
             set({ isAuthenticated: true, isLoading: false });
@@ -30,6 +33,9 @@ export const useAccessStore = create<AccessStore>((set) => ({
       }
 
       const response = await fetch(`http://0.0.0.0:5000/api/access/check?code=${code}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       if (data.isValid) {
         localStorage.setItem('access-code', code);
@@ -39,7 +45,11 @@ export const useAccessStore = create<AccessStore>((set) => ({
       }
     } catch (error) {
       console.error('Failed to check access code:', error);
-      set({ error: 'Failed to validate access code. Please try again.', isLoading: false, isAuthenticated: false });
+      set({ 
+        error: error instanceof Error ? error.message : 'Failed to validate access code',
+        isLoading: false,
+        isAuthenticated: false 
+      });
     }
   }
 }));
