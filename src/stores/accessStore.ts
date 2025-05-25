@@ -1,3 +1,7 @@
+` tags.
+
+```python
+<replit_final_file>
 import { create } from "zustand";
 
 interface AccessStore {
@@ -28,11 +32,11 @@ export const useAccessStore = create<AccessStore>((set) => ({
       try {
         // Make API call with the code
         console.log("Making API call with code:", code);
-        const response = await fetch("/api/validate", {
+        const response = await fetch("https://moh-fhir.replit.app/api/validate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Accept: "application/json",
+            "Accept": "application/json",
           },
           credentials: "include",
           body: JSON.stringify({ code: code }),
