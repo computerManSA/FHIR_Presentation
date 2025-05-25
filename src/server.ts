@@ -15,6 +15,31 @@ app.use(
 );
 app.use(express.json());
 
+// Access logging endpoint
+app.post("/api/access-log", async (req, res) => {
+  const { code, timestamp, success } = req.body;
+  
+  try {
+    await prisma.siteAccess.create({
+      data: {
+        deviceId: req.ip,
+        accessCode: {
+          connectOrCreate: {
+            where: { code },
+            create: { code, maxUses: 1 }
+          }
+        },
+        accessCount: 1,
+        lastAccess: new Date(timestamp)
+      }
+    });
+    res.json({ status: "logged" });
+  } catch (error) {
+    console.error("Error logging access:", error);
+    res.status(500).json({ error: "Failed to log access" });
+  }
+});
+
 // Access code validation endpoint
 app.post("/api/validate", async (req, res) => {
   console.log("Received validation request:", req.body);

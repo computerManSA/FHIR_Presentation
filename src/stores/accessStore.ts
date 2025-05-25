@@ -31,6 +31,23 @@ export const useAccessStore = create<AccessStore>((set) => ({
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 500));
 
+      // Record access attempt
+      try {
+        await fetch("/api/access-log", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ 
+            code,
+            timestamp: new Date().toISOString(),
+            success: validCodes.includes(code)
+          })
+        });
+      } catch (error) {
+        console.error("Failed to log access:", error);
+      }
+
       if (validCodes.includes(code)) {
         localStorage.setItem("access-code", code);
         set({ isAuthenticated: true, isLoading: false, error: null });
