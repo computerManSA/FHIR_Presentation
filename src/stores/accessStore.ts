@@ -33,10 +33,11 @@ export const useAccessStore = create<AccessStore>((set) => ({
         },
         body: JSON.stringify({ code: code }),
       });
-      console.log("Response:", response);
-      if (response.ok) {
-        const data = await response.json();
-        if (data.valid) {
+      
+      const data = await response.json();
+      console.log("Response data:", data);
+      
+      if (response.ok && data.valid) {
           localStorage.setItem("access-code", code);
           set({ isAuthenticated: true, isLoading: false, error: null });
         } else {

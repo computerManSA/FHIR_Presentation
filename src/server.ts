@@ -19,13 +19,17 @@ app.post("/api/validate", async (req, res) => {
   const { code } = req.body;
   console.log("Received code:", code);
   try {
+    if (!code || typeof code !== 'string') {
+      return res.json({ valid: false, error: 'Invalid code format' });
+    }
+
     const accessCode = await prisma.accessCode.findUnique({
-      where: { code },
+      where: { code: code.trim() },
       include: { accesses: true },
     });
 
     if (!accessCode) {
-      return res.json({ valid: false });
+      return res.json({ valid: false, error: 'Code not found' });
     }
 
     // Check if code has exceeded max uses
