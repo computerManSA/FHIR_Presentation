@@ -2,7 +2,13 @@
 import { create } from 'zustand';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.REPLIT_DB_URL
+    }
+  }
+});
 
 interface AccessStore {
   validateCode: (code: string, deviceId: string) => Promise<boolean>;
@@ -30,7 +36,6 @@ export const useAccessStore = create<AccessStore>()((set, get) => ({
       });
 
       if (existingAccess) {
-        // Update access count and last access time
         await prisma.siteAccess.update({
           where: { id: existingAccess.id },
           data: { 
@@ -43,7 +48,6 @@ export const useAccessStore = create<AccessStore>()((set, get) => ({
 
       if (accessCode.accesses.length >= accessCode.maxUses) return false;
 
-      // Create new access record
       await prisma.siteAccess.create({
         data: {
           deviceId,
