@@ -31,11 +31,15 @@ export const useAccessStore = create<AccessStore>((set) => ({
             const data = await response.json();
             if (data.isValid) {
               set({ isAuthenticated: true, isLoading: false });
-            return;
+              return;
+            }
+          } catch (error) {
+            console.error('Error checking stored code:', error);
+          } finally {
+            set({ isLoading: false });
           }
+          return;
         }
-        set({ isLoading: false });
-        return;
       }
 
       const response = await fetch(`/api/access/check?code=${code}`, {
@@ -49,7 +53,7 @@ export const useAccessStore = create<AccessStore>((set) => ({
       }
       const data = await response.json();
       if (data.isValid) {
-        localStorage.setItem('access-code', code);
+        localStorage.setItem('access-code', code!);
         set({ isAuthenticated: true, isLoading: false });
       } else {
         set({ error: 'Invalid access code', isLoading: false });
