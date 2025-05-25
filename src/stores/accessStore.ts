@@ -41,14 +41,15 @@ export const useAccessStore = create<AccessStore>((set) => ({
       if (response.ok && data.valid) {
         localStorage.setItem("access-code", code);
         set({ isAuthenticated: true, isLoading: false, error: null });
-      } else {
-        localStorage.removeItem("access-code");
-        set({
-          isAuthenticated: false,
-          isLoading: false,
-          error: "Invalid access code",
-        });
+        return;
       }
+      
+      localStorage.removeItem("access-code");
+      set({
+        isAuthenticated: false,
+        isLoading: false,
+        error: data.error || "Invalid access code",
+      });
     } catch (error) {
       localStorage.removeItem("access-code");
       set({
