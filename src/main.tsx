@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
+import { AccessGate } from "./components/AccessGate";
 import {
   BrowserRouter as Router,
   Routes,
