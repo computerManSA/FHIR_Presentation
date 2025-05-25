@@ -6,9 +6,10 @@ const prisma = new PrismaClient();
 const app = express();
 
 app.use(cors({
-  origin: ['https://moh-fhir.replit.app', 'https://moh-fhir.replit.dev'],
+  origin: true,
   credentials: true,
-  methods: ['POST', 'GET', 'OPTIONS']
+  methods: ['POST', 'GET', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Accept']
 }));
 app.use(express.json());
 
