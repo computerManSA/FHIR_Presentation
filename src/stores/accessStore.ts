@@ -18,13 +18,19 @@ export const useAccessStore = create<AccessStore>((set) => ({
       if (!code) {
         const storedCode = localStorage.getItem('access-code');
         if (storedCode) {
-          const response = await fetch(`http://0.0.0.0:5000/api/access/check?code=${storedCode}`);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
-          if (data.isValid) {
-            set({ isAuthenticated: true, isLoading: false });
+          try {
+            const response = await fetch(`/api/access/check?code=${storedCode}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (data.isValid) {
+              set({ isAuthenticated: true, isLoading: false });
             return;
           }
         }
@@ -32,7 +38,12 @@ export const useAccessStore = create<AccessStore>((set) => ({
         return;
       }
 
-      const response = await fetch(`http://0.0.0.0:5000/api/access/check?code=${code}`);
+      const response = await fetch(`/api/access/check?code=${code}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
