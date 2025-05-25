@@ -26,8 +26,7 @@ export const useAccessStore = create<AccessStore>((set) => ({
       }
 
       // Make API call with the code
-      const apiUrl = `${window.location.protocol}//${window.location.hostname}:5000/api/validate`;
-      const response = await fetch(apiUrl, {
+      const response = await fetch('/api/validate', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
