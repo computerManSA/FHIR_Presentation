@@ -1,4 +1,3 @@
-
 import { create } from "zustand";
 
 interface AccessStore {
@@ -25,31 +24,35 @@ export const useAccessStore = create<AccessStore>((set) => ({
         }
         code = storedCode;
       }
+      console.log("Checking code:", code);
+      try {
+        // Make API call with the code
+        const response = await fetch("/api/validate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ code: code }),
+        });
 
-      // Make API call with the code
-      const response = await fetch('/api/validate', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ code: code }),
-      });
-      
-      const data = await response.json();
-      console.log("Response data:", data);
-      
-      if (response.ok && data.valid) {
-        localStorage.setItem("access-code", code);
-        set({ isAuthenticated: true, isLoading: false, error: null });
-        return;
+        const data = await response.json();
+        console.log("Response data:", data);
+
+        if (response.ok && data.valid) {
+          localStorage.setItem("access-code", code);
+          set({ isAuthenticated: true, isLoading: false, error: null });
+          return;
+        }
+
+        localStorage.removeItem("access-code");
+        set({
+          isAuthenticated: false,
+          isLoading: false,
+          error: data.error || "Invalid access code",
+        });
+      } catch (error) {
+        console.log("error ar API call: ", error);
       }
-      
-      localStorage.removeItem("access-code");
-      set({
-        isAuthenticated: false,
-        isLoading: false,
-        error: data.error || "Invalid access code",
-      });
     } catch (error) {
       localStorage.removeItem("access-code");
       set({
