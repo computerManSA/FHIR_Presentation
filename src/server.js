@@ -5,6 +5,11 @@ import { PrismaClient } from "@prisma/client";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import validator from "validator";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const prisma = new PrismaClient();
 const app = express();
@@ -113,6 +118,9 @@ app.use(
 );
 app.use(express.json());
 
+// Serve static files from dist directory in production
+app.use(express.static(path.join(__dirname, '../dist')));
+
 // Health check endpoint
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
@@ -220,7 +228,13 @@ app.post("/api/validate", validationLimiter, async (req, res) => {
   }
 });
 
+// Catch-all handler: send back React's index.html file for SPA routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`API Server running on http://0.0.0.0:${PORT}`);
+});
 });
