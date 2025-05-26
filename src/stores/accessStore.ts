@@ -40,6 +40,20 @@ export const useAccessStore = create<AccessStore>((set) => ({
         console.error("API call returned with response:", response);
         if (!response.ok) {
           console.error("API call failed with response:", response);
+          
+          // Handle rate limiting
+          if (response.status === 429) {
+            const errorData = await response.json().catch(() => ({}));
+            const retryAfter = errorData.retryAfter || 900; // Default 15 minutes
+            const minutes = Math.ceil(retryAfter / 60);
+            set({
+              isAuthenticated: false,
+              isLoading: false,
+              error: `Too many attempts. Please try again in ${minutes} minutes.`,
+            });
+            return;
+          }
+          
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
@@ -53,17 +67,25 @@ export const useAccessStore = create<AccessStore>((set) => ({
         }
 
         localStorage.removeItem("access-code");
+        
+        // Handle specific error messages from security system
+        let errorMessage = data.error || "Invalid access code";
+        if (data.retryAfter) {
+          const minutes = Math.ceil(data.retryAfter / 60);
+          errorMessage += ` Please try again in ${minutes} minutes.`;
+        }
+        
         set({
           isAuthenticated: false,
           isLoading: false,
-          error: data.error || "Invalid access code",
+          error: errorMessage,
         });
       } catch (error) {
         console.error("API call error:", error);
         set({
           isAuthenticated: false,
           isLoading: false,
-          error: "Failed to validate code. Please try again.",
+          error: "Failed to validate code. Please try again later.",
         });
       }
     } catch (error) {

@@ -2,9 +2,96 @@
 import express from "express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import validator from "validator";
 
 const prisma = new PrismaClient();
 const app = express();
+
+// Security headers
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "https:"],
+    },
+  },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  }
+}));
+
+// Rate limiting for API endpoints
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: {
+    error: "Too many requests from this IP, please try again later.",
+    retryAfter: 15 * 60 // 15 minutes in seconds
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Strict rate limiting for validation endpoint
+const validationLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Only 5 validation attempts per IP per 15 minutes
+  message: {
+    error: "Too many validation attempts. Please try again in 15 minutes.",
+    retryAfter: 15 * 60
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  skipSuccessfulRequests: true, // Don't count successful validations
+});
+
+// Apply rate limiting to all API routes
+app.use('/api', apiLimiter);
+
+// In-memory store for failed attempts (in production, use Redis)
+const failedAttempts = new Map();
+const LOCKOUT_TIME = 30 * 60 * 1000; // 30 minutes
+const MAX_FAILED_ATTEMPTS = 3;
+
+// Function to check if IP is locked out
+const isLockedOut = (ip) => {
+  const attempts = failedAttempts.get(ip);
+  if (!attempts) return false;
+  
+  const now = Date.now();
+  if (now - attempts.lastAttempt > LOCKOUT_TIME) {
+    failedAttempts.delete(ip);
+    return false;
+  }
+  
+  return attempts.count >= MAX_FAILED_ATTEMPTS;
+};
+
+// Function to record failed attempt
+const recordFailedAttempt = (ip) => {
+  const now = Date.now();
+  const attempts = failedAttempts.get(ip) || { count: 0, lastAttempt: now };
+  
+  if (now - attempts.lastAttempt > LOCKOUT_TIME) {
+    attempts.count = 1;
+  } else {
+    attempts.count++;
+  }
+  
+  attempts.lastAttempt = now;
+  failedAttempts.set(ip, attempts);
+};
+
+// Function to clear failed attempts on success
+const clearFailedAttempts = (ip) => {
+  failedAttempts.delete(ip);
+};
 
 app.use(
   cors({
@@ -25,6 +112,21 @@ app.use(express.json());
 // Health check endpoint
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
+// Security monitoring endpoint (admin only)
+app.get("/api/security-status", (req, res) => {
+  const stats = {
+    totalBlockedIPs: failedAttempts.size,
+    currentTime: new Date().toISOString(),
+    blockedIPs: Array.from(failedAttempts.entries()).map(([ip, data]) => ({
+      ip: ip.replace(/\d+\.\d+\.\d+\./, 'xxx.xxx.xxx.'), // Partially mask IP for privacy
+      attempts: data.count,
+      lastAttempt: new Date(data.lastAttempt).toISOString(),
+      isLocked: isLockedOut(ip)
+    }))
+  };
+  res.json(stats);
 });
 
 // Access logging endpoint
@@ -52,42 +154,78 @@ app.post("/api/access-log", async (req, res) => {
   }
 });
 
-// Access code validation endpoint
-app.post("/api/validate", async (req, res) => {
-  console.log("Received validation request:", req.body);
+// Access code validation endpoint with enhanced security
+app.post("/api/validate", validationLimiter, async (req, res) => {
+  const clientIP = req.ip || req.connection.remoteAddress;
+  
+  // Check if IP is locked out due to too many failed attempts
+  if (isLockedOut(clientIP)) {
+    return res.status(429).json({ 
+      valid: false, 
+      error: "Too many failed attempts. Access temporarily blocked.",
+      retryAfter: 30 * 60 // 30 minutes
+    });
+  }
+
+  console.log("Received validation request from IP:", clientIP);
   const { code } = req.body;
-  console.log("Received code:", code);
+  
   try {
+    // Input validation and sanitization
     if (!code || typeof code !== "string") {
+      recordFailedAttempt(clientIP);
       return res.json({ valid: false, error: "Invalid code format" });
     }
 
+    // Sanitize and validate the code
+    const sanitizedCode = validator.escape(code.trim());
+    
+    // Basic format validation (alphanumeric, 6-10 characters)
+    if (!validator.isAlphanumeric(sanitizedCode) || 
+        sanitizedCode.length < 6 || 
+        sanitizedCode.length > 10) {
+      recordFailedAttempt(clientIP);
+      return res.json({ valid: false, error: "Invalid code format" });
+    }
+
+    // Add a small delay to prevent timing attacks
+    await new Promise(resolve => setTimeout(resolve, 100 + Math.random() * 200));
+
     const accessCode = await prisma.accessCode.findUnique({
-      where: { code: code.trim() },
+      where: { code: sanitizedCode },
       include: { accesses: true },
     });
 
     if (!accessCode) {
-      return res.json({ valid: false, error: "Code not found" });
+      recordFailedAttempt(clientIP);
+      console.log(`Failed validation attempt from IP: ${clientIP}, Code: ${sanitizedCode}`);
+      return res.json({ valid: false, error: "Invalid access code" });
     }
 
     // Check if code has exceeded max uses
     if (accessCode.accesses.length >= accessCode.maxUses) {
-      return res.json({ valid: false });
+      recordFailedAttempt(clientIP);
+      return res.json({ valid: false, error: "Access code has been used" });
     }
 
-    // Record this access
+    // Record successful access
     await prisma.siteAccess.create({
       data: {
-        deviceId: req.ip, // Using IP as device ID for simplicity
+        deviceId: clientIP,
         codeId: accessCode.id,
       },
     });
 
+    // Clear failed attempts on successful validation
+    clearFailedAttempts(clientIP);
+    
+    console.log(`Successful validation from IP: ${clientIP}, Code: ${sanitizedCode}`);
     res.json({ valid: true });
+    
   } catch (error) {
     console.error("Validation error:", error);
-    res.status(500).json({ valid: false, error: "Internal server error" });
+    recordFailedAttempt(clientIP);
+    res.status(500).json({ valid: false, error: "Service temporarily unavailable" });
   }
 });
 
