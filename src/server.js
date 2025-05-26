@@ -35,6 +35,23 @@ app.use(helmet({
   }
 }));
 
+// CORS configuration
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://0.0.0.0:5173",
+    "https://moh-fhir.replit.app",
+    /\.replit\.dev$/,
+    /\.replit\.app$/,
+  ],
+  credentials: true,
+  methods: ["POST", "GET", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Accept", "Authorization"],
+}));
+
+app.use(express.json());
+
 // Rate limiting for API endpoints
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -59,6 +76,9 @@ const validationLimiter = rateLimit({
   legacyHeaders: false,
   skipSuccessfulRequests: true,
 });
+
+// Apply rate limiting to all API routes
+app.use('/api', apiLimiter);
 
 // In-memory store for failed attempts
 const failedAttempts = new Map();
@@ -95,24 +115,6 @@ const recordFailedAttempt = (ip) => {
 const clearFailedAttempts = (ip) => {
   failedAttempts.delete(ip);
 };
-
-// CORS configuration
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://0.0.0.0:5173",
-    "https://moh-fhir.replit.app",
-    /\.replit\.dev$/,
-    /\.replit\.app$/,
-  ],
-  credentials: true,
-  methods: ["POST", "GET", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Accept", "Authorization"],
-}));
-
-app.use(express.json());
-app.use('/api', apiLimiter);
 
 // Serve static files from dist directory in production
 app.use(express.static(path.join(__dirname, '../dist')));
