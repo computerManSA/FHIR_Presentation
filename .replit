@@ -38,3 +38,4 @@ externalPort = 80
 deploymentTarget = "cloudrun"
 build = "npm run build"
 run = "NODE_ENV=production node src/server.js"
+ignorePorts = false
