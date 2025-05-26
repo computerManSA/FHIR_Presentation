@@ -1,4 +1,3 @@
-
 import { create } from "zustand";
 
 interface AccessStore {
@@ -26,7 +25,7 @@ export const useAccessStore = create<AccessStore>((set) => ({
       }
 
       console.log("Checking code:", code);
-      
+
       try {
         // Make API call with the code
         console.log("Making API call with code:", code);
@@ -34,12 +33,13 @@ export const useAccessStore = create<AccessStore>((set) => ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json",
+            Accept: "application/json",
           },
           body: JSON.stringify({ code: code }),
         });
-
+        console.error("API call returned with response:", response);
         if (!response.ok) {
+          console.error("API call failed with response:", response);
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
@@ -71,7 +71,10 @@ export const useAccessStore = create<AccessStore>((set) => ({
       set({
         isAuthenticated: false,
         isLoading: false,
-        error: error instanceof Error ? error.message : "Failed to validate access code"
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to validate access code",
       });
     }
   },
