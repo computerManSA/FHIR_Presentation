@@ -70,11 +70,23 @@ app.post("/api/validate", async (req, res) => {
       return res.json({ valid: false });
     }
 
-    // Record this access
-    await prisma.siteAccess.create({
-      data: {
-        deviceId: req.ip, // Using IP as device ID for simplicity
+    // Record this access (use upsert to handle duplicate access attempts)
+    await prisma.siteAccess.upsert({
+      where: {
+        deviceId_codeId: {
+          deviceId: req.ip,
+          codeId: accessCode.id,
+        },
+      },
+      update: {
+        accessCount: { increment: 1 },
+        lastAccess: new Date(),
+      },
+      create: {
+        deviceId: req.ip,
         codeId: accessCode.id,
+        accessCount: 1,
+        lastAccess: new Date(),
       },
     });
 
