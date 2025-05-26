@@ -37,7 +37,6 @@ export const useAccessStore = create<AccessStore>((set) => ({
           },
           body: JSON.stringify({ code: code }),
         });
-        console.error("API call returned with response:", response);
         if (!response.ok) {
           console.error("API call failed with response:", response);
           
