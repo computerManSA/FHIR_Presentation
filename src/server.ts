@@ -11,6 +11,7 @@ app.use(
       "http://localhost:5173", // Vite dev server
       "http://127.0.0.1:5173",
       "http://0.0.0.0:5173",
+      "https://moh-fhir.replit.app", // Production deployment
       /\.replit\.dev$/, // Replit deployment domains
       /\.replit\.app$/, // Replit app domains
     ],
