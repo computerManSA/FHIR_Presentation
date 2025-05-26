@@ -228,13 +228,16 @@ app.post("/api/validate", validationLimiter, async (req, res) => {
   }
 });
 
-// Catch-all handler: send back React's index.html file for SPA routing
+// Catch-all handler: send back React's index.html file for SPA routing (but not for API routes)
 app.get('*', (req, res) => {
+  // Don't serve index.html for API routes
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'API endpoint not found' });
+  }
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`API Server running on http://0.0.0.0:${PORT}`);
-});
 });
