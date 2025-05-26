@@ -9,6 +9,9 @@ import validator from "validator";
 const prisma = new PrismaClient();
 const app = express();
 
+// Enable trust proxy for Replit environment
+app.set('trust proxy', 1);
+
 // Security headers
 app.use(helmet({
   contentSecurityPolicy: {
@@ -129,31 +132,6 @@ app.get("/api/security-status", (req, res) => {
   res.json(stats);
 });
 
-// Access logging endpoint
-app.post("/api/access-log", async (req, res) => {
-  const { code, timestamp, success } = req.body;
-  
-  try {
-    await prisma.siteAccess.create({
-      data: {
-        deviceId: req.ip,
-        accessCode: {
-          connectOrCreate: {
-            where: { code },
-            create: { code, maxUses: 1 }
-          }
-        },
-        accessCount: 1,
-        lastAccess: new Date(timestamp)
-      }
-    });
-    res.json({ status: "logged" });
-  } catch (error) {
-    console.error("Error logging access:", error);
-    res.status(500).json({ error: "Failed to log access" });
-  }
-});
-
 // Access code validation endpoint with enhanced security
 app.post("/api/validate", validationLimiter, async (req, res) => {
   const clientIP = req.ip || req.connection.remoteAddress;
@@ -208,11 +186,23 @@ app.post("/api/validate", validationLimiter, async (req, res) => {
       return res.json({ valid: false, error: "Access code has been used" });
     }
 
-    // Record successful access
-    await prisma.siteAccess.create({
-      data: {
+    // Record successful access using upsert to handle duplicate attempts
+    await prisma.siteAccess.upsert({
+      where: {
+        deviceId_codeId: {
+          deviceId: clientIP,
+          codeId: accessCode.id,
+        },
+      },
+      update: {
+        accessCount: { increment: 1 },
+        lastAccess: new Date(),
+      },
+      create: {
         deviceId: clientIP,
         codeId: accessCode.id,
+        accessCount: 1,
+        lastAccess: new Date(),
       },
     });
 
