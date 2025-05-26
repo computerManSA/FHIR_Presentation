@@ -1,5 +1,4 @@
-
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -8,7 +7,7 @@ const mockAccessCodes = [
   { code: "NPHIES24", maxUses: 1, description: "NPHIES Integration Access" },
   { code: "MOHNEXT2", maxUses: 1, description: "MOH Development Team" },
   { code: "FHIR2024", maxUses: 1, description: "FHIR Implementation Team" },
-  { code: "VALTEST4", maxUses: 1, description: "Validation Testing" }
+  { code: "VALTEST4", maxUses: 1, description: "Validation Testing" },
 ];
 
 async function generateMockData() {
@@ -17,15 +16,13 @@ async function generateMockData() {
     console.log("Clearing existing data...");
     await prisma.$transaction([
       prisma.siteAccess.deleteMany(),
-      prisma.accessCode.deleteMany()
+      prisma.accessCode.deleteMany(),
     ]);
 
     // Insert new codes
     console.log("Generating new access codes...");
     const createdCodes = await Promise.all(
-      mockAccessCodes.map(code => 
-        prisma.accessCode.create({ data: code })
-      )
+      mockAccessCodes.map((code) => prisma.accessCode.create({ data: code })),
     );
 
     console.log("Created access codes:", createdCodes);
