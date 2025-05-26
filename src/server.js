@@ -1,7 +1,7 @@
 
-const express = require("express");
-const cors = require("cors");
-const { PrismaClient } = require("@prisma/client");
+import express from "express";
+import cors from "cors";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const app = express();
@@ -89,11 +89,6 @@ app.post("/api/validate", async (req, res) => {
     console.error("Validation error:", error);
     res.status(500).json({ valid: false, error: "Internal server error" });
   }
-});
-
-// Health check endpoint
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 const PORT = process.env.PORT || 5000;
