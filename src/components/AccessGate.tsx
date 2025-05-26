@@ -15,7 +15,30 @@ const AccessGate: React.FC<AccessGateProps> = ({ children }) => {
   }, [checkAccess]);
 
   const handleSubmit = () => {
-    checkAccess(code);
+    // Client-side validation
+    const trimmedCode = code.trim();
+    
+    if (!trimmedCode) {
+      return;
+    }
+    
+    // Basic format validation
+    if (trimmedCode.length < 6 || trimmedCode.length > 10) {
+      return;
+    }
+    
+    // Check for valid characters (alphanumeric only)
+    if (!/^[a-zA-Z0-9]+$/.test(trimmedCode)) {
+      return;
+    }
+    
+    checkAccess(trimmedCode);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
   };
 
   if (!isAuthenticated) {
@@ -27,9 +50,13 @@ const AccessGate: React.FC<AccessGateProps> = ({ children }) => {
           <input
             type="text"
             value={code}
-            onChange={(e) => setCode(e.target.value)}
-            placeholder="Enter access code"
+            onChange={(e) => setCode(e.target.value.replace(/[^a-zA-Z0-9]/g, '').slice(0, 10))}
+            onKeyPress={handleKeyPress}
+            placeholder="Enter access code (6-10 characters)"
             className="w-full p-2 border rounded mb-4"
+            maxLength={10}
+            autoComplete="off"
+            spellCheck={false}
           />
           {error && (
             <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
