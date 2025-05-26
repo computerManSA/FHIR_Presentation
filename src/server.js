@@ -139,11 +139,14 @@ app.post("/api/validate", async (req, res) => {
 // Serve static files from the dist directory in production
 if (process.env.NODE_ENV === 'production') {
   const distPath = path.join(__dirname, '..', 'dist');
+  console.log('Production mode - serving static files from:', distPath);
   app.use(express.static(distPath));
   
-  // Handle client-side routing
+  // Handle client-side routing - place this AFTER API routes
   app.get('*', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(distPath, 'index.html'));
+    }
   });
 }
 
@@ -151,4 +154,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 API Server running on port ${PORT}`);
   console.log(`📡 Server accessible at http://0.0.0.0:${PORT}`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
