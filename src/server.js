@@ -1,13 +1,13 @@
-
-const express = require("express");
-const cors = require("cors");
-const { PrismaClient } = require("@prisma/client");
-
+import express from "express";
+import cors from "cors";
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-const app = express();
 
+const app = express();
+app.use(cors());
 // Add error handling for Prisma connection
-prisma.$connect()
+prisma
+  .$connect()
   .then(() => {
     console.log("✅ Database connected successfully");
   })
@@ -39,7 +39,7 @@ app.get("/api/health", (req, res) => {
 // Access logging endpoint
 app.post("/api/access-log", async (req, res) => {
   const { code, timestamp, success } = req.body;
-  
+
   try {
     await prisma.siteAccess.create({
       data: {
@@ -47,12 +47,12 @@ app.post("/api/access-log", async (req, res) => {
         accessCode: {
           connectOrCreate: {
             where: { code },
-            create: { code, maxUses: 1 }
-          }
+            create: { code, maxUses: 1 },
+          },
         },
         accessCount: 1,
-        lastAccess: new Date(timestamp)
-      }
+        lastAccess: new Date(timestamp),
+      },
     });
     res.json({ status: "logged" });
   } catch (error) {
@@ -99,7 +99,7 @@ app.post("/api/validate", async (req, res) => {
     console.error("Error details:", {
       message: error.message,
       stack: error.stack,
-      code: error.code
+      code: error.code,
     });
     res.status(500).json({ valid: false, error: "Internal server error" });
   }
