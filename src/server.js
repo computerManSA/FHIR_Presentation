@@ -143,10 +143,49 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(distPath));
   
   // Handle client-side routing - place this AFTER API routes
-  app.get('*', (req, res) => {
-    if (!req.path.startsWith('/api')) {
-      res.sendFile(path.join(distPath, 'index.html'));
-    }
+  // Use a more specific pattern that works with Express 5.x
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  
+  app.get('/enhanced-fhir-architecture', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  
+  app.get('/current-architecture', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  
+  app.get('/what-is-fhir', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  
+  app.get('/fhir-benefits', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  
+  app.get('/poc-scope', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  
+  app.get('/poc-new', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  
+  app.get('/infrastructure-design', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  
+  app.get('/action-plan', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  
+  app.get('/assumptions', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  
+  app.get('/support-needed', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
   });
 }
 
