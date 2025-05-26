@@ -6,6 +6,15 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const app = express();
 
+// Add error handling for Prisma connection
+prisma.$connect()
+  .then(() => {
+    console.log("✅ Database connected successfully");
+  })
+  .catch((error) => {
+    console.error("❌ Database connection failed:", error);
+  });
+
 app.use(
   cors({
     origin: [
@@ -87,11 +96,17 @@ app.post("/api/validate", async (req, res) => {
     res.json({ valid: true });
   } catch (error) {
     console.error("Validation error:", error);
+    console.error("Error details:", {
+      message: error.message,
+      stack: error.stack,
+      code: error.code
+    });
     res.status(500).json({ valid: false, error: "Internal server error" });
   }
 });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`API Server running on port ${PORT}`);
+  console.log(`🚀 API Server running on port ${PORT}`);
+  console.log(`📡 Server accessible at http://0.0.0.0:${PORT}`);
 });
