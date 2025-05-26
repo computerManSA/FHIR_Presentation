@@ -63,11 +63,6 @@ localPort = 5175
 externalPort = 5000
 
 [deployment]
-deploymentTarget = "static"
-publicDir = "dist"
+deploymentTarget = "cloudrun"
 build = ["sh", "-c", "npm run build"]
 run = ["sh", "-c", "NODE_ENV=production node src/server.js"]
-
-[[deployment.rewrites]]
-from = "/*"
-to = "/index.html"
