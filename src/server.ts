@@ -7,10 +7,16 @@ const app = express();
 
 app.use(
   cors({
-    origin: true,
+    origin: [
+      "http://localhost:5173", // Vite dev server
+      "http://127.0.0.1:5173",
+      "http://0.0.0.0:5173",
+      /\.replit\.dev$/, // Replit deployment domains
+      /\.replit\.app$/, // Replit app domains
+    ],
     credentials: true,
     methods: ["POST", "GET", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Accept"],
+    allowedHeaders: ["Content-Type", "Accept", "Authorization"],
   }),
 );
 app.use(express.json());
