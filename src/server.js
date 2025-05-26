@@ -41,15 +41,28 @@ app.post("/api/access-log", async (req, res) => {
   const { code, timestamp, success } = req.body;
 
   try {
-    await prisma.siteAccess.create({
-      data: {
-        deviceId: req.ip,
-        accessCode: {
-          connectOrCreate: {
-            where: { code },
-            create: { code, maxUses: 1 },
-          },
+    // First ensure the access code exists
+    const accessCode = await prisma.accessCode.upsert({
+      where: { code },
+      update: {},
+      create: { code, maxUses: 1 }
+    });
+
+    // Then upsert the site access record
+    await prisma.siteAccess.upsert({
+      where: {
+        deviceId_codeId: {
+          deviceId: req.ip,
+          codeId: accessCode.id,
         },
+      },
+      update: {
+        accessCount: { increment: 1 },
+        lastAccess: new Date(timestamp),
+      },
+      create: {
+        deviceId: req.ip,
+        codeId: accessCode.id,
         accessCount: 1,
         lastAccess: new Date(timestamp),
       },
