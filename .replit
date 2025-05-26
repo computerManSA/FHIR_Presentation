@@ -70,7 +70,7 @@ externalPort = 6000
 deploymentTarget = "static"
 publicDir = "dist"
 build = ["sh", "-c", "npm run build"]
-run = ["sh", "-c", "npm run build && npm run server"]
+run = ["sh", "-c", "npm start"]
 
 [[deployment.rewrites]]
 from = "/*"
