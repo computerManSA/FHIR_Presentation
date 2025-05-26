@@ -21,6 +21,7 @@ app.use(
       "http://localhost:5173", // Vite dev server
       "http://127.0.0.1:5173",
       "http://0.0.0.0:5173",
+      "https://moh-fhir.replit.app",
       /\.replit\.dev$/, // Replit deployment domains
       /\.replit\.app$/, // Replit app domains
     ],
@@ -45,7 +46,7 @@ app.post("/api/access-log", async (req, res) => {
     const accessCode = await prisma.accessCode.upsert({
       where: { code },
       update: {},
-      create: { code, maxUses: 1 }
+      create: { code, maxUses: 1 },
     });
 
     // Then upsert the site access record

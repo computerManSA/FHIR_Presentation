@@ -11,6 +11,7 @@ app.use(
       "http://localhost:5173", // Vite dev server
       "http://127.0.0.1:5173",
       "http://0.0.0.0:5173",
+      "https://moh-fhir.replit.app",
       /\.replit\.dev$/, // Replit deployment domains
       /\.replit\.app$/, // Replit app domains
     ],
@@ -24,7 +25,7 @@ app.use(express.json());
 // Access logging endpoint
 app.post("/api/access-log", async (req, res) => {
   const { code, timestamp, success } = req.body;
-  
+
   try {
     await prisma.siteAccess.create({
       data: {
@@ -32,12 +33,12 @@ app.post("/api/access-log", async (req, res) => {
         accessCode: {
           connectOrCreate: {
             where: { code },
-            create: { code, maxUses: 1 }
-          }
+            create: { code, maxUses: 1 },
+          },
         },
         accessCount: 1,
-        lastAccess: new Date(timestamp)
-      }
+        lastAccess: new Date(timestamp),
+      },
     });
     res.json({ status: "logged" });
   } catch (error) {
