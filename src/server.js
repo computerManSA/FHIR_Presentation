@@ -1,3 +1,4 @@
+
 const express = require("express");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
@@ -20,6 +21,11 @@ app.use(
   }),
 );
 app.use(express.json());
+
+// Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
 
 // Access logging endpoint
 app.post("/api/access-log", async (req, res) => {
