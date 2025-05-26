@@ -28,7 +28,7 @@ args = "npm run dev"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run server:dev"
+args = "node src/server.js"
 
 [[ports]]
 localPort = 5000
