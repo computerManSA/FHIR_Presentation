@@ -59,9 +59,6 @@ const validationLimiter = rateLimit({
   skipSuccessfulRequests: true, // Don't count successful validations
 });
 
-// Apply rate limiting to all API routes
-app.use('/api', apiLimiter);
-
 // In-memory store for failed attempts (in production, use Redis)
 const failedAttempts = new Map();
 const LOCKOUT_TIME = 30 * 60 * 1000; // 30 minutes
@@ -117,6 +114,9 @@ app.use(
   }),
 );
 app.use(express.json());
+
+// Apply rate limiting to all API routes
+app.use('/api', apiLimiter);
 
 // Serve static files from dist directory in production
 app.use(express.static(path.join(__dirname, '../dist')));
