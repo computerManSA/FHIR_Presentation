@@ -1,6 +1,11 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 import { PrismaClient } from "@prisma/client";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const prisma = new PrismaClient();
 
 const app = express();
@@ -130,6 +135,17 @@ app.post("/api/validate", async (req, res) => {
     res.status(500).json({ valid: false, error: "Internal server error" });
   }
 });
+
+// Serve static files from the dist directory in production
+if (process.env.NODE_ENV === 'production') {
+  const distPath = path.join(__dirname, '..', 'dist');
+  app.use(express.static(distPath));
+  
+  // Handle client-side routing
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
