@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
-    allowedHosts: ['17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev'],
+    allowedHosts: ['17689c51-6596-48d3-8a27-b8ec17f52068-00-3hb7tsve2sciq.sisko.replit.dev', ],
     proxy: {
       '/api': {
         target: 'http://0.0.0.0:5000',
