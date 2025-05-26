@@ -91,7 +91,12 @@ app.post("/api/validate", async (req, res) => {
   }
 });
 
+// Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`API Server running on port ${PORT}`);
+  console.log(`API Server running on http://0.0.0.0:${PORT}`);
 });
