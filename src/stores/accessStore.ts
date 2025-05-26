@@ -29,7 +29,11 @@ export const useAccessStore = create<AccessStore>((set) => ({
       try {
         // Make API call with the code
         console.log("Making API call with code:", code);
-        const response = await fetch("/api/validate", {
+        const apiUrl = import.meta.env.DEV 
+          ? "http://0.0.0.0:5000/api/validate" 
+          : "/api/validate";
+        
+        const response = await fetch(apiUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
