@@ -145,137 +145,6 @@ const PocScopePage = () => {
 
   // POC Implementation Tasks
   const pocTasks = {
-    infrastructure: [
-      {
-        id: "infra-1",
-        name: "Provision Kubernetes environment for POC",
-        team: "DevOps",
-        effort: "3 days",
-        dependencies: [],
-        steps: [
-          "Request and allocate resources in test environment",
-          "Configure Kubernetes cluster with namespaces for each component",
-          "Set up CI/CD pipeline for deployment",
-          "Establish monitoring and logging infrastructure",
-          "Document environment configuration and access procedures",
-        ],
-        risks: [
-          {
-            issue: "Resource constraints in test environment",
-            mitigation: "Pre-allocate resources with IT infrastructure team",
-          },
-        ],
-        artifacts: [
-          "Environment documentation",
-          "Cluster configuration",
-          "Access procedures",
-        ],
-        parallelWith: [],
-      },
-      {
-        id: "infra-2",
-        name: "Deploy Redpanda streaming platform",
-        team: "Streaming Engineer",
-        effort: "2 days",
-        dependencies: ["infra-1"],
-        steps: [
-          "Deploy Redpanda operator to Kubernetes",
-          "Configure 3-node Redpanda cluster",
-          "Set up Schema Registry",
-          "Configure topics for NPHIES, FHIR notifications",
-          "Implement monitoring and alerting",
-          "Validate basic functionality with test messages",
-        ],
-        risks: [
-          {
-            issue: "Complex configuration in Kubernetes",
-            mitigation: "Use Redpanda operator for simplified deployment",
-          },
-          {
-            issue: "Performance tuning required",
-            mitigation: "Use recommended configuration for test environment",
-          },
-        ],
-        artifacts: [
-          "Redpanda configuration",
-          "Topic structure documentation",
-          "Test results",
-        ],
-        parallelWith: ["infra-3", "infra-4"],
-      },
-      {
-        id: "infra-3",
-        name: "Deploy PostgreSQL database for FHIR server",
-        team: "DevOps",
-        effort: "1 day",
-        dependencies: ["infra-1"],
-        steps: [
-          "Deploy PostgreSQL instance to Kubernetes",
-          "Configure storage and resources",
-          "Set up backup process (for POC data protection)",
-          "Create database schema for HAPI FHIR",
-          "Configure access credentials",
-        ],
-        risks: [
-          {
-            issue: "Data persistence in test environment",
-            mitigation: "Configure persistent volumes and backup",
-          },
-        ],
-        artifacts: ["Database configuration", "Connection information"],
-        parallelWith: ["infra-2", "infra-4"],
-      },
-      {
-        id: "infra-4",
-        name: "Deploy Keycloak for authentication",
-        team: "Security Engineer",
-        effort: "2 days",
-        dependencies: ["infra-1"],
-        steps: [
-          "Deploy Keycloak to Kubernetes cluster",
-          "Configure Keycloak realms and clients",
-          "Set up initial users and roles",
-          "Configure token settings",
-          "Implement SMART on FHIR profiles",
-          "Set up test users for different access patterns",
-        ],
-        risks: [
-          {
-            issue: "Complex SMART on FHIR configuration",
-            mitigation:
-              "Use established open-source implementations as reference",
-          },
-        ],
-        artifacts: [
-          "Keycloak configuration",
-          "SMART on FHIR profiles",
-          "Test user credentials",
-        ],
-        parallelWith: ["infra-2", "infra-3"],
-      },
-      {
-        id: "infra-5",
-        name: "Configure network access and security",
-        team: "DevOps & Security Engineer",
-        effort: "1 day",
-        dependencies: ["infra-1", "infra-2", "infra-3", "infra-4"],
-        steps: [
-          "Configure network policies in Kubernetes",
-          "Set up service mesh (if required)",
-          "Implement TLS for all services",
-          "Configure firewall rules for external access",
-          "Document security configuration",
-        ],
-        risks: [
-          {
-            issue: "Complex network configuration",
-            mitigation: "Start with permissive rules and tighten gradually",
-          },
-        ],
-        artifacts: ["Network configuration", "Security documentation"],
-        parallelWith: [],
-      },
-    ],
     nphies: [
       {
         id: "nphies-1",
@@ -1090,7 +959,6 @@ const PocScopePage = () => {
   // Build dependency graph data for visualization
   const buildDependencyData = () => {
     const allTasks = [
-      ...pocTasks.infrastructure,
       ...pocTasks.nphies,
       ...pocTasks.integration,
       ...pocTasks.fhir,
@@ -1125,7 +993,6 @@ const PocScopePage = () => {
   // Simplified Gantt chart data
   const buildGanttData = () => {
     const categories = [
-      "infrastructure",
       "nphies",
       "integration",
       "fhir",
@@ -1287,14 +1154,6 @@ const PocScopePage = () => {
 
       <div className="overflow-x-auto">
         <div className="flex items-center min-w-max py-4">
-          {/* Infrastructure setup */}
-          <div className="flex-none px-4 py-2 bg-blue-100 text-blue-800 rounded-lg border border-blue-200">
-            <div className="font-medium">Infrastructure Setup</div>
-            <div className="text-xs mt-1">Step 1</div>
-          </div>
-
-          <ArrowRight className="mx-4 text-gray-400" />
-
           {/* NPHIES & Integration */}
           <div className="flex-none px-4 py-2 bg-green-100 text-green-800 rounded-lg border border-green-200">
             <div className="font-medium">NPHIES Integration</div>
@@ -1501,40 +1360,6 @@ const PocScopePage = () => {
 
         {/* Critical Path */}
         <CriticalPath />
-
-        {/* Infrastructure Tasks */}
-        <div className="mt-8">
-          <div
-            className="bg-blue-50 p-4 rounded-lg shadow-sm border border-blue-200 mb-4 cursor-pointer"
-            onClick={() => toggleSection("infrastructure")}
-          >
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold text-gray-800 flex items-center">
-                <Server className="mr-2 text-blue-500" size={20} />
-                Infrastructure Implementation Tasks
-              </h2>
-              {expandedSections.infrastructure ? (
-                <ChevronUp className="text-gray-400" />
-              ) : (
-                <ChevronDown className="text-gray-400" />
-              )}
-            </div>
-          </div>
-
-          {expandedSections.infrastructure && (
-            <div className="space-y-3">
-              {pocTasks.infrastructure.map((task, index) => (
-                <TaskCard
-                  key={task.id}
-                  task={task}
-                  index={index}
-                  expanded={expandedTask === task.id}
-                  toggleExpanded={setExpandedTask}
-                />
-              ))}
-            </div>
-          )}
-        </div>
 
         {/* NPHIES Tasks */}
         <div className="mt-8">

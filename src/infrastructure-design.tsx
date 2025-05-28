@@ -394,9 +394,9 @@ const InfrastructureDesign = () => {
       category: "database",
     },
     minio: {
-      name: "MinIO Cluster",
+      name: "Object Storage Cluster",
       description: "S3-compatible object storage for documents and images",
-      technologies: ["MinIO", "Erasure coding", "Encryption at rest"],
+      technologies: ["Object Storage", "Erasure coding", "Encryption at rest"],
       specifications: [
         "8 node minimum",
         "8 vCPU",
@@ -533,7 +533,7 @@ const InfrastructureDesign = () => {
     {
       component: "Message Processing",
       strategy: "Dead Letter Queue",
-      config: "Immediate: 1, Delayed: 2 (5min, 30min), DLQ: Final",
+      config: "Immediate: 1, Delayed: 2 (5min, 30min) for example, DLQ: Final",
       maxRetries: "DLQ after 3 total attempts",
     },
     {
@@ -993,7 +993,7 @@ const InfrastructureDesign = () => {
                 <tr className="bg-gray-100">
                   <th className="border p-3 text-left">Service</th>
                   <th className="border p-3 text-left">Pattern</th>
-                  <th className="border p-3 text-left">Thresholds</th>
+                  {/* <th className="border p-3 text-left">Thresholds</th> */}
                   <th className="border p-3 text-left">Fallback Strategy</th>
                 </tr>
               </thead>
@@ -1004,9 +1004,9 @@ const InfrastructureDesign = () => {
                       {strategy.service}
                     </td>
                     <td className="border p-3 text-sm">{strategy.pattern}</td>
-                    <td className="border p-3 text-sm font-mono">
+                    {/* <td className="border p-3 text-sm font-mono">
                       {strategy.thresholds}
-                    </td>
+                    </td> */}
                     <td className="border p-3 text-sm">{strategy.fallback}</td>
                   </tr>
                 ))}
@@ -1030,8 +1030,8 @@ const InfrastructureDesign = () => {
                 <tr className="bg-gray-100">
                   <th className="border p-3 text-left">Component</th>
                   <th className="border p-3 text-left">Strategy</th>
-                  <th className="border p-3 text-left">Configuration</th>
-                  <th className="border p-3 text-left">Max Retries</th>
+                  {/* <th className="border p-3 text-left">Configuration</th>
+                  <th className="border p-3 text-left">Max Retries</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -1041,12 +1041,14 @@ const InfrastructureDesign = () => {
                       {strategy.component}
                     </td>
                     <td className="border p-3 text-sm">{strategy.strategy}</td>
-                    <td className="border p-3 text-sm font-mono">
+
+                    {/* <td className="border p-3 text-sm font-mono">
                       {strategy.config}
                     </td>
                     <td className="border p-3 text-sm">
                       {strategy.maxRetries}
                     </td>
+                     */}
                   </tr>
                 ))}
               </tbody>
@@ -1072,9 +1074,7 @@ const InfrastructureDesign = () => {
                 <li>• Active-Active clustering for stateless services</li>
                 <li>• Database replication with automatic failover</li>
                 <li>• Load balancer health checks and traffic routing</li>
-                <li>
-                  • Disaster recovery with RTO less than 30min, RPO less 5min
-                </li>
+                <li>• Disaster recovery with RTO and RPO objectives</li>
               </ul>
             </div>
             <div>

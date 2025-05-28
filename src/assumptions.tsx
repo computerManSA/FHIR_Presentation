@@ -96,7 +96,6 @@ const AssumptionsPage = () => {
         {expandedSections.general && (
           <div className="mt-6 pl-14">
             <ul className="space-y-5">
-              
               <li className="flex items-start">
                 <CheckCircle
                   className="text-green-500 mr-3 flex-shrink-0 mt-1"
@@ -114,7 +113,6 @@ const AssumptionsPage = () => {
                 </div>
               </li>
 
-              
               <li className="flex items-start">
                 <CheckCircle
                   className="text-green-500 mr-3 flex-shrink-0 mt-1"
@@ -209,8 +207,6 @@ const AssumptionsPage = () => {
                 </div>
               </div>
 
-             
-
               <div className="flex items-start">
                 <CheckCircle
                   className="text-green-500 mr-3 flex-shrink-0 mt-1"
@@ -247,7 +243,6 @@ const AssumptionsPage = () => {
                 </div>
               </div>
 
-              
               <div className="flex items-start">
                 <AlertCircle
                   className="text-yellow-500 mr-3 flex-shrink-0 mt-1"
@@ -258,12 +253,13 @@ const AssumptionsPage = () => {
                     Object Storage Availability
                   </h3>
                   <p className="text-gray-600 text-sm mt-1">
-                    An object storage service (MinIO or S3) will be available for storing large files and documents, though this could be implemented as part of the project if needed (example radiology).
+                    An object storage service (MinIO or S3) will be available
+                    for storing large files and documents, though this could be
+                    implemented as part of the project if needed (example
+                    radiology).
                   </p>
                 </div>
               </div>
-
-              
             </div>
           </div>
         )}
@@ -487,9 +483,9 @@ const AssumptionsPage = () => {
                 FHIR Resources Focus
               </h3>
               <p className="text-gray-700 text-sm mb-3">
-                Initially, the implementation will focus on these core FHIR
-                resources, which cover the most essential healthcare data
-                elements:
+                Initially, the implementation will focus on main most mature
+                FHIR resources, as below example, which will cover the most
+                essential healthcare data elements:
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <div className="bg-white p-3 rounded border flex items-center">
@@ -570,7 +566,7 @@ const AssumptionsPage = () => {
                     Phased Implementation
                   </h3>
                   <p className="text-gray-600 text-sm mt-1">
-                    The implementation will follow a phased approach over 12-18
+                    The implementation will follow a phased approach over
                     months, beginning with a proof of concept, followed by an
                     MVP implementation, and then expansion to full production.
                   </p>
@@ -609,8 +605,7 @@ const AssumptionsPage = () => {
                       1 FTEs
                     </div>
                     <div className="bg-gray-50 p-2 rounded border text-xs">
-                      <span className="font-medium">DevOps/CI/CD:</span> 1
-                      FTEs
+                      <span className="font-medium">DevOps/CI/CD:</span> 1 FTEs
                     </div>
                   </div>
                 </div>
@@ -640,12 +635,10 @@ const AssumptionsPage = () => {
                 />
                 <div>
                   <h3 className="font-semibold text-gray-800">
-                    Parallel Operations
+                    Parallel Implementation
                   </h3>
                   <p className="text-gray-600 text-sm mt-1">
-                    During the transition period, both the current architecture
-                    and the FHIR-based solution will operate in parallel to
-                    ensure continuity of service and facilitate validation.
+                    Parallel implementation of the some phases while implementing FHIR architectur.
                   </p>
                 </div>
               </div>
@@ -671,6 +664,26 @@ const AssumptionsPage = () => {
         </p>
 
         <div className="space-y-4">
+          <div className="bg-white p-4 rounded-lg border border-red-100">
+            <h3 className="font-semibold text-red-800 mb-2">
+              Lake of As - Is reliable documents and HLDs.
+            </h3>
+            <p className="text-gray-600 text-sm mb-2">
+              One of the key risks impacting the project's progress and
+              decision-making is the limited availability of reliable,
+              well-documented information. This gap introduces uncertainty,
+              increases the likelihood of incorrect assumptions, and may lead to
+              delays or misalignment between stakeholders. Addressing this risk
+              requires proactive knowledge gathering and validation.
+            </p>
+            <div className="flex items-center justify-between text-sm">
+              <span className="font-medium text-gray-700">Impact: High</span>
+              <span className="font-medium text-gray-700">
+                Probability: Critical
+              </span>
+            </div>
+          </div>
+
           <div className="bg-white p-4 rounded-lg border border-red-100">
             <h3 className="font-semibold text-red-800 mb-2">
               NPHIES Integration Complexity

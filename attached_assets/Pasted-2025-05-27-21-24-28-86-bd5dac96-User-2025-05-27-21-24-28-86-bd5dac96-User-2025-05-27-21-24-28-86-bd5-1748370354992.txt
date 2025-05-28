@@ -1,0 +1,201 @@
+2025-05-27 21:24:28.86
+bd5dac96
+User
+2025-05-27 21:24:28.86
+bd5dac96
+User
+2025-05-27 21:24:28.86
+bd5dac96
+User
+error: Environment variable not found: DATABASE_URL.
+2025-05-27 21:24:28.86
+bd5dac96
+User
+--> schema.prisma:7
+2025-05-27 21:24:28.86
+bd5dac96
+User
+|
+2025-05-27 21:24:28.86
+bd5dac96
+User
+6 | provider = "postgresql"
+2025-05-27 21:24:28.86
+bd5dac96
+User
+7 | url = env("DATABASE_URL")
+2025-05-27 21:24:28.86
+bd5dac96
+User
+|
+2025-05-27 21:24:28.86
+bd5dac96
+User
+2025-05-27 21:24:28.86
+bd5dac96
+User
+Validation Error Count: 1
+2025-05-27 21:24:28.86
+bd5dac96
+User
+at Zn.handleRequestError (/home/runner/workspace/node_modules/@prisma/client/runtime/library.js:121:7759)
+2025-05-27 21:24:28.86
+bd5dac96
+User
+at Zn.handleAndLogRequestError (/home/runner/workspace/node_modules/@prisma/client/runtime/library.js:121:6784)
+2025-05-27 21:24:28.86
+bd5dac96
+User
+at Zn.request (/home/runner/workspace/node_modules/@prisma/client/runtime/library.js:121:6491)
+2025-05-27 21:24:28.86
+bd5dac96
+User
+at async l (/home/runner/workspace/node_modules/@prisma/client/runtime/library.js:130:9778)
+2025-05-27 21:24:28.86
+bd5dac96
+User
+at async file:///home/runner/workspace/src/server.js:93:24 {
+2025-05-27 21:24:28.86
+bd5dac96
+User
+clientVersion: '6.8.2',
+2025-05-27 21:24:28.86
+bd5dac96
+User
+errorCode: undefined,
+2025-05-27 21:24:28.86
+bd5dac96
+User
+retryable: undefined
+2025-05-27 21:24:28.86
+bd5dac96
+User
+}
+2025-05-27 21:24:28.86
+bd5dac96
+User
+Error details: {
+2025-05-27 21:24:28.86
+bd5dac96
+User
+message: '\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'Invalid `prisma.accessCode.findUnique()` invocation:\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'error: Environment variable not found: DATABASE_URL.\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' --> schema.prisma:7\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' | \n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' 6 | provider = "postgresql"\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' 7 | url = env("DATABASE_URL")\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' | \n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'Validation Error Count: 1',
+2025-05-27 21:24:28.86
+bd5dac96
+User
+stack: 'PrismaClientInitializationError: \n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'Invalid `prisma.accessCode.findUnique()` invocation:\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'error: Environment variable not found: DATABASE_URL.\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' --> schema.prisma:7\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' | \n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' 6 | provider = "postgresql"\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' 7 | url = env("DATABASE_URL")\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' | \n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+'Validation Error Count: 1\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' at Zn.handleRequestError (/home/runner/workspace/node_modules/@prisma/client/runtime/library.js:121:7759)\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' at Zn.handleAndLogRequestError (/home/runner/workspace/node_modules/@prisma/client/runtime/library.js:121:6784)\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' at Zn.request (/home/runner/workspace/node_modules/@prisma/client/runtime/library.js:121:6491)\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' at async l (/home/runner/workspace/node_modules/@prisma/client/runtime/library.js:130:9778)\n' +
+2025-05-27 21:24:28.86
+bd5dac96
+User
+' at async file:///home/runner/workspace/src/server.js:93:24',
+2025-05-27 21:24:28.86
+bd5dac96
+User
+code: undefined
+2025-05-27 21:24:28.86
+bd5dac96
+User
+}

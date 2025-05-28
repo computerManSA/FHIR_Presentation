@@ -137,14 +137,6 @@ Generated on: ${new Date().toLocaleString()}
                 Understanding Fast Healthcare Interoperability Resources
               </p>
             </div>
-
-            <button
-              onClick={exportPageContent}
-              className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-            >
-              <Download size={14} className="mr-2" />
-              Export Guide
-            </button>
           </div>
         </div>
 

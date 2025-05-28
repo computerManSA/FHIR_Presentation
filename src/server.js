@@ -100,7 +100,7 @@ app.post("/api/validate", async (req, res) => {
     }
 
     // Check if code has exceeded max uses
-    if (accessCode.accesses.length >= accessCode.maxUses) {
+    if (accessCode.accesses[0].accessCount >= accessCode.maxUses) {
       return res.json({ valid: false });
     }
 
@@ -137,55 +137,55 @@ app.post("/api/validate", async (req, res) => {
 });
 
 // Serve static files from the dist directory in production
-if (process.env.NODE_ENV === 'production') {
-  const distPath = path.join(__dirname, '..', 'dist');
-  console.log('Production mode - serving static files from:', distPath);
+if (process.env.NODE_ENV === "production") {
+  const distPath = path.join(__dirname, "..", "dist");
+  console.log("Production mode - serving static files from:", distPath);
   app.use(express.static(distPath));
-  
+
   // Handle client-side routing - place this AFTER API routes
   // Use a more specific pattern that works with Express 5.x
-  app.get('/', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+  app.get("/", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
-  
-  app.get('/enhanced-fhir-architecture', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+
+  app.get("/enhanced-fhir-architecture", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
-  
-  app.get('/current-architecture', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+
+  app.get("/current-architecture", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
-  
-  app.get('/what-is-fhir', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+
+  app.get("/what-is-fhir", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
-  
-  app.get('/fhir-benefits', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+
+  app.get("/fhir-benefits", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
-  
-  app.get('/poc-scope', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+
+  app.get("/poc-scope", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
-  
-  app.get('/poc-new', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+
+  app.get("/poc-new", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
-  
-  app.get('/infrastructure-design', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+
+  app.get("/infrastructure-design", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
-  
-  app.get('/action-plan', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+
+  app.get("/action-plan", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
-  
-  app.get('/assumptions', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+
+  app.get("/assumptions", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
-  
-  app.get('/support-needed', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+
+  app.get("/support-needed", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
 }
 
@@ -193,14 +193,14 @@ const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 API Server running on port ${PORT}`);
   console.log(`📡 Server accessible at http://0.0.0.0:${PORT}`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || "development"}`);
 });
 
 // Graceful shutdown handling for cloudrun
-process.on('SIGTERM', () => {
-  console.log('SIGTERM signal received: closing HTTP server');
+process.on("SIGTERM", () => {
+  console.log("SIGTERM signal received: closing HTTP server");
   server.close(() => {
-    console.log('HTTP server closed');
+    console.log("HTTP server closed");
     prisma.$disconnect();
   });
 });

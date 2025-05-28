@@ -337,8 +337,7 @@ const AsIsArchitecture = () => {
       id: "sehhaty",
       name: "Sehhaty Platform",
       color: "bg-purple-50 border-purple-200",
-      description:
-        "Traditional platform with periodic synchronization and offline capabilities",
+      description: "Traditional platform with periodic synchronization",
       details:
         "Sehhaty provides healthcare services but relies on periodic data synchronization, leading to data staleness and user experience issues.",
       issues: [
@@ -414,9 +413,9 @@ const AsIsArchitecture = () => {
     disableInteraction = false,
   }) => {
     const statusColors = {
-      healthy: "bg-green-500",
-      warning: "bg-yellow-500",
-      error: "bg-red-500",
+      healthy: "",
+      warning: "",
+      error: "",
     };
 
     const component = componentDetails[id];
@@ -742,6 +741,39 @@ const AsIsArchitecture = () => {
             </div>
           </div>
 
+          {/* Step 5: User Checks Sehhaty */}
+          <div className="flex items-center">
+            <div className="w-1/6 text-center">
+              <div className="rounded-full h-16 w-16 bg-red-100 flex items-center justify-center mx-auto">
+                <Smartphone className="text-red-600" size={32} />
+              </div>
+              <p className="text-sm font-medium mt-1">5. User Checks Sehhaty</p>
+            </div>
+            <div className="w-5/6 pl-4">
+              <div className="p-3 bg-red-50 rounded-lg border border-red-200">
+                <p className="text-sm">
+                  User opens Sehhaty app to check new health data, but finds it
+                  unavailable
+                </p>
+                <div className="mt-2 p-2 bg-red-50 rounded border border-red-200">
+                  <p className="text-xs text-red-700 flex items-center">
+                    <AlertTriangle size={12} className="mr-2 flex-shrink-0" />
+                    Poor user experience due to data freshness issues and
+                    processing delays
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Arrow down */}
+          <div className="flex justify-center">
+            <ArrowRight
+              size={20}
+              className="transform rotate-90 text-gray-400"
+            />
+          </div>
+
           {/* Arrow down */}
           <div className="flex justify-center">
             <ArrowRight
@@ -804,39 +836,6 @@ const AsIsArchitecture = () => {
               </div>
             </div>
           </div>
-
-          {/* Arrow down */}
-          <div className="flex justify-center">
-            <ArrowRight
-              size={20}
-              className="transform rotate-90 text-gray-400"
-            />
-          </div>
-
-          {/* Step 5: User Checks Sehhaty */}
-          <div className="flex items-center">
-            <div className="w-1/6 text-center">
-              <div className="rounded-full h-16 w-16 bg-red-100 flex items-center justify-center mx-auto">
-                <Smartphone className="text-red-600" size={32} />
-              </div>
-              <p className="text-sm font-medium mt-1">5. User Checks Sehhaty</p>
-            </div>
-            <div className="w-5/6 pl-4">
-              <div className="p-3 bg-red-50 rounded-lg border border-red-200">
-                <p className="text-sm">
-                  User opens Sehhaty app to check new health data, but finds it
-                  unavailable
-                </p>
-                <div className="mt-2 p-2 bg-red-50 rounded border border-red-200">
-                  <p className="text-xs text-red-700 flex items-center">
-                    <AlertTriangle size={12} className="mr-2 flex-shrink-0" />
-                    Poor user experience due to data freshness issues and
-                    processing delays
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -861,20 +860,6 @@ const AsIsArchitecture = () => {
         <p className="text-gray-600 mb-4">
           Current Legacy Architecture with Limited Integration Capabilities
         </p>
-        <div className="flex justify-center space-x-6 text-sm mb-4">
-          <div className="flex items-center">
-            <div className="w-4 h-4 bg-red-300 rounded mr-2"></div>
-            <span>Legacy Components</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
-            <span>Performance Issues</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-            <span>Has Limitations</span>
-          </div>
-        </div>
       </header>
 
       <div className="space-y-6">

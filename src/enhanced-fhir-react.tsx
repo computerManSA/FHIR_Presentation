@@ -25,11 +25,11 @@ const EnhancedFHIRArchitecture = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [selectedLayer, setSelectedLayer] = useState(null);
   const [expandedLayers, setExpandedLayers] = useState({
-    external: false,
-    nphies: false,
-    integration: false,
-    fhir: false,
-    sehhaty: false,
+    external: true,
+    nphies: true,
+    integration: true,
+    fhir: true,
+    sehhaty: true,
   });
 
   // Function to toggle layer expansion
@@ -402,18 +402,14 @@ const EnhancedFHIRArchitecture = () => {
       name: "Streaming Producer",
       description:
         "Publishes validated healthcare data as events to the streaming platform for real-time processing and distribution.",
-      technologies: [
-        "Redpanda Producer",
-        "Event Sourcing",
-        "Avro Serialization",
-      ],
+      technologies: ["Redpanda Producer"],
       responsibilities: [
         "Event publishing",
         "Topic management",
         "Message ordering",
         "Delivery guarantees",
       ],
-      dataFormats: ["Avro schemas", "JSON events", "Message metadata"],
+      dataFormats: ["JSON events", "Message metadata"],
       integration: "NPHIES layer event publisher to streaming platform",
       topics: [
         "Publishes validated events from all use cases to their respective topics",
@@ -439,7 +435,7 @@ const EnhancedFHIRArchitecture = () => {
       name: "API Provider",
       description:
         "RESTful APIs exposing NPHIES data for integration with FHIR layer, supporting both full data and reference-based patterns.",
-      technologies: ["RESTful APIs", "OpenAPI", "OAuth 2.0", "Rate Limiting"],
+      technologies: ["RESTful APIs", "OpenAPI", "OAuth 2.0"],
       responsibilities: [
         "Resource exposure",
         "Data retrieval",
@@ -496,7 +492,7 @@ const EnhancedFHIRArchitecture = () => {
         "Consumer coordination",
         "Message persistence",
       ],
-      dataFormats: ["Avro", "JSON", "Schema evolution", "Compressed messages"],
+      dataFormats: ["JSON", "Schema evolution", "Compressed messages"],
       integration: "Real-time data distribution backbone",
       topics: [
         "NPHIES topics: nphies.uc1.*, nphies.uc2.*, etc.",
@@ -512,14 +508,12 @@ const EnhancedFHIRArchitecture = () => {
       technologies: [
         "Google APIGEE Edge",
         "OAuth 2.0",
-        "Rate Limiting",
         "API Analytics",
         "Developer Portal",
       ],
       responsibilities: [
         "API gateway",
         "Authentication proxy",
-        "Rate limiting",
         "API monitoring",
         "Developer onboarding",
       ],
@@ -540,7 +534,7 @@ const EnhancedFHIRArchitecture = () => {
       responsibilities: [
         "API response caching",
         "Session management",
-        "Rate limiting counters",
+
         "Cache invalidation",
       ],
       dataFormats: [
@@ -555,9 +549,9 @@ const EnhancedFHIRArchitecture = () => {
     sds: {
       name: "Storage & Document Service",
       description:
-        "MinIO S3-compatible object storage for clinical documents, images, and large healthcare data files.",
+        "Object Storage S3-compatible object storage for clinical documents, images, and large healthcare data files.",
       technologies: [
-        "MinIO Cluster",
+        "Object Storage Cluster",
         "S3 API",
         "Encryption at Rest",
         "Lifecycle Management",
@@ -584,17 +578,15 @@ const EnhancedFHIRArchitecture = () => {
       description:
         "Comprehensive authentication and authorization service combining Keycloak identity management with SMART on FHIR standards.",
       technologies: [
-        "Keycloak 22+",
+        "Keycloak",
         "SMART on FHIR",
         "OAuth 2.0",
         "OpenID Connect",
-        "SAML 2.0",
       ],
       responsibilities: [
         "User authentication",
         "SMART scopes management",
         "Token validation",
-        "SSO integration",
         "Fine-grained authorization",
       ],
       dataFormats: [
@@ -662,12 +654,7 @@ const EnhancedFHIRArchitecture = () => {
       name: "Streaming Consumer",
       description:
         "Consumes healthcare events from Redpanda and processes them for FHIR resource creation.",
-      technologies: [
-        "Kafka Consumers",
-        "Avro Deserializers",
-        "Stream Processing",
-        "Event Handlers",
-      ],
+      technologies: ["Kafka Consumers", "Stream Processing", "Event Handlers"],
       responsibilities: [
         "Event consumption",
         "FHIR resource creation",
@@ -895,8 +882,8 @@ const EnhancedFHIRArchitecture = () => {
       description:
         "Patient-facing mobile application with FHIR integration and real-time notifications.",
       technologies: [
-        "React Native",
-        "FHIR Client SDK",
+        "Native",
+        "FHIR Native Client SDK",
         "Push Notifications",
         "Biometric Auth",
       ],
@@ -1603,12 +1590,12 @@ const EnhancedFHIRArchitecture = () => {
                 icon={RefreshCw}
                 enhanced={true}
               />
-              <Component
+              {/* <Component
                 id="fcv"
                 name="FHIR Conformance Validator"
                 icon={CheckCircle}
                 enhanced={true}
-              />
+              /> */}
               <Component
                 id="sc"
                 name="Streaming Consumer"
@@ -1727,10 +1714,6 @@ const EnhancedFHIRArchitecture = () => {
                 authentication
               </li>
               <li>
-                • <strong>SSO Support:</strong> Single sign-on across all
-                applications
-              </li>
-              <li>
                 • <strong>Federation:</strong> Integration with existing
                 identity systems
               </li>
@@ -1818,7 +1801,7 @@ const EnhancedFHIRArchitecture = () => {
               </div>
               <div className="flex items-center">
                 <BrandLogo type="minio" size={20} />
-                <span className="ml-2 text-sm">MinIO (Object storage)</span>
+                <span className="ml-2 text-sm"> Object storage</span>
               </div>
             </div>
           </div>
