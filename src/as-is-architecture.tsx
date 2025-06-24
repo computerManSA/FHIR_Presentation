@@ -438,11 +438,11 @@ const AsIsArchitecture = () => {
         <div
           className={`absolute -top-1 -left-1 w-3 h-3 ${statusColors[status]} rounded-full`}
         ></div>
-        {component?.limitations && (
+        {/* {component?.limitations && (
           <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
             <span className="text-white text-xs">!</span>
           </div>
-        )}
+        )} */}
       </div>
     );
   };
@@ -740,14 +740,20 @@ const AsIsArchitecture = () => {
               </div>
             </div>
           </div>
-
+          {/* Arrow down */}
+          <div className="flex justify-center">
+            <ArrowRight
+              size={20}
+              className="transform rotate-90 text-gray-400"
+            />
+          </div>
           {/* Step 5: User Checks Sehhaty */}
           <div className="flex items-center">
             <div className="w-1/6 text-center">
               <div className="rounded-full h-16 w-16 bg-red-100 flex items-center justify-center mx-auto">
                 <Smartphone className="text-red-600" size={32} />
               </div>
-              <p className="text-sm font-medium mt-1">5. User Checks Sehhaty</p>
+              <p className="text-sm font-medium mt-1">3. User Checks Sehhaty</p>
             </div>
             <div className="w-5/6 pl-4">
               <div className="p-3 bg-red-50 rounded-lg border border-red-200">
@@ -774,21 +780,13 @@ const AsIsArchitecture = () => {
             />
           </div>
 
-          {/* Arrow down */}
-          <div className="flex justify-center">
-            <ArrowRight
-              size={20}
-              className="transform rotate-90 text-gray-400"
-            />
-          </div>
-
           {/* Step 3: NAFEES/External Processing */}
           <div className="flex items-center">
             <div className="w-1/6 text-center">
               <div className="rounded-full h-16 w-16 bg-green-100 flex items-center justify-center mx-auto">
                 <GitBranch className="text-green-600" size={32} />
               </div>
-              <p className="text-sm font-medium mt-1">3. NAFEES Processing</p>
+              <p className="text-sm font-medium mt-1">4. NAFEES Processing</p>
             </div>
             <div className="w-5/6 pl-4">
               <div className="p-3 bg-green-50 rounded-lg border border-green-200">
@@ -820,7 +818,7 @@ const AsIsArchitecture = () => {
               <div className="rounded-full h-16 w-16 bg-purple-100 flex items-center justify-center mx-auto">
                 <Database className="text-purple-600" size={32} />
               </div>
-              <p className="text-sm font-medium mt-1">4. ETL to PPv1</p>
+              <p className="text-sm font-medium mt-1">5. ETL to PPv1</p>
             </div>
             <div className="w-5/6 pl-4">
               <div className="p-3 bg-purple-50 rounded-lg border border-purple-200">

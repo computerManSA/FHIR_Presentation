@@ -1,6 +1,18 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Activity, Zap, CheckCircle, GitBranch, Eye, Server, Network, Code, Target, Users, ListTodo } from "lucide-react";
+import {
+  Activity,
+  Zap,
+  CheckCircle,
+  GitBranch,
+  Eye,
+  Server,
+  Network,
+  Code,
+  Target,
+  Users,
+  ListTodo,
+} from "lucide-react";
 
 // Define the props for the Navigation component
 interface NavigationProps {
@@ -9,7 +21,10 @@ interface NavigationProps {
 }
 
 // Navigation component
-const Navigation: React.FC<NavigationProps> = ({ isCollapsed, setIsCollapsed }) => {
+const Navigation: React.FC<NavigationProps> = ({
+  isCollapsed,
+  setIsCollapsed,
+}) => {
   const location = useLocation();
 
   return (
@@ -47,16 +62,16 @@ const Navigation: React.FC<NavigationProps> = ({ isCollapsed, setIsCollapsed }) 
             label: "Enhanced Architecture",
             icon: Server,
           },
-          {
-            path: "/infrastructure-design",
-            label: "Infrastructure Design",
-            icon: Network,
-          },
-          {
-            path: "/technical-solution",
-            label: "Technical Solution",
-            icon: Code,
-          },
+          // {
+          //   path: "/infrastructure-design",
+          //   label: "Infrastructure Design",
+          //   icon: Network,
+          // },
+          // {
+          //   path: "/technical-solution",
+          //   label: "Technical Solution",
+          //   icon: Code,
+          // },
           { path: "/poc-scope", label: "POC Scope", icon: Target },
           // { path: "/support-needed", label: "Support Needed", icon: Users },
           // { path: "/action-plan", label: "Action Plan", icon: ListTodo },

@@ -1130,14 +1130,14 @@ const EnhancedFHIRArchitecture = () => {
         >
           {name}
         </div>
-        {isEnhanced && (
+        {/* {isEnhanced && (
           <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-500 rounded-full flex items-center justify-center">
             <span className="text-white text-xs">✓</span>
           </div>
-        )}
-        <div
+        )} */}
+        {/* <div
           className={`absolute -top-1 -left-1 w-3 h-3 ${statusColors[status]} rounded-full`}
-        ></div>
+        ></div> */}
       </div>
     );
   };
@@ -1409,8 +1409,8 @@ const EnhancedFHIRArchitecture = () => {
             <span>Standard Components</span>
           </div>
           <div className="flex items-center">
-            <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-            <span>Healthy</span>
+            {/* <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+            <span>Healthy</span> */}
           </div>
         </div>
       </header>
@@ -1428,35 +1428,35 @@ const EnhancedFHIRArchitecture = () => {
               id="his"
               name="HISs"
               icon={Server}
-              status="healthy"
+              status=""
               disableInteraction={true}
             />
             <Component
               id="raqeem"
               name="Raqeem"
               icon={Database}
-              status="healthy"
+              status=""
               disableInteraction={true}
             />
             <Component
               id="mawed"
               name="Mawed"
               icon={Cloud}
-              status="healthy"
+              status=""
               disableInteraction={true}
             />
             <Component
               id="eynti"
               name="عينتي"
               icon={Eye}
-              status="healthy"
+              status=""
               disableInteraction={true}
             />
             <Component
               id="others"
               name="Other Systems"
               icon={Server}
-              status="healthy"
+              status=""
               disableInteraction={true}
             />
           </div>
