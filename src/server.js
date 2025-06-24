@@ -100,7 +100,7 @@ app.post("/api/validate", async (req, res) => {
     }
 
     // Check if code has exceeded max uses
-    if (accessCode.accesses[0].accessCount >= accessCode.maxUses) {
+    if (accessCode.accesses.length >= accessCode.maxUses) {
       return res.json({ valid: false });
     }
 
