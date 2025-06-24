@@ -45,5 +45,5 @@ externalPort = 3000
 [deployment]
 deploymentTarget = "gce"
 build = ["sh", "-c", "npm run build"]
-run = ["sh", "-c", "NODE_ENV=production node src/server.js"]
+run = ["sh", "-c", "DATABASE_URL=$DATABASE_URL NODE_ENV=production node src/server.js"]
 ignorePorts = false
