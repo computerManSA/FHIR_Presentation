@@ -6,7 +6,7 @@ channel = "stable-24_05"
 packages = ["nix-output-monitor"]
 
 [workflows]
-runButton = "Dev"
+runButton = "Start FHIR POC"
 
 [[workflows.workflow]]
 name = "Run"
@@ -29,6 +29,19 @@ args = "npm run dev"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run server"
+
+[[workflows.workflow]]
+name = "Start FHIR POC"
+author = 37176675
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "chmod +x start-poc.sh"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "./start-poc.sh"
 
 [[ports]]
 localPort = 5000

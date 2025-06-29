@@ -1,0 +1,172 @@
+
+version: '3.8'
+
+services:
+  # HAPI FHIR Server
+  fhir-server:
+    image: hapiproject/hapi:latest
+    container_name: fhir-server
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/hapi
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=org.postgresql.Driver
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+      - HAPI_FHIR_SUBSCRIPTION_RESTHOOK_ENABLED=true
+      - HAPI_FHIR_CORS_ENABLED=true
+    depends_on:
+      - postgres
+    volumes:
+      - ./config/hapi.properties:/app/config/application.yaml
+    restart: unless-stopped
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:13
+    container_name: postgres-fhir
+    environment:
+      - POSTGRES_DB=hapi
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # Keycloak Authentication
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0
+    container_name: keycloak-auth
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin123
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak
+      - KC_DB_USERNAME=admin
+      - KC_DB_PASSWORD=admin
+    ports:
+      - "8180:8080"
+    command: start-dev
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  # Redpanda (Kafka alternative)
+  redpanda:
+    image: redpandadata/redpanda:latest
+    container_name: redpanda-streaming
+    command:
+      - redpanda
+      - start
+      - --smp
+      - "1"
+      - --memory
+      - "1G"
+      - --overprovisioned
+      - --node-id
+      - "0"
+      - --kafka-addr
+      - "PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092"
+      - --advertise-kafka-addr
+      - "PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092"
+      - --pandaproxy-addr
+      - "0.0.0.0:8082"
+      - --advertise-pandaproxy-addr
+      - "localhost:8082"
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+      - "9092:9092"
+      - "29092:29092"
+    volumes:
+      - redpanda_data:/var/lib/redpanda/data
+    restart: unless-stopped
+
+  # FHIR Format Converter Service
+  converter-service:
+    build:
+      context: ./services/converter
+      dockerfile: Dockerfile
+    container_name: fhir-converter
+    ports:
+      - "3001:3000"
+    environment:
+      - FHIR_SERVER_URL=http://fhir-server:8080/fhir
+      - REDPANDA_BROKERS=redpanda:29092
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - fhir-server
+      - redpanda
+      - redis
+    restart: unless-stopped
+
+  # Notification Service
+  notification-service:
+    build:
+      context: ./services/notifications
+      dockerfile: Dockerfile
+    container_name: notification-service
+    ports:
+      - "3002:3000"
+    environment:
+      - FHIR_SERVER_URL=http://fhir-server:8080/fhir
+      - REDPANDA_BROKERS=redpanda:29092
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - fhir-server
+      - redpanda
+      - redis
+    restart: unless-stopped
+
+  # Demo Mobile Backend
+  mobile-backend:
+    build:
+      context: ./services/mobile-backend
+      dockerfile: Dockerfile
+    container_name: mobile-backend
+    ports:
+      - "3003:3000"
+    environment:
+      - FHIR_SERVER_URL=http://fhir-server:8080/fhir
+      - KEYCLOAK_URL=http://keycloak:8080
+      - REDPANDA_BROKERS=redpanda:29092
+    depends_on:
+      - fhir-server
+      - keycloak
+      - redpanda
+    restart: unless-stopped
+
+  # Demo Dashboard
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: fhir-dashboard
+    ports:
+      - "5000:80"
+    environment:
+      - REACT_APP_FHIR_SERVER=http://localhost:8080/fhir
+      - REACT_APP_KEYCLOAK_URL=http://localhost:8180
+    depends_on:
+      - fhir-server
+      - keycloak
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  redpanda_data:
