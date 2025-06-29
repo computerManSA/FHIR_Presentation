@@ -1,60 +1,45 @@
-
 #!/bin/bash
 
-echo "🏥 Starting FHIR POC for Saudi MOH"
-echo "=================================="
+echo "🏥 Starting FHIR POC for Saudi MOH (Replit Environment)"
+echo "======================================================"
 
-# Check if Docker is running
-if ! docker info > /dev/null 2>&1; then
-    echo "❌ Docker is not running. Please start Docker first."
-    exit 1
-fi
+# Check if required directories exist
+mkdir -p services/{converter,notifications,mobile-backend} dashboard config
 
-# Create necessary directories
-mkdir -p config services/{converter,notifications,mobile-backend} dashboard
+echo "📦 Installing dependencies for converter service..."
+cd services/converter
+npm install
+cd ../..
 
-echo "📦 Starting all services..."
-docker-compose up -d
+echo "🚀 Starting converter service..."
+cd services/converter
+npm start &
+CONVERTER_PID=$!
+cd ../..
+
+echo "🎯 Starting main application..."
+npm run dev &
+DEV_PID=$!
 
 echo "⏳ Waiting for services to initialize..."
-sleep 30
-
-# Health checks
-echo "🔍 Checking service health..."
-
-# Check FHIR Server
-if curl -sf http://localhost:8080/fhir/metadata > /dev/null; then
-    echo "✅ FHIR Server is healthy"
-else
-    echo "⚠️  FHIR Server is still initializing..."
-fi
-
-# Check Converter Service
-if curl -sf http://localhost:3001/health > /dev/null; then
-    echo "✅ Converter Service is healthy"
-else
-    echo "⚠️  Converter Service is still initializing..."
-fi
-
-# Check Keycloak
-if curl -sf http://localhost:8180/health > /dev/null; then
-    echo "✅ Keycloak is healthy"
-else
-    echo "⚠️  Keycloak is still initializing..."
-fi
+sleep 5
 
 echo ""
 echo "🎯 POC Services Available:"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🔥 FHIR Server:      http://localhost:8080/fhir"
-echo "🔐 Keycloak:         http://localhost:8180"
-echo "🔄 Converter API:    http://localhost:3001"
-echo "📱 Mobile Backend:   http://localhost:3003"
-echo "📊 Dashboard:        http://localhost:5000"
+echo "🌐 Main Dashboard:   http://0.0.0.0:5173"
+echo "🔄 Converter API:    http://0.0.0.0:3000"
+echo "📊 Backend API:      http://0.0.0.0:5000"
 echo ""
-echo "📋 Test the conversion:"
-echo "curl -X POST http://localhost:3001/convert/hl7v2 \\"
+echo "📋 Test the conversion (when services are ready):"
+echo "curl -X POST http://0.0.0.0:3000/convert/hl7v2 \\"
 echo "  -H 'Content-Type: application/json' \\"
 echo "  -d '{\"messageType\": \"ADT\", \"message\": \"MSH|...\"}'"
 echo ""
 echo "🎉 POC is ready for demonstration!"
+echo ""
+echo "Note: This is a simplified version for Replit environment."
+echo "Full Docker-based deployment would include FHIR server, Keycloak, etc."
+
+# Keep the script running
+wait $CONVERTER_PID $DEV_PID
