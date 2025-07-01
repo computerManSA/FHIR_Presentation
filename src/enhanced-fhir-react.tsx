@@ -1376,17 +1376,16 @@ const EnhancedFHIRArchitecture = () => {
         </div>
       </div>
 
-      <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
-        <p className="text-sm font-medium text-green-800">
-          The enhanced architecture implements a true event-driven pattern.
-          NPHIES produces events to the Streaming Engine, and FHIR consumes
-          these events to create standardized FHIR resources. Then, FHIR
-          produces lightweight notifications that Sehhaty components consume,
-          triggering them to pull the full resources via API calls. This solves
-          the data freshness issues and ensures a responsive and scalable
-          system.
-        </p>
-      </div>
+        <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+          <p className="text-sm font-medium text-green-800">
+            The enhanced architecture positions FHIR as the central data exchange layer.
+            Healthcare systems feed data to FHIR either directly (non-NPHIES compliant HIS) 
+            or through NPHIES (compliant HIS). FHIR then distributes standardized healthcare 
+            data to all subscribers including NPHIES, Sehhaty, and other healthcare applications. 
+            This bidirectional approach ensures comprehensive data coverage and eliminates data 
+            silos while maintaining data freshness through event-driven notifications.
+          </p>
+        </div>
     </div>
   );
 
