@@ -1562,7 +1562,7 @@ const EnhancedFHIRArchitecture = () => {
         </h1>
         <p className="text-gray-600 mb-4">
           Event-Driven Architecture with Keycloak+SMART Authentication
-        </div>
+        </p>
         <div className="flex justify-center space-x-6 text-sm mb-4">
           <div className="flex items-center">
             <div className="w-4 h-4 bg-orange-300 rounded mr-2"></div>
