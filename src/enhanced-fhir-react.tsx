@@ -187,7 +187,12 @@ const EnhancedFHIRArchitecture = () => {
       name: "HIS (Non-NPHIES Compliant)",
       description:
         "Healthcare information systems that feed data directly to FHIR data exchange layer, bypassing NPHIES.",
-      technologies: ["HL7v2", "Custom Protocols", "Legacy Systems", "Proprietary APIs"],
+      technologies: [
+        "HL7v2",
+        "Custom Protocols",
+        "Legacy Systems",
+        "Proprietary APIs",
+      ],
       responsibilities: [
         "Patient registration and demographics",
         "Clinical documentation",
@@ -737,7 +742,7 @@ const EnhancedFHIRArchitecture = () => {
       logo: null,
       enhanced: true,
     },
-    
+
     ts: {
       name: "Terminology Service",
       description:
@@ -837,7 +842,8 @@ const EnhancedFHIRArchitecture = () => {
         "Timestamps",
         "Minimal payload",
       ],
-      integration: "Critical component for event-driven architecture, feeds all subscribers including NPHIES",
+      integration:
+        "Critical component for event-driven architecture, feeds all subscribers including NPHIES",
       topics: [
         "Produces to: fhir.notifications.patient.*, fhir.notifications.encounter.*, nphies.*, sehhaty.*",
       ],
@@ -866,7 +872,8 @@ const EnhancedFHIRArchitecture = () => {
         "Event notifications",
         "Transformation metadata",
       ],
-      integration: "Enables NPHIES to receive data from non-compliant HIS systems via FHIR",
+      integration:
+        "Enables NPHIES to receive data from non-compliant HIS systems via FHIR",
       topics: [
         "Consumes from: fhir.notifications.*, Produces to: nphies.intake.*",
       ],
@@ -1068,9 +1075,11 @@ const EnhancedFHIRArchitecture = () => {
     },
     {
       stage: "Multi-Path Data Routing",
-      description: "Compliant HIS → NPHIES → FHIR Exchange; Non-compliant HIS → FHIR Exchange directly",
+      description:
+        "Compliant HIS → NPHIES → FHIR Exchange; Non-compliant HIS → FHIR Exchange directly",
       system: "Integration",
-      pattern: "FHIR becomes central data exchange hub receiving from multiple sources",
+      pattern:
+        "FHIR becomes central data exchange hub receiving from multiple sources",
     },
     {
       stage: "FHIR Central Processing",
@@ -1084,29 +1093,35 @@ const EnhancedFHIRArchitecture = () => {
       description:
         "FHIR distributes standardized events to ALL subscribers via streaming",
       system: "FHIR",
-      pattern: "Publishes to topics for NPHIES, Sehhaty, and other healthcare applications",
+      pattern:
+        "Publishes to topics for NPHIES, Sehhaty, and other healthcare applications",
     },
     {
       stage: "Multi-Subscriber Consumption",
-      description: "NPHIES, Sehhaty, and other systems consume FHIR events as subscribers",
+      description:
+        "NPHIES, Sehhaty, and other systems consume FHIR events as subscribers",
       system: "All Subscribers",
       pattern: "NPHIES becomes a subscriber to FHIR for non-compliant HIS data",
     },
     {
       stage: "Bidirectional Data Flow",
-      description: "NPHIES receives data from non-compliant systems via FHIR exchange layer",
+      description:
+        "NPHIES receives data from non-compliant systems via FHIR exchange layer",
       system: "NPHIES",
-      pattern: "NPHIES Consumer processes FHIR events and feeds back to NPHIES system",
+      pattern:
+        "NPHIES Consumer processes FHIR events and feeds back to NPHIES system",
     },
     {
       stage: "Sehhaty Resource Retrieval",
-      description: "Sehhaty applications pull complete resource data via FHIR APIs",
+      description:
+        "Sehhaty applications pull complete resource data via FHIR APIs",
       system: "Sehhaty",
       pattern: "Pull triggered by notification with resource reference",
     },
     {
       stage: "Ecosystem Synchronization",
-      description: "All healthcare systems stay synchronized through FHIR data exchange layer",
+      description:
+        "All healthcare systems stay synchronized through FHIR data exchange layer",
       system: "All Systems",
       pattern: "Eliminates data silos and ensures comprehensive data coverage",
     },
@@ -1402,15 +1417,19 @@ const EnhancedFHIRArchitecture = () => {
         </div>
       </div>
 
-        <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
-          <p className="text-sm font-medium text-green-800">
-            🔄 <strong>FHIR as Central Data Exchange Layer:</strong> FHIR now serves as the central data exchange hub, 
-            receiving data from multiple sources - both NPHIES-compliant HIS (via NPHIES) and non-compliant HIS (directly). 
-            FHIR then distributes standardized healthcare data to ALL subscribers including NPHIES, Sehhaty, and other 
-            healthcare applications. This eliminates NPHIES as a bottleneck and ensures comprehensive data coverage across 
-            the entire healthcare ecosystem while maintaining real-time synchronization through event-driven architecture.
-          </p>
-        </div>
+      <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+        <p className="text-sm font-medium text-green-800">
+          🔄 <strong>FHIR as Central Data Exchange Layer:</strong> FHIR now
+          serves as the central data exchange hub, receiving data from multiple
+          sources - both NPHIES-compliant HIS (via NPHIES) and non-compliant HIS
+          (directly). FHIR then distributes standardized healthcare data to ALL
+          subscribers including NPHIES, Sehhaty, and other healthcare
+          applications. This eliminates NPHIES as a bottleneck and ensures
+          comprehensive data coverage across the entire healthcare ecosystem
+          while maintaining real-time synchronization through event-driven
+          architecture.
+        </p>
+      </div>
     </div>
   );
 
@@ -1450,7 +1469,9 @@ const EnhancedFHIRArchitecture = () => {
           <div className="p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
             <div className="grid grid-cols-2 gap-6 mb-4">
               <div>
-                <h4 className="font-semibold text-blue-800 mb-3">NPHIES Compliant Systems</h4>
+                <h4 className="font-semibold text-blue-800 mb-3">
+                  NPHIES Compliant HISs
+                </h4>
                 <div className="grid grid-cols-1 gap-3">
                   <Component
                     id="his-compliant"
@@ -1465,7 +1486,9 @@ const EnhancedFHIRArchitecture = () => {
                 </div>
               </div>
               <div>
-                <h4 className="font-semibold text-blue-800 mb-3">Non-NPHIES Compliant Systems</h4>
+                <h4 className="font-semibold text-blue-800 mb-3">
+                  Non-NPHIES Compliant HISs
+                </h4>
                 <div className="grid grid-cols-1 gap-3">
                   <Component
                     id="his-noncompliant"
@@ -1481,6 +1504,13 @@ const EnhancedFHIRArchitecture = () => {
               </div>
             </div>
             <div className="grid grid-cols-4 gap-4">
+              <Component
+                id="nphies"
+                name="NPHIES"
+                icon={Server}
+                status=""
+                disableInteraction={true}
+              />
               <Component
                 id="raqeem"
                 name="Raqeem"
@@ -1611,11 +1641,6 @@ const EnhancedFHIRArchitecture = () => {
               />
               <Component id="apigee" name="APIGEE Gateway" icon={Shield} />
               <Component id="rc" name="Redis Cache" icon={Zap} />
-              <Component
-                id="sds"
-                name="Storage & Document Service"
-                icon={FileText}
-              />
             </div>
           </div>
         )}
@@ -1629,9 +1654,12 @@ const EnhancedFHIRArchitecture = () => {
         {expandedLayers.fhir && (
           <div className="p-4 bg-red-50 rounded-lg border-2 border-red-200">
             <div className="mb-4 p-3 bg-red-100 rounded-lg border border-red-300">
-              <h4 className="font-semibold text-red-800 mb-2">🔄 Central Data Exchange Hub</h4>
+              <h4 className="font-semibold text-red-800 mb-2">
+                🔄 Central Data Exchange Hub
+              </h4>
               <p className="text-sm text-red-700">
-                FHIR acts as the central data exchange layer, receiving data from multiple sources and distributing to all subscribers
+                FHIR acts as the central data exchange layer, receiving data
+                from multiple sources and distributing to all subscribers
               </p>
             </div>
             <div className="grid grid-cols-6 gap-4 mb-4">
@@ -1761,28 +1789,34 @@ const EnhancedFHIRArchitecture = () => {
             </h4>
             <ul className="text-sm text-gray-700 space-y-1">
               <li>
-                • <strong>System-Based:</strong> Authentication focused on system-to-system communication
+                • <strong>System-Based:</strong> Authentication focused on
+                system-to-system communication
               </li>
               <li>
-                • <strong>JWT Tokens:</strong> Stateless authentication with signed tokens
+                • <strong>JWT Tokens:</strong> Stateless authentication with
+                signed tokens
               </li>
               <li>
-                • <strong>API Key Management:</strong> Secure API key distribution and rotation
+                • <strong>API Key Management:</strong> Secure API key
+                distribution and rotation
               </li>
               <li>
-                • <strong>Service Authentication:</strong> Inter-service communication security
+                • <strong>Service Authentication:</strong> Inter-service
+                communication security
               </li>
               <li>
-                • <strong>Token Validation:</strong> Centralized token verification and validation
+                • <strong>Token Validation:</strong> Centralized token
+                verification and validation
               </li>
             </ul>
           </div>
         </div>
         <div className="mt-4 p-3 bg-orange-50 rounded border border-orange-200">
           <p className="text-sm text-orange-700">
-            <strong>Simplified Approach:</strong> Removed resource-level access control complexity. 
-            Authentication is now system-based rather than user/resource-based, focusing on secure 
-            API access between healthcare systems and the FHIR data exchange layer.
+            <strong>Simplified Approach:</strong> Removed resource-level access
+            control complexity. Authentication is now system-based rather than
+            user/resource-based, focusing on secure API access between
+            healthcare systems and the FHIR data exchange layer.
           </p>
         </div>
       </div>
@@ -1809,23 +1843,6 @@ const EnhancedFHIRArchitecture = () => {
               <div className="flex items-center">
                 <BrandLogo type="redis" size={20} />
                 <span className="ml-2 text-sm">Redis (In-memory cache)</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-semibold text-gray-800 mb-2">Data Storage</h4>
-            <div className="space-y-2">
-              <div className="flex items-center">
-                <BrandLogo type="oracle" size={20} />
-                <span className="ml-2 text-sm">Oracle (Raw data storage)</span>
-              </div>
-              <div className="flex items-center">
-                <BrandLogo type="mssql" size={20} />
-                <span className="ml-2 text-sm">SQL Server (FHIR data)</span>
-              </div>
-              <div className="flex items-center">
-                <BrandLogo type="minio" size={20} />
-                <span className="ml-2 text-sm"> Object storage</span>
               </div>
             </div>
           </div>
