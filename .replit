@@ -6,7 +6,7 @@ channel = "stable-24_05"
 packages = ["nix-output-monitor"]
 
 [workflows]
-runButton = "Start FHIR POC"
+runButton = "Dev"
 
 [[workflows.workflow]]
 name = "Run"
