@@ -983,7 +983,6 @@ const EnhancedFHIRArchitecture = () => {
         "FHIR data streams",
         "Analytics models",
         "Report formats",
-        "Dashboard data",
       ],
       integration: "Consumes FHIR data for analytics and reporting purposes",
       logo: null,
@@ -1053,8 +1052,7 @@ const EnhancedFHIRArchitecture = () => {
       technologies: [
         "Spring Boot",
         "FHIR APIs",
-        "Workflow Engine",
-```text
+        "WorkflowEngine",
         "Event Processing",
       ],
       responsibilities: [
@@ -1266,15 +1264,7 @@ const EnhancedFHIRArchitecture = () => {
 
     return (
       <div
-        className={`
-          relative p-3 rounded-lg border-2 ${disableInteraction ? "" : "cursor-pointer hover:shadow-lg hover:scale-105"} 
-          transition-all duration-200
-          ${
-            isEnhanced
-              ? "bg-gradient-to-r from-orange-100 to-yellow-100 border-orange-300 shadow-md"
-              : "bg-white border-gray-300"
-          }
-        `}
+        className={`relative p-3 rounded-lg border-2 ${disableInteraction ? "" : "cursor-pointer hover:shadow-lg hover:scale-105"} transition-all duration-200 ${isEnhanced ? "bg-gradient-to-r from-orange-100 to-yellow-100 border-orange-300 shadow-md" : "bg-white border-gray-300"}`}
         onClick={() => (disableInteraction ? null : setSelectedComponent(id))}
       >
         <div className="flex items-center justify-center mb-2">
@@ -1290,14 +1280,6 @@ const EnhancedFHIRArchitecture = () => {
         >
           {name}
         </div>
-        {/* {isEnhanced && (
-          <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-500 rounded-full flex items-center justify-center">
-            <span className="text-white text-xs">✓</span>
-          </div>
-        )} */}
-        {/* <div
-          className={`absolute -top-1 -left-1 w-3 h-3 ${statusColors[status]} rounded-full`}
-        ></div> */}
       </div>
     );
   };
@@ -2040,8 +2022,7 @@ const EnhancedFHIRArchitecture = () => {
               <li>
                 • <strong>Token Validation:</strong> Centralized token
                 verification and validation
-              </li>
-            </ul>
+              </li>            </ul>
           </div>
         </div>
         <div className="mt-4 p-3 bg-orange-50 rounded border border-orange-200">
