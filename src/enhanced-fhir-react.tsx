@@ -121,16 +121,16 @@ const EnhancedFHIRArchitecture = () => {
           </div>
         </div>
       ),
-      keycloak: (
+      jwt: (
         <div
           className="flex items-center justify-center"
           style={{ width: size, height: size }}
         >
           <div
             className="w-full h-full rounded flex items-center justify-center text-white font-bold text-xs"
-            style={{ backgroundColor: "#1e3a8a", fontSize: size * 0.25 }}
+            style={{ backgroundColor: "#000000", fontSize: size * 0.25 }}
           >
-            🔐KC
+            JWT
           </div>
         </div>
       ),
@@ -167,20 +167,36 @@ const EnhancedFHIRArchitecture = () => {
 
   const componentDetails = {
     // External Systems (unchanged)
-    his: {
-      name: "Hospital Information Systems",
+    "his-compliant": {
+      name: "HIS (NPHIES Compliant)",
       description:
-        "Comprehensive healthcare information systems managing patient care, administrative processes, and clinical workflows across healthcare institutions.",
-      technologies: ["HL7v2", "Epic", "Cerner", "Oracle Health", "Allscripts"],
+        "NPHIES-compliant healthcare information systems that feed data through NPHIES before reaching FHIR data exchange layer.",
+      technologies: ["HL7v2", "NPHIES Standards", "Epic", "Cerner"],
+      responsibilities: [
+        "Patient registration and demographics",
+        "Clinical documentation compliant with NPHIES",
+        "Order management",
+        "Laboratory results",
+        "Standardized data formats",
+      ],
+      dataFormats: ["HL7v2 ADT", "HL7v2 ORM", "HL7v2 ORU", "NPHIES APIs"],
+      integration: "Feeds NPHIES, which then feeds FHIR exchange layer",
+      logo: null,
+    },
+    "his-noncompliant": {
+      name: "HIS (Non-NPHIES Compliant)",
+      description:
+        "Healthcare information systems that feed data directly to FHIR data exchange layer, bypassing NPHIES.",
+      technologies: ["HL7v2", "Custom Protocols", "Legacy Systems", "Proprietary APIs"],
       responsibilities: [
         "Patient registration and demographics",
         "Clinical documentation",
         "Order management",
         "Laboratory results",
-        "Pharmacy integration",
+        "Legacy system integration",
       ],
-      dataFormats: ["HL7v2 ADT", "HL7v2 ORM", "HL7v2 ORU", "Custom APIs"],
-      integration: "Primary source of clinical and administrative data",
+      dataFormats: ["HL7v2", "Custom XML", "REST APIs", "Proprietary formats"],
+      integration: "Feeds FHIR exchange layer directly",
       logo: null,
     },
     raqeem: {
@@ -574,29 +590,29 @@ const EnhancedFHIRArchitecture = () => {
 
     // FHIR Server Layer (Enhanced with authentication)
     auth: {
-      name: "Authentication Service (Keycloak + SMART)",
+      name: "JWT Authentication Service",
       description:
-        "Comprehensive authentication and authorization service combining Keycloak identity management with SMART on FHIR standards.",
+        "System-based JWT authentication service providing secure API access without resource-level authorization complexity.",
       technologies: [
-        "Keycloak",
-        "SMART on FHIR",
-        "OAuth 2.0",
-        "OpenID Connect",
+        "JWT Processing",
+        "System Authentication",
+        "API Key Management",
+        "Token Validation",
       ],
       responsibilities: [
-        "User authentication",
-        "SMART scopes management",
-        "Token validation",
-        "Fine-grained authorization",
+        "System authentication",
+        "JWT token validation",
+        "API access control",
+        "Service-to-service communication",
       ],
       dataFormats: [
         "JWT tokens",
-        "SMART scopes",
-        "User claims",
-        "Authorization decisions",
+        "API keys",
+        "System credentials",
+        "Access tokens",
       ],
-      integration: "Centralized authentication for all FHIR and API access",
-      logo: <BrandLogo type="keycloak" size={24} />,
+      integration: "System-based authentication for all FHIR and API access",
+      logo: <BrandLogo type="jwt" size={24} />,
       enhanced: true,
     },
     ffc: {
@@ -721,27 +737,7 @@ const EnhancedFHIRArchitecture = () => {
       logo: null,
       enhanced: true,
     },
-    rac: {
-      name: "Resource Access Controller",
-      description:
-        "Fine-grained access control system managing permissions at the FHIR resource level.",
-      technologies: [
-        "SMART on FHIR",
-        "RBAC Engine",
-        "Policy Engine",
-        "Access Control Lists",
-      ],
-      responsibilities: [
-        "Resource-level authorization",
-        "SMART scopes enforcement",
-        "Access logging",
-        "Permission management",
-      ],
-      dataFormats: ["Access tokens", "Permission policies", "Access logs"],
-      integration: "Security and authorization layer for FHIR resources",
-      logo: null,
-      enhanced: true,
-    },
+    
     ts: {
       name: "Terminology Service",
       description:
@@ -833,7 +829,7 @@ const EnhancedFHIRArchitecture = () => {
         "Change detection",
         "Resource reference extraction",
         "Notification formatting",
-        "Event publishing",
+        "Event publishing to all subscribers",
       ],
       dataFormats: [
         "Resource references",
@@ -841,9 +837,38 @@ const EnhancedFHIRArchitecture = () => {
         "Timestamps",
         "Minimal payload",
       ],
-      integration: "Critical component for event-driven architecture",
+      integration: "Critical component for event-driven architecture, feeds all subscribers including NPHIES",
       topics: [
-        "Produces to: fhir.notifications.patient.*, fhir.notifications.encounter.*",
+        "Produces to: fhir.notifications.patient.*, fhir.notifications.encounter.*, nphies.*, sehhaty.*",
+      ],
+      logo: <BrandLogo type="redpanda" size={20} />,
+      enhanced: true,
+    },
+    "nphies-consumer": {
+      name: "NPHIES Consumer",
+      description:
+        "Consumes FHIR events and feeds data back to NPHIES system, making NPHIES a subscriber to FHIR exchange layer.",
+      technologies: [
+        "Redpanda Consumer",
+        "FHIR Client",
+        "NPHIES API Integration",
+        "Event Processing",
+      ],
+      responsibilities: [
+        "Consume FHIR notifications",
+        "Transform FHIR data to NPHIES format",
+        "Feed data to NPHIES system",
+        "Handle bidirectional data flow",
+      ],
+      dataFormats: [
+        "FHIR Resources",
+        "NPHIES format",
+        "Event notifications",
+        "Transformation metadata",
+      ],
+      integration: "Enables NPHIES to receive data from non-compliant HIS systems via FHIR",
+      topics: [
+        "Consumes from: fhir.notifications.*, Produces to: nphies.intake.*",
       ],
       logo: <BrandLogo type="redpanda" size={20} />,
       enhanced: true,
@@ -998,12 +1023,12 @@ const EnhancedFHIRArchitecture = () => {
     },
     {
       id: "nphies",
-      name: "NPHIES Layer (Enhanced)",
+      name: "NPHIES Layer (Data Source)",
       color: "bg-green-50 border-green-200",
       description:
-        "National platform with Streaming Producer integration for FHIR compatibility",
+        "One of the data sources feeding FHIR exchange layer, processing compliant HIS data",
       details:
-        "NPHIES processes use cases and publishes events to specific topics (nphies.uc1.*, nphies.uc2.*, etc.) when data is validated and processed. New API Provider enables reference-based patterns.",
+        "NPHIES receives data from compliant HIS systems, processes use cases, and feeds standardized data to FHIR exchange layer. Also consumes FHIR events as a subscriber to receive data from non-compliant systems.",
     },
     {
       id: "integration",
@@ -1016,12 +1041,12 @@ const EnhancedFHIRArchitecture = () => {
     },
     {
       id: "fhir",
-      name: "Enhanced FHIR Server Layer",
+      name: "FHIR Data Exchange Layer",
       color: "bg-red-50 border-red-200",
       description:
-        "FHIR processing with Keycloak+SMART authentication and format conversion",
+        "Central data exchange hub with JWT authentication, receiving data from multiple sources and distributing to all subscribers",
       details:
-        "Converts legacy formats to FHIR, validates compliance, and publishes notifications to FHIR topics (fhir.patient.*, fhir.encounter.*, etc.) for consumers.",
+        "FHIR acts as the central data exchange layer, receiving data from both NPHIES (compliant HIS) and directly from non-compliant HIS systems. Converts all data to FHIR format and distributes to all subscribers including NPHIES, Sehhaty, and other healthcare applications.",
     },
     {
       id: "sehhaty",
@@ -1036,53 +1061,54 @@ const EnhancedFHIRArchitecture = () => {
 
   const streamingFlow = [
     {
-      stage: "User Data Update at HIS",
+      stage: "Healthcare Data Update",
       description:
-        "User visits healthcare facility, health records updated in HIS",
+        "User visits healthcare facility, health records updated in HIS systems",
       system: "External Systems",
     },
     {
-      stage: "HIS → NPHIES",
-      description: "HIS sends updates to NPHIES via various protocols",
-      system: "NPHIES",
-    },
-    {
-      stage: "NPHIES Validation & Processing",
-      description: "NPHIES validates and processes the incoming data",
-      system: "NPHIES",
-    },
-    {
-      stage: "NPHIES → Streaming",
-      description:
-        "NPHIES Streaming Producer publishes events to Redpanda topics",
+      stage: "Multi-Path Data Routing",
+      description: "Compliant HIS → NPHIES → FHIR Exchange; Non-compliant HIS → FHIR Exchange directly",
       system: "Integration",
-      pattern: "Either full data in message payload or resource references",
+      pattern: "FHIR becomes central data exchange hub receiving from multiple sources",
     },
     {
-      stage: "FHIR Processing",
+      stage: "FHIR Central Processing",
       description:
-        "FHIR consumes events, transforms to FHIR resources, and stores in FHIR server",
+        "FHIR receives data from both NPHIES and direct HIS, standardizes to FHIR format",
       system: "FHIR",
-      pattern:
-        "For reference pattern: FHIR calls NPHIES API Provider to fetch full data",
+      pattern: "Acts as central data exchange layer, not just a consumer",
     },
     {
-      stage: "FHIR Notifications",
+      stage: "FHIR Event Distribution",
       description:
-        "FHIR Notification Producer publishes resource change events",
+        "FHIR distributes standardized events to ALL subscribers via streaming",
       system: "FHIR",
-      pattern: "Lightweight notifications containing only resource references",
+      pattern: "Publishes to topics for NPHIES, Sehhaty, and other healthcare applications",
     },
     {
-      stage: "Sehhaty Notification Reception",
-      description: "Sehhaty Streaming Consumers receive FHIR notifications",
-      system: "Sehhaty",
+      stage: "Multi-Subscriber Consumption",
+      description: "NPHIES, Sehhaty, and other systems consume FHIR events as subscribers",
+      system: "All Subscribers",
+      pattern: "NPHIES becomes a subscriber to FHIR for non-compliant HIS data",
+    },
+    {
+      stage: "Bidirectional Data Flow",
+      description: "NPHIES receives data from non-compliant systems via FHIR exchange layer",
+      system: "NPHIES",
+      pattern: "NPHIES Consumer processes FHIR events and feeds back to NPHIES system",
     },
     {
       stage: "Sehhaty Resource Retrieval",
-      description: "FHIR Client retrieves full resource data via API call",
+      description: "Sehhaty applications pull complete resource data via FHIR APIs",
       system: "Sehhaty",
       pattern: "Pull triggered by notification with resource reference",
+    },
+    {
+      stage: "Ecosystem Synchronization",
+      description: "All healthcare systems stay synchronized through FHIR data exchange layer",
+      system: "All Systems",
+      pattern: "Eliminates data silos and ensures comprehensive data coverage",
     },
   ];
 
@@ -1378,12 +1404,11 @@ const EnhancedFHIRArchitecture = () => {
 
         <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
           <p className="text-sm font-medium text-green-800">
-            The enhanced architecture positions FHIR as the central data exchange layer.
-            Healthcare systems feed data to FHIR either directly (non-NPHIES compliant HIS) 
-            or through NPHIES (compliant HIS). FHIR then distributes standardized healthcare 
-            data to all subscribers including NPHIES, Sehhaty, and other healthcare applications. 
-            This bidirectional approach ensures comprehensive data coverage and eliminates data 
-            silos while maintaining data freshness through event-driven notifications.
+            🔄 <strong>FHIR as Central Data Exchange Layer:</strong> FHIR now serves as the central data exchange hub, 
+            receiving data from multiple sources - both NPHIES-compliant HIS (via NPHIES) and non-compliant HIS (directly). 
+            FHIR then distributes standardized healthcare data to ALL subscribers including NPHIES, Sehhaty, and other 
+            healthcare applications. This eliminates NPHIES as a bottleneck and ensures comprehensive data coverage across 
+            the entire healthcare ecosystem while maintaining real-time synchronization through event-driven architecture.
           </p>
         </div>
     </div>
@@ -1422,42 +1447,69 @@ const EnhancedFHIRArchitecture = () => {
           onToggle={toggleLayer}
         />
         {expandedLayers.external && (
-          <div className="grid grid-cols-5 gap-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
-            <Component
-              id="his"
-              name="HISs"
-              icon={Server}
-              status=""
-              disableInteraction={true}
-            />
-            <Component
-              id="raqeem"
-              name="Raqeem"
-              icon={Database}
-              status=""
-              disableInteraction={true}
-            />
-            <Component
-              id="mawed"
-              name="Mawed"
-              icon={Cloud}
-              status=""
-              disableInteraction={true}
-            />
-            <Component
-              id="eynti"
-              name="عينتي"
-              icon={Eye}
-              status=""
-              disableInteraction={true}
-            />
-            <Component
-              id="others"
-              name="Other Systems"
-              icon={Server}
-              status=""
-              disableInteraction={true}
-            />
+          <div className="p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
+            <div className="grid grid-cols-2 gap-6 mb-4">
+              <div>
+                <h4 className="font-semibold text-blue-800 mb-3">NPHIES Compliant Systems</h4>
+                <div className="grid grid-cols-1 gap-3">
+                  <Component
+                    id="his-compliant"
+                    name="HIS (NPHIES Compliant)"
+                    icon={Server}
+                    status=""
+                    disableInteraction={true}
+                  />
+                </div>
+                <div className="mt-2 text-xs text-blue-700 bg-blue-100 p-2 rounded">
+                  → Feeds NPHIES → FHIR Exchange Layer
+                </div>
+              </div>
+              <div>
+                <h4 className="font-semibold text-blue-800 mb-3">Non-NPHIES Compliant Systems</h4>
+                <div className="grid grid-cols-1 gap-3">
+                  <Component
+                    id="his-noncompliant"
+                    name="HIS (Non-Compliant)"
+                    icon={Server}
+                    status=""
+                    disableInteraction={true}
+                  />
+                </div>
+                <div className="mt-2 text-xs text-blue-700 bg-blue-100 p-2 rounded">
+                  → Feeds FHIR Exchange Layer directly
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-4 gap-4">
+              <Component
+                id="raqeem"
+                name="Raqeem"
+                icon={Database}
+                status=""
+                disableInteraction={true}
+              />
+              <Component
+                id="mawed"
+                name="Mawed"
+                icon={Cloud}
+                status=""
+                disableInteraction={true}
+              />
+              <Component
+                id="eynti"
+                name="عينتي"
+                icon={Eye}
+                status=""
+                disableInteraction={true}
+              />
+              <Component
+                id="others"
+                name="Other Systems"
+                icon={Server}
+                status=""
+                disableInteraction={true}
+              />
+            </div>
           </div>
         )}
 
@@ -1576,10 +1628,16 @@ const EnhancedFHIRArchitecture = () => {
         />
         {expandedLayers.fhir && (
           <div className="p-4 bg-red-50 rounded-lg border-2 border-red-200">
+            <div className="mb-4 p-3 bg-red-100 rounded-lg border border-red-300">
+              <h4 className="font-semibold text-red-800 mb-2">🔄 Central Data Exchange Hub</h4>
+              <p className="text-sm text-red-700">
+                FHIR acts as the central data exchange layer, receiving data from multiple sources and distributing to all subscribers
+              </p>
+            </div>
             <div className="grid grid-cols-6 gap-4 mb-4">
               <Component
                 id="auth"
-                name="Auth Service (Keycloak + SMART)"
+                name="JWT Auth Service"
                 icon={Key}
                 enhanced={true}
               />
@@ -1589,12 +1647,6 @@ const EnhancedFHIRArchitecture = () => {
                 icon={RefreshCw}
                 enhanced={true}
               />
-              {/* <Component
-                id="fcv"
-                name="FHIR Conformance Validator"
-                icon={CheckCircle}
-                enhanced={true}
-              /> */}
               <Component
                 id="sc"
                 name="Streaming Consumer"
@@ -1613,14 +1665,14 @@ const EnhancedFHIRArchitecture = () => {
                 icon={Activity}
                 enhanced={true}
               />
-            </div>
-            <div className="grid grid-cols-6 gap-4">
               <Component
-                id="rac"
-                name="Resource Access Controller"
-                icon={Lock}
+                id="nphies-consumer"
+                name="NPHIES Consumer"
+                icon={Activity}
                 enhanced={true}
               />
+            </div>
+            <div className="grid grid-cols-5 gap-4">
               <Component
                 id="ts"
                 name="Terminology Service"
@@ -1700,64 +1752,37 @@ const EnhancedFHIRArchitecture = () => {
       <div className="mt-8 p-4 bg-white rounded-lg border-2 border-blue-200">
         <h3 className="text-lg font-bold mb-4 text-gray-800 flex items-center">
           <Key className="mr-2" size={20} />
-          Authentication & Authorization Architecture
+          System-Based Authentication Architecture
         </h3>
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6">
           <div>
             <h4 className="font-semibold text-blue-600 mb-2">
-              🔐 Keycloak Integration
+              🔐 JWT System Authentication
             </h4>
             <ul className="text-sm text-gray-700 space-y-1">
               <li>
-                • <strong>Identity Provider:</strong> Centralized user
-                authentication
+                • <strong>System-Based:</strong> Authentication focused on system-to-system communication
               </li>
               <li>
-                • <strong>Federation:</strong> Integration with existing
-                identity systems
+                • <strong>JWT Tokens:</strong> Stateless authentication with signed tokens
               </li>
               <li>
-                • <strong>Token Management:</strong> JWT tokens with custom
-                claims
+                • <strong>API Key Management:</strong> Secure API key distribution and rotation
               </li>
               <li>
-                • <strong>Role Management:</strong> Fine-grained role-based
-                access
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold text-blue-600 mb-2">
-              🩺 SMART on FHIR
-            </h4>
-            <ul className="text-sm text-gray-700 space-y-1">
-              <li>
-                • <strong>Standard Scopes:</strong> patient/*.read, user/*.*,
-                openid
+                • <strong>Service Authentication:</strong> Inter-service communication security
               </li>
               <li>
-                • <strong>Launch Contexts:</strong> EHR, standalone, backend
-                services
-              </li>
-              <li>
-                • <strong>Resource Access:</strong> Patient compartment
-                restrictions
-              </li>
-              <li>
-                • <strong>Clinical Context:</strong> Patient, encounter,
-                practitioner context
-              </li>
-              <li>
-                • <strong>Compliance:</strong> FHIR R4 OAuth 2.0 implementation
+                • <strong>Token Validation:</strong> Centralized token verification and validation
               </li>
             </ul>
           </div>
         </div>
-        <div className="mt-4 p-3 bg-green-50 rounded border border-green-200">
-          <p className="text-sm text-green-700">
-            <strong>Integration Benefit:</strong> Keycloak provides the identity
-            management foundation, while SMART on FHIR ensures
-            healthcare-specific authorization patterns for clinical data access.
+        <div className="mt-4 p-3 bg-orange-50 rounded border border-orange-200">
+          <p className="text-sm text-orange-700">
+            <strong>Simplified Approach:</strong> Removed resource-level access control complexity. 
+            Authentication is now system-based rather than user/resource-based, focusing on secure 
+            API access between healthcare systems and the FHIR data exchange layer.
           </p>
         </div>
       </div>
