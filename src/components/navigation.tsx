@@ -62,6 +62,16 @@ const Navigation: React.FC<NavigationProps> = ({
             label: "Enhanced Architecture",
             icon: Server,
           },
+          {
+            path: "/standard-architecture",
+            label: "Standard Architecture",
+            icon: Server,
+          },
+          {
+            path: "/sequence-diagram",
+            label: "Sequence Diagrams",
+            icon: GitBranch,
+          },
           // {
           //   path: "/infrastructure-design",
           //   label: "Infrastructure Design",

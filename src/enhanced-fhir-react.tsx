@@ -1054,6 +1054,7 @@ const EnhancedFHIRArchitecture = () => {
         "Spring Boot",
         "FHIR APIs",
         "Workflow Engine",
+```text
         "Event Processing",
       ],
       responsibilities: [
@@ -1476,10 +1477,7 @@ const EnhancedFHIRArchitecture = () => {
               <React.Fragment key={index}>
                 {index > 0 && (
                   <div className="flex justify-center">
-                    <ArrowRight
-                      size={20}
-                      className="transform rotate-90 text-gray-400"
-                    />
+                    <div className="text-gray-400 text-xs">↓</div>
                   </div>
                 )}
 
@@ -1582,7 +1580,7 @@ const EnhancedFHIRArchitecture = () => {
         </h1>
         <p className="text-gray-600 mb-4">
           Event-Driven Architecture with Keycloak+SMART Authentication
-        </p>
+        </div>
         <div className="flex justify-center space-x-6 text-sm mb-4">
           <div className="flex items-center">
             <div className="w-4 h-4 bg-orange-300 rounded mr-2"></div>
@@ -2104,10 +2102,10 @@ const EnhancedFHIRArchitecture = () => {
             </h4>
             <div className="space-y-2">
               <div className="flex items-center">
-                <BrandLogo type="keycloak" size={20} />
+                {/* <BrandLogo type="keycloak" size={20} />
                 <span className="ml-2 text-sm">
                   Keycloak (Identity management)
-                </span>
+                </span> */}
               </div>
               <div className="flex items-center">
                 <BrandLogo type="fhir" size={20} />

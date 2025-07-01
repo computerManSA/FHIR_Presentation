@@ -13,6 +13,8 @@ import FHIRBenefitsPage from "./fhir-benefits.tsx";
 import AsIsArchitecture from "./as-is-architecture.tsx";
 import AssumptionsPage from "./assumptions.tsx";
 import EnhancedFHIRArchitecture from "./enhanced-fhir-react.tsx";
+import StandardArchitectureDiagram from "./standard-architecture-diagram.tsx";
+import SequenceDiagram from "./sequence-diagram.tsx";
 // import InfrastructureDesign from "./infrastructure-design.tsx";
 import PocScopePage from "./poc-new.tsx";
 import AccessGate from "./components/AccessGate.tsx";
@@ -38,6 +40,8 @@ const App = () => {
               <Route path="/as-is-architecture" element={<AsIsArchitecture />} />
               <Route path="/assumptions" element={<AssumptionsPage />} />
               <Route path="/enhanced-fhir-architecture" element={<EnhancedFHIRArchitecture />} />
+              <Route path="/standard-architecture" element={<StandardArchitectureDiagram />} />
+              <Route path="/sequence-diagram" element={<SequenceDiagram />} />
               {/* <Route path="/infrastructure-design" element={<InfrastructureDesign />} /> */}
               <Route path="/poc-scope" element={<PocScopePage />} />
             </Routes>
