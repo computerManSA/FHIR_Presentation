@@ -30,6 +30,7 @@ const EnhancedFHIRArchitecture = () => {
     integration: true,
     fhir: true,
     sehhaty: true,
+    external_consumers: true,
   });
 
   // Function to toggle layer expansion
@@ -874,6 +875,112 @@ const EnhancedFHIRArchitecture = () => {
       enhanced: true,
     },
 
+    // External FHIR Consumers Layer
+    anat: {
+      name: "Anat System",
+      description:
+        "External healthcare platform where doctors can request patient profiles and clinical data through authenticated FHIR API access.",
+      technologies: [
+        "FHIR Client",
+        "JWT Authentication",
+        "RESTful APIs",
+        "Clinical Dashboard",
+      ],
+      responsibilities: [
+        "Patient profile retrieval",
+        "Clinical data access",
+        "Doctor authentication",
+        "Secure API consumption",
+      ],
+      dataFormats: [
+        "FHIR R4 Resources",
+        "JWT tokens",
+        "RESTful JSON",
+        "Clinical summaries",
+      ],
+      integration: "Accesses FHIR APIs with JWT authentication for patient data retrieval",
+      logo: null,
+      enhanced: true,
+    },
+    "doctor-apps": {
+      name: "Doctor Applications",
+      description:
+        "Mobile and web applications used by healthcare providers to access patient information through FHIR APIs.",
+      technologies: [
+        "Mobile SDKs",
+        "Web Applications",
+        "FHIR APIs",
+        "Secure Authentication",
+      ],
+      responsibilities: [
+        "Patient data access",
+        "Clinical decision support",
+        "Medical record viewing",
+        "Treatment planning",
+      ],
+      dataFormats: [
+        "FHIR Resources",
+        "Authentication tokens",
+        "Clinical data",
+        "Patient summaries",
+      ],
+      integration: "Direct FHIR API access with system-based authentication",
+      logo: null,
+      enhanced: true,
+    },
+    "research-platforms": {
+      name: "Research Platforms",
+      description:
+        "Academic and research institutions accessing de-identified healthcare data for medical research through FHIR APIs.",
+      technologies: [
+        "Research APIs",
+        "Data Analytics",
+        "FHIR Bulk Data",
+        "Privacy Compliance",
+      ],
+      responsibilities: [
+        "De-identified data access",
+        "Research data extraction",
+        "Statistical analysis",
+        "Compliance monitoring",
+      ],
+      dataFormats: [
+        "Anonymized FHIR data",
+        "Bulk data exports",
+        "Research datasets",
+        "Statistical reports",
+      ],
+      integration: "Bulk FHIR data access with research-specific authentication",
+      logo: null,
+      enhanced: true,
+    },
+    "analytics-tools": {
+      name: "Analytics Tools",
+      description:
+        "Business intelligence and healthcare analytics platforms that consume FHIR data for reporting and insights.",
+      technologies: [
+        "BI Tools",
+        "Data Warehousing",
+        "FHIR Analytics",
+        "Reporting Engines",
+      ],
+      responsibilities: [
+        "Healthcare analytics",
+        "Performance reporting",
+        "Quality metrics",
+        "Operational insights",
+      ],
+      dataFormats: [
+        "FHIR data streams",
+        "Analytics models",
+        "Report formats",
+        "Dashboard data",
+      ],
+      integration: "Consumes FHIR data for analytics and reporting purposes",
+      logo: null,
+      enhanced: true,
+    },
+
     // Sehhaty Layer (Enhanced)
     dss: {
       name: "Offline Sync Service",
@@ -1056,6 +1163,15 @@ const EnhancedFHIRArchitecture = () => {
         "Event-driven applications with notification+pull pattern and offline sync",
       details:
         "Applications subscribe to FHIR notification topics, then pull complete resources via FHIR APIs. Offline sync ensures mobile functionality without connectivity.",
+    },
+    {
+      id: "external_consumers",
+      name: "External FHIR Consumers",
+      color: "bg-indigo-50 border-indigo-200",
+      description:
+        "Third-party healthcare applications accessing patient data through authenticated FHIR APIs",
+      details:
+        "External systems like Anat where doctors can request patient profiles using FHIR APIs with JWT-based authentication. These systems access FHIR data on-demand rather than through event subscriptions.",
     },
   ];
 
@@ -1714,8 +1830,80 @@ const EnhancedFHIRArchitecture = () => {
           </div>
         )}
 
-        {/* Data Flow Direction Indicators */}
-        {/* Bidirectional Flow Indicators */}
+        {expandedLayers.fhir && (
+          <div className="p-4 bg-red-50 rounded-lg border-2 border-red-200">
+            <div className="mb-4 p-3 bg-red-100 rounded-lg border border-red-300">
+              <h4 className="font-semibold text-red-800 mb-2">🔄 Central Data Exchange Hub</h4>
+              <p className="text-sm text-red-700">
+                FHIR acts as the central data exchange layer, receiving data from multiple sources and distributing to all subscribers
+              </p>
+            </div>
+            <div className="grid grid-cols-6 gap-4 mb-4">
+              <Component
+                id="auth"
+                name="JWT Auth Service"
+                icon={Key}
+                enhanced={true}
+              />
+              <Component
+                id="ffc"
+                name="FHIR Format Converter"
+                icon={RefreshCw}
+                enhanced={true}
+              />
+              <Component
+                id="sc"
+                name="Streaming Consumer"
+                icon={Activity}
+                enhanced={true}
+              />
+              <Component
+                id="fs"
+                name="FHIR Server (4.0.1)"
+                icon={Server}
+                enhanced={true}
+              />
+              <Component
+                id="notification-producer"
+                name="Notification Producer"
+                icon={Activity}
+                enhanced={true}
+              />
+              <Component
+                id="nphies-consumer"
+                name="NPHIES Consumer"
+                icon={Activity}
+                enhanced={true}
+              />
+            </div>
+            <div className="grid grid-cols-5 gap-4">
+              <Component
+                id="ts"
+                name="Terminology Service"
+                icon={Database}
+                enhanced={true}
+              />
+              <Component
+                id="bv"
+                name="Business Validation"
+                icon={CheckCircle}
+                enhanced={true}
+              />
+              <Component
+                id="dc"
+                name="Data Cleansing"
+                icon={RefreshCw}
+                enhanced={true}
+              />
+              <Component
+                id="cddb"
+                name="Cleansed Data DB"
+                icon={Database}
+                enhanced={true}
+              />
+            </div>
+
+            {/* Data Flow Direction Indicators */}
             <div className="mt-4 grid grid-cols-3 gap-4">
               <div className="p-2 bg-white rounded border border-red-200">
                 <div className="flex items-center justify-center">
@@ -1792,6 +1980,49 @@ const EnhancedFHIRArchitecture = () => {
                 id="stc"
                 name="Streaming Consumers"
                 icon={Activity}
+                enhanced={true}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* External FHIR Consumers Layer */}
+        <LayerHeader
+          layer={layers[5]}
+          isExpanded={expandedLayers.external_consumers}
+          onToggle={toggleLayer}
+        />
+        {expandedLayers.external_consumers && (
+          <div className="p-4 bg-indigo-50 rounded-lg border-2 border-indigo-200">
+            <div className="mb-4 p-3 bg-indigo-100 rounded-lg border border-indigo-300">
+              <h4 className="font-semibold text-indigo-800 mb-2">🏥 External Healthcare Applications</h4>
+              <p className="text-sm text-indigo-700">
+                Third-party healthcare applications that consume FHIR data through authenticated API access
+              </p>
+            </div>
+            <div className="grid grid-cols-4 gap-4">
+              <Component
+                id="anat"
+                name="Anat System"
+                icon={Monitor}
+                enhanced={true}
+              />
+              <Component
+                id="doctor-apps"
+                name="Doctor Applications"
+                icon={Activity}
+                enhanced={true}
+              />
+              <Component
+                id="research-platforms"
+                name="Research Platforms"
+                icon={Database}
+                enhanced={true}
+              />
+              <Component
+                id="analytics-tools"
+                name="Analytics Tools"
+                icon={GitBranch}
                 enhanced={true}
               />
             </div>
